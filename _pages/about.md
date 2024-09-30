@@ -1,19 +1,19 @@
 ---
 permalink: /
-title: "👋🏼 Bio/About"
+title: "👋🏼 Hello"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
 
-I am a Research Assistant at the MAIM Lab of Robotics & Mechatronics Engineering in the University of Dhaka, Bangladesh. Currently, I am working on a Wellcome Leap (In Utero) funded project (Title: Translation of a Wearable Fetal Movement Monitor towards Stillbirth Prevention) collaborating with University College Dublin to develop a wearable device to monitor fetal movements to prevent stillbirth. 
+I am a Research Assistant at the **[MAIM Lab](https://www.maimlab.com/)** of Robotics & Mechatronics Engineering in the University of Dhaka, Bangladesh. Currently, I am working on a **[Wellcome Leap - In Utero](https://wellcomeleap.org/inutero/)** funded project (*Title: Translation of a Wearable Fetal Movement Monitor towards Stillbirth Prevention*) collaborating with University College Dublin to develop a wearable device to monitor fetal movements to cut stillbirth rates. 
 
-Recently, I graduated from the University of Dhaka in Robotics and Mechatronics Engineering. My fourth year thesis project was on "Enhancing UAV Based Human Action Recognition: A Deep Learning Approach". ([Report Link](https://drive.google.com/file/d/1qPhvAta0VMs4gfy8zytuJPFYFACTSeHA/view))
+Recently, I graduated from the **University of Dhaka in Robotics and Mechatronics Engineering**. My fourth year thesis project was on "Enhancing UAV Based Human Action Recognition: A Deep Learning Approach". ([Report Link](https://drive.google.com/file/d/1qPhvAta0VMs4gfy8zytuJPFYFACTSeHA/view))
 
 Research Interest
 ======
-Ideally, I'm interested in Multi-modal Learnning at the intersection of Vision + Language. Overall, I am interested in building intelligent task assistants that augment human intelligence. 
+Ideally, I'm interested in **Multi-modal Learnning** at the intersection of Vision + Language. Besides, I'm also interested in Computer Vision, Deep Learning, and Machine Learning -especially reinforcement learning. Overall, I am interested in building intelligent task assistants that augment human intelligence.
 
 I have extensively collaborated on interdisciplinary projects in areas ranging from Machine Learning and Deep learning to Health Informatics and Biomechatronics. My current work revolves around machine learning challenges related to biomedical sensor data, e.g., learning with limited skewed data, supervised learning, and transfer learning with applications to Medical AI and Biomechatronics.
 
@@ -31,7 +31,7 @@ News
 
 Publications
 ------
-1. FFT-UAVNet: FFT Based Human Action Recognition for Drone Surveillance System [Paper Link](https://drive.google.com/file/d/12U-u0i0u6e15sJ1ze4zrRUQPzMO5Xpfo/view)
+1. FFT-UAVNet: FFT Based Human Action Recognition for Drone Surveillance System [Paper Link](https://drive.google.com/file/d/1V5aXfI4T6AOKbXE_85453PILYPtT9Y5e/view)
 **Abdul Monaf Chowdhury**, Ahsan Imran, Md Mehedi Hasan.
 *5th IEEE International Conference on Sustainable Technologies for Industry 5.0 (STI), 2023*
  

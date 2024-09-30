@@ -33,8 +33,10 @@ When you are initially working your website, it is very useful to be able to pre
     brew install node
     gem install bundler
     ```
+1. For linux, Run `sudo apt-get install build-essential libssl-dev zlib1g-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev libcurl4-openssl-dev libffi-dev` to ensure Development Tools Are Installed: Make sure you have essential build tools like make, gcc, and other necessary libraries installed 
 1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.
-1. Run `bundle exec jekyll serve -l -H localhost` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change.
+1. Run `jekyll serve -l -H localhost` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change.
+1. If earlier run command gives error then Run `bundle exec jekyll serve` to generate the HTML and serve it from localhost
 
 If you are running on Linux it may be necessary to install some additional dependencies prior to being able to run locally: `sudo apt install build-essential gcc make`
 
