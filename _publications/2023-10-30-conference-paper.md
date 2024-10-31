@@ -7,7 +7,7 @@ excerpt: 'Unmanned aerial vehicles (UAVs) have emerged as a transformative techn
 date: 2023-12-07
 author: "Abdul Monaf Chowdhury, Ahsan Imran, Md Mehedi Hasan"
 venue: '5th IEEE International Conference on Sustainable Technologies for Industry 5.0 (STI), Dhaka'
-paperurl: 'https://drive.google.com/file/d/12U-u0i0u6e15sJ1ze4zrRUQPzMO5Xpfo/view'
+paperurl: 'https://drive.google.com/file/d/1V5aXfI4T6AOKbXE_85453PILYPtT9Y5e/view'
 citation: 'A. M. Chowdhury, A. Imran and M. M. Hasan, "FFT-UAVNet: FFT Based Human Action Recognition for Drone Surveillance System," 2023 5th International Conference on Sustainable Technologies for Industry 5.0 (STI), Dhaka, Bangladesh, 2023, pp. 1-6, doi: 10.1109/STI59863.2023.10465205'
 ---
 

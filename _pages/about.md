@@ -13,14 +13,14 @@ Recently, I graduated from the **University of Dhaka in Robotics and Mechatronic
 
 Research Interest
 ======
-Ideally, I'm interested in **Multi-modal Learnning** at the intersection of Vision + Language. Besides, I'm also interested in Computer Vision, Deep Learning, and Machine Learning -especially reinforcement learning. Overall, I am interested in building intelligent task assistants that augment human intelligence.
+Ideally, I'm interested in **Multi-modal Learning** at the intersection of Vision + Language. Besides, I'm also interested in Computer Vision, Deep Learning, and Machine Learning -especially reinforcement learning. Overall, I am interested in building intelligent task assistants that augment human intelligence.
 
 I have extensively collaborated on interdisciplinary projects in areas ranging from Machine Learning and Deep learning to Health Informatics and Biomechatronics. My current work revolves around machine learning challenges related to biomedical sensor data, e.g., learning with limited skewed data, supervised learning, and transfer learning with applications to Medical AI and Biomechatronics.
 
 
 News
 ======
-* **[August, 2024]**: Submitted a journal paper Titled "U-ActionNet: A Dual-Pathway Approach for Efficient Human Action Recognition in UAV Surveillance" to *IEEE Access*
+* **[August, 2024]**: Submitted a journal paper Titled "U-ActionNet: Dual-Pathway Fourier Networks with Region-of-Interest Module for Efficient Action Recognition in UAV Surveillance" to *IEEE Access*
 * **[February, 2024]**: Joined as a research assistant in MAIM Lab, University of Dhaka
 * **[January, 2024]**: Graduated from the University of Dhaka in Robotics & Mechatronics Engineering
 * **[January, 2024]**: Defended my fourth year thesis/project
@@ -32,16 +32,18 @@ News
 Publications
 ------
 1. FFT-UAVNet: FFT Based Human Action Recognition for Drone Surveillance System [Paper Link](https://drive.google.com/file/d/1V5aXfI4T6AOKbXE_85453PILYPtT9Y5e/view)
-**Abdul Monaf Chowdhury**, Ahsan Imran, Md Mehedi Hasan.
+<br>
+**Abdul Monaf Chowdhury**, Ahsan Imran, Md Mehedi Hasan.<br>
 *5th IEEE International Conference on Sustainable Technologies for Industry 5.0 (STI), 2023*
  
-<!-- 1. sample
 
-
-**Markdown generator**
-
-Example: editing a markdown file for a talk
-![Editing a markdown file for a talk](/images/editing-talk.png) -->
+Manuscript Submitted
+---
+1. U-ActionNet: Dual-Pathway Fourier Networks with Region-of-Interest Module for Efficient Action Recognition in
+UAV Surveillance 
+<br>
+**Abdul Monaf Chowdhury**, Ahsan Imran, MD Mehedi Hasan, Riad Ahmed, AKM Azad, Salem A. Alyami<br>
+*IEEE Access, 2024. IF - 3.4*
 
 For more info
 ------
