@@ -13,13 +13,14 @@ Recently, I graduated from the **University of Dhaka in Robotics and Mechatronic
 
 Research Interest
 ======
-Ideally, I'm interested in **Multi-modal Learning** at the intersection of Vision + Language. Besides, I'm also interested in Computer Vision, Deep Learning, and Machine Learning -especially reinforcement learning. Overall, I am interested in building intelligent task assistants that augment human intelligence.
+Ideally, I'm interested in **Multi-modal Learning** at the fusion of Vision + Language. Besides, I'm also interested in Computer Vision, Deep Learning, and Machine Learning -especially reinforcement learning. Overall, I would like to work on fusing complementary intelligence from multi-modalities with the ambitious goal of positively influencing real-world environments via embodied agents.
 
 I have extensively collaborated on interdisciplinary projects in areas ranging from Machine Learning and Deep learning to Health Informatics and Biomechatronics. My current work revolves around machine learning challenges related to biomedical sensor data, e.g., learning with limited skewed data, supervised learning, and transfer learning with applications to Medical AI and Biomechatronics.
 
 
 News
 ======
+* **[December, 2024]**: My paper Titled "U-ActionNet: Dual-Pathway Fourier Networks with Region-of-Interest Module for Efficient Action Recognition in UAV Surveillance" has been published in *IEEE Access*
 * **[August, 2024]**: Submitted a journal paper Titled "U-ActionNet: Dual-Pathway Fourier Networks with Region-of-Interest Module for Efficient Action Recognition in UAV Surveillance" to *IEEE Access*
 * **[February, 2024]**: Joined as a research assistant in MAIM Lab, University of Dhaka
 * **[January, 2024]**: Graduated from the University of Dhaka in Robotics & Mechatronics Engineering
