@@ -8,7 +8,7 @@ profile:
   align: right
   image: prof_pic.png
   image_circular: false # crops the image to make it circular
-  more_info: 
+  more_info:
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -30,9 +30,8 @@ Recently, I graduated from the University of Dhaka in Robotics and Mechatronics 
 
 ---
 
-**Research Interest**  
+**Research Interest**
 
 I'm interested in `Multi-modal Learning`, specially at the fusion of Vision + Language. Besides, I'm also interested in Computer Vision, Deep Learning, and Machine Learning-especially reinforcement learning. Overall, I would like to work on fusing complementary intelligence from multi-modalities with the ambitious goal of positively influencing real-world environments via embodied agents.
 
 I have extensively collaborated on interdisciplinary projects in areas ranging from Machine Learning and Deep learning to Health Informatics and Biomechatronics. My current work revolves around machine learning challenges related to biomedical sensor data, e.g., learning with limited skewed data, supervised learning, and transfer learning with applications to Medical AI and Biomechatronics.
-
