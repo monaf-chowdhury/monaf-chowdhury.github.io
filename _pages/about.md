@@ -2,17 +2,13 @@
 layout: about
 title: about
 permalink: /
-# subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
 subtitle: University of Dhaka, Bangladesh
 
 profile:
   align: right
-  image: prof_pic.pmg
+  image: prof_pic.png
   image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+  more_info: 
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -32,10 +28,11 @@ I am a Research Assistant at the [MAIM Lab](https://www.maimlab.com/) of Robotic
 
 Recently, I graduated from the University of Dhaka in Robotics and Mechatronics Engineering, supervised by [Dr. Md Mehedi Hasan](https://www.du.ac.bd/faculty/faculty_details/HSS/4706). My fourth year thesis project was on "Enhancing UAV Based Human Action Recognition: A Deep Learning Approach". [Report Link](https://drive.google.com/file/d/1im1cmDKfGHdqRqx8z4r-s_zfVFTyEj2g/view?usp=sharing)
 
+---
 
+**Research Interest**  
 
-Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.png` and put it in the `img/` folder.
+I'm interested in `Multi-modal Learning`, specially at the fusion of Vision + Language. Besides, I'm also interested in Computer Vision, Deep Learning, and Machine Learning-especially reinforcement learning. Overall, I would like to work on fusing complementary intelligence from multi-modalities with the ambitious goal of positively influencing real-world environments via embodied agents.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I have extensively collaborated on interdisciplinary projects in areas ranging from Machine Learning and Deep learning to Health Informatics and Biomechatronics. My current work revolves around machine learning challenges related to biomedical sensor data, e.g., learning with limited skewed data, supervised learning, and transfer learning with applications to Medical AI and Biomechatronics.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
