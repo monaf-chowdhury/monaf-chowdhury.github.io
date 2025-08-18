@@ -1,33 +1,43 @@
 
 @article{chowdhury2025t3time,
+  bibtex_show={true},
   title={T3Time: Tri-Modal Time Series Forecasting via Adaptive Multi-Head Alignment and Residual Fusion},
   author={Chowdhury, Abdul Monaf and Akter, Rabeya and Arib, Safaeid Hossain},
   journal={arXiv preprint arXiv:2508.04251},
   year={2025}, 
   abbr={ArXiv},
+  selected={true},
+  preview={t3_time.jpg},
   abstract="Multivariate time series forecasting (MTSF) seeks to model temporal dynamics among variables to predict future trends. Transformer-based models and large language models (LLMs) have shown promise due to their ability to capture long-range dependencies and patterns. However, current methods often rely on rigid inductive biases, ignore intervariable interactions, or apply static fusion strategies that limit adaptability across forecast horizons. These limitations create bottlenecks in capturing nuanced, horizon-specific relationships in time-series data. To solve this problem, we propose T3Time, a novel trimodal framework consisting of time, spectral, and prompt branches, where the dedicated frequency encoding branch captures the periodic structures along with a gating mechanism that learns prioritization between temporal and spectral features based on the prediction horizon. We also proposed a mechanism which adaptively aggregates multiple cross-modal alignment heads by dynamically weighting the importance of each head based on the features. Extensive experiments on benchmark datasets demonstrate that our model consistently outperforms state-of-the-art baselines, achieving an average reduction of 3.28% in MSE and 2.29% in MAE. Furthermore, it shows strong generalization in few-shot learning settings: with 5% training data, we see a reduction in MSE and MAE by 4.13% and 1.91%, respectively; and with 10% data, by 3.62% and 1.98% on average.",
+  url={https://www.arxiv.org/abs/2508.04251},
   pdf="https://www.arxiv.org/abs/2508.04251",
   code="https://github.com/monaf-chowdhury/T3Time"
 }
 
 @article{chowdhury2024u,
+  bibtex_show={true},
   title={U-ActionNet: Dual-pathway fourier networks with region-of-interest module for efficient action recognition in UAV surveillance},
   author={Chowdhury, Abdul Monaf and Imran, Ahsan and Hasan, Md Mehedi and Ahmed, Riad and Azad, Akm and Alyami, Salem A},
   journal={IEEE Access},
   year={2024},
   abbr={Access},
+  selected={true},
+  preview={u_action_model.jpg},
   publisher={IEEE},
   abstract="Unmanned Aerial Vehicles (UAV) have revolutionized human action recognition by offering a bird’s-eye perspective, thereby unlocking unprecedented potential for comprehensive support within surveillance systems. This paper presents synergistic strategies for enhancing Human Action Recognition (HAR) in UAV imagery. Leveraging a dual-path approach, we propose a novel framework U-ActionNet that integrates FFT-based substance separation and space-time self-attention techniques to improve the accuracy and efficiency of HAR tasks. Catering the server side the first pathway employs a modified C3D model with Fast Fourier Transform (FFT)-based object movement and attention detection mechanisms to effectively extract human actors from complex scenes and capture spatiotemporal dynamics in UAV footage. Moreover, a generalized Region-of-Interest (ROI) module is utilized to concentrate on optimal regions to enhance target recognition. Through extensive experiments on the Drone Action and UAV-human datasets, we demonstrate the effectiveness of our approach, achieving superior performance compared to the state-of-the-art methods with Top-1 accuracies of 94.94% and 95.05%, respectively. Meanwhile, the second pathway employs edge-optimized models, integrating ROI extraction-based frame sampling technique to eliminate static frames while preserving pivotal frames essential for model training. We introduce a lightweight model named U-ActionNet Light which is a combination of MobileNetV2, Fourier module, and BiLSTM models that demand only one-ninth of the parameters compared to the server-side model. Demonstrating its efficacy, this model attains Top-1 accuracies of 80.43% and 84.74% on the same datasets, surpassing the baseline by a significant margin. Experimental results show that the presented frameworks are promising for surveillance, search and rescue, and activity monitoring, where accurate and real-time human action recognition from UAV platforms is essential.",
   pdf="https://drive.google.com/file/d/11J1URbFJxXePijMYvL8VcGCqjXLpQGZx/view"
 }
 
 @inproceedings{chowdhury2023fft,
+  bibtex_show={true},
   title={FFT-UAVNet: FFT Based Human Action Recognition for Drone Surveillance System},
   author={Chowdhury, Abdul Monaf and Imran, Ahsan and Hasan, Md Mehedi},
   booktitle={2023 5th International Conference on Sustainable Technologies for Industry 5.0 (STI)},
   pages={1--6},
   year={2023},
   abbr={STI},
+  selected={true},
+  preview={u_action_abs.jpg},
   organization={IEEE},
   abstract="Unmanned aerial vehicles (UAVs) have emerged as a transformative technology for human action recognition, providing a birds-eye view and unlocking new possibilities for precise and comprehensive support in surveillance systems. While substantial advances in ground-based human action recognition have been achieved, the unique characteristics of UAV footage present new challenges that require tailored solutions. Specifically, the reduced scale of humans in aerial perspectives necessitates the development of specialised models to accurately recognize and interpret human actions. Our research focuses on modifying the well-established C3D model and incorporating Fast Fourier Transform (FFT)-based object disentanglement (FO) and space-time attention (FA) mechanisms. By leveraging the power of FFT, our model effectively disentangles the human actors from the background and captures the spatio-temporal dynamics of human actions in UAV footage, enhancing the discriminative capabilities and enabling accurate action recognition. Through extensive experimentation on a subset of the UAV-Human dataset, our proposed FFT-UAVNet (m-C3D+FO&FA+FC) model demonstrates remarkable improvements in performance. We achieve a Top-1 accuracy of 64.86% and a Top-3 accuracy of 83.37%, surpassing the results obtained by the standard C3D and X3D methods, which achieve only a Top-1 accuracy of 28.05% and 31.33%, respectively. These findings underscore the efficacy of our approach and emphasize the significance of the proposed model for UAV datasets in maximizing the potential of UAV-based human action recognition.",
   pdf="https://drive.google.com/file/d/1V5aXfI4T6AOKbXE_85453PILYPtT9Y5e/view"

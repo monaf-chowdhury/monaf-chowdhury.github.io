@@ -1,80 +1,78 @@
 ---
 layout: page
-title: project 4
-description: another without an image
-img:
-importance: 3
-category: fun
+title: Human Activity Detection
+description: 
+img: assets/img/u_action_abs.jpg
+importance: 2
+category: research
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+**U-ActionNet** is a unified multi-stage neural network framework for human action recognition from aerial videos that blends spatial and temporal streams. It is designed to capture long-term motion, appearance and behavior patterns effectively from aerial videos with complex human-object-human interactions.
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+## 🧠 Motivation
+
+Aerial action recognition is particularly challenging due to:
+- Complex object manipulation under occlusion and motion
+- Diverse temporal lengths and scene compositions
+- Multiple actors in the frame in non-trivial actions
+
+Previous methods either:
+- Focused on short-term features (e.g., optical flow, CNNs)
+- Or lacked unified temporal modeling across long horizons
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/u_action_abs.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
+    Flow of Human Action Recognition (HAR) framework employing Unmanned Aerial Vehicle (UAV) technology in surveillance systems
 </div>
+
+**U-ActionNet** addresses this gap by introducing:
+- Multi-stage feature extraction with region of interest extraction using _YOLO_
+- Fusion of spectral and temporal features to understand motion patterns
+- Modular design to handle both short-term and long-term dependencies
+- Edge device compatible low compute lightweight version
+
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/u_action_model.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    This image can also have a caption. It's like magic.
+    U-ActionNet architecture incorporates an Object Localization Block (green), m-C3D Block for feature extraction (red), Fourier Substance Separation Block (blue), Fourier Self-Attention Block (blue), and two Dense Layers (yellow)
 </div>
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+---
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+## ⚙️ Key Features
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+- **Multi-Stage Transformer Backbone**:
+  - Region of Interest extraction using _YOLO_
+  - Feature Extraction using modified C3D module
 
-{% raw %}
+- **Fourier Based Action Recognition**:
+  - Fourier Substance Separation module isolates dynamic action rich regions from static regions
+  - Fourier Self-Attention captures and memorises context from the aerial videos
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+- **Compatibility**:
+    - For the serverside heavy duty serverside model 
+    - For edge device, key frame based lightweight model 
+    
+---
+
+
+## 📝 Citation
+
+```bibtex
+@article{chowdhury2024u,
+  title={U-ActionNet: Dual-pathway fourier networks with region-of-interest module for efficient action recognition in UAV surveillance},
+  author={Chowdhury, Abdul Monaf and Imran, Ahsan and Hasan, Md Mehedi and Ahmed, Riad and Azad, Akm and Alyami, Salem A},
+  journal={IEEE Access},
+  year={2024},
+  publisher={IEEE}
+}
 ```
 
-{% endraw %}
