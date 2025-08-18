@@ -1,115 +1,34 @@
----
----
 
-@string{aps = {American Physical Society,}}
-
-@book{einstein1920relativity,
-  title={Relativity: the Special and General Theory},
-  author={Einstein, Albert},
-  year={1920},
-  publisher={Methuen & Co Ltd},
-  html={relativity.html}
+@article{chowdhury2025t3time,
+  title={T3Time: Tri-Modal Time Series Forecasting via Adaptive Multi-Head Alignment and Residual Fusion},
+  author={Chowdhury, Abdul Monaf and Akter, Rabeya and Arib, Safaeid Hossain},
+  journal={arXiv preprint arXiv:2508.04251},
+  year={2025}, 
+  abbr={ArXiv},
+  abstract="Multivariate time series forecasting (MTSF) seeks to model temporal dynamics among variables to predict future trends. Transformer-based models and large language models (LLMs) have shown promise due to their ability to capture long-range dependencies and patterns. However, current methods often rely on rigid inductive biases, ignore intervariable interactions, or apply static fusion strategies that limit adaptability across forecast horizons. These limitations create bottlenecks in capturing nuanced, horizon-specific relationships in time-series data. To solve this problem, we propose T3Time, a novel trimodal framework consisting of time, spectral, and prompt branches, where the dedicated frequency encoding branch captures the periodic structures along with a gating mechanism that learns prioritization between temporal and spectral features based on the prediction horizon. We also proposed a mechanism which adaptively aggregates multiple cross-modal alignment heads by dynamically weighting the importance of each head based on the features. Extensive experiments on benchmark datasets demonstrate that our model consistently outperforms state-of-the-art baselines, achieving an average reduction of 3.28% in MSE and 2.29% in MAE. Furthermore, it shows strong generalization in few-shot learning settings: with 5% training data, we see a reduction in MSE and MAE by 4.13% and 1.91%, respectively; and with 10% data, by 3.62% and 1.98% on average.",
+  pdf="https://www.arxiv.org/abs/2508.04251",
+  code="https://github.com/monaf-chowdhury/T3Time"
 }
 
-@book{einstein1956investigations,
-  bibtex_show={true},
-  title={Investigations on the Theory of the Brownian Movement},
-  author={Einstein, Albert},
-  year={1956},
-  publisher={Courier Corporation},
-  preview={brownian-motion.gif}
+@article{chowdhury2024u,
+  title={U-ActionNet: Dual-pathway fourier networks with region-of-interest module for efficient action recognition in UAV surveillance},
+  author={Chowdhury, Abdul Monaf and Imran, Ahsan and Hasan, Md Mehedi and Ahmed, Riad and Azad, Akm and Alyami, Salem A},
+  journal={IEEE Access},
+  year={2024},
+  abbr={Access},
+  publisher={IEEE},
+  abstract="Unmanned Aerial Vehicles (UAV) have revolutionized human action recognition by offering a bird’s-eye perspective, thereby unlocking unprecedented potential for comprehensive support within surveillance systems. This paper presents synergistic strategies for enhancing Human Action Recognition (HAR) in UAV imagery. Leveraging a dual-path approach, we propose a novel framework U-ActionNet that integrates FFT-based substance separation and space-time self-attention techniques to improve the accuracy and efficiency of HAR tasks. Catering the server side the first pathway employs a modified C3D model with Fast Fourier Transform (FFT)-based object movement and attention detection mechanisms to effectively extract human actors from complex scenes and capture spatiotemporal dynamics in UAV footage. Moreover, a generalized Region-of-Interest (ROI) module is utilized to concentrate on optimal regions to enhance target recognition. Through extensive experiments on the Drone Action and UAV-human datasets, we demonstrate the effectiveness of our approach, achieving superior performance compared to the state-of-the-art methods with Top-1 accuracies of 94.94% and 95.05%, respectively. Meanwhile, the second pathway employs edge-optimized models, integrating ROI extraction-based frame sampling technique to eliminate static frames while preserving pivotal frames essential for model training. We introduce a lightweight model named U-ActionNet Light which is a combination of MobileNetV2, Fourier module, and BiLSTM models that demand only one-ninth of the parameters compared to the server-side model. Demonstrating its efficacy, this model attains Top-1 accuracies of 80.43% and 84.74% on the same datasets, surpassing the baseline by a significant margin. Experimental results show that the presented frameworks are promising for surveillance, search and rescue, and activity monitoring, where accurate and real-time human action recognition from UAV platforms is essential.",
+  pdf="https://drive.google.com/file/d/11J1URbFJxXePijMYvL8VcGCqjXLpQGZx/view"
 }
 
-@article{einstein1950meaning,
-  abbr={AJP},
-  bibtex_show={true},
-  title={The meaning of relativity},
-  author={Einstein, Albert and Taub, AH},
-  journal={American Journal of Physics},
-  volume={18},
-  number={6},
-  pages={403--404},
-  year={1950},
-  publisher={American Association of Physics Teachers}
-}
-
-@article{PhysRev.47.777,
-  abbr={PhysRev},
-  title={Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?},
-  author={Einstein*†, A. and Podolsky*, B. and Rosen*, N.},
-  abstract={In a complete theory there is an element corresponding to each element of reality. A sufficient condition for the reality of a physical quantity is the possibility of predicting it with certainty, without disturbing the system. In quantum mechanics in the case of two physical quantities described by non-commuting operators, the knowledge of one precludes the knowledge of the other. Then either (1) the description of reality given by the wave function in quantum mechanics is not complete or (2) these two quantities cannot have simultaneous reality. Consideration of the problem of making predictions concerning a system on the basis of measurements made on another system that had previously interacted with it leads to the result that if (1) is false then (2) is also false. One is thus led to conclude that the description of reality as given by a wave function is not complete.},
-  journal={Phys. Rev.},
-  location={New Jersey},
-  volume={47},
-  issue={10},
-  pages={777--780},
-  numpages={0},
-  year={1935},
-  month={May},
-  publisher=aps,
-  doi={10.1103/PhysRev.47.777},
-  url={http://link.aps.org/doi/10.1103/PhysRev.47.777},
-  html={https://journals.aps.org/pr/abstract/10.1103/PhysRev.47.777},
-  pdf={example_pdf.pdf},
-  altmetric={248277},
-  dimensions={true},
-  google_scholar_id={qyhmnyLat1gC},
-  video={https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ},
-  additional_info={. *More Information* can be [found here](https://github.com/alshedivat/al-folio/)},
-  annotation={* Example use of superscripts<br>† Albert Einstein},
-  selected={true},
-  inspirehep_id = {3255}
-}
-
-@article{einstein1905molekularkinetischen,
-  title={{\"U}ber die von der molekularkinetischen Theorie der W{\"a}rme geforderte Bewegung von in ruhenden Fl{\"u}ssigkeiten suspendierten Teilchen},
-  author={Einstein, A.},
-  journal={Annalen der physik},
-  volume={322},
-  number={8},
-  pages={549--560},
-  year={1905},
-  publisher={Wiley Online Library}
-}
-
-@article{einstein1905movement,
-  abbr={Ann. Phys.},
-  title={Un the movement of small particles suspended in statiunary liquids required by the molecular-kinetic theory 0f heat},
-  author={Einstein, A.},
-  journal={Ann. Phys.},
-  volume={17},
-  pages={549--560},
-  year={1905}
-}
-
-@article{einstein1905electrodynamics,
-  title={On the electrodynamics of moving bodies},
-  author={Einstein, A.},
-  year={1905}
-}
-
-@Article{einstein1905photoelectriceffect,
-  bibtex_show={true},
-  abbr={Ann. Phys.},
-  title="{{\"U}ber einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt}",
-  author={Albert Einstein},
-  abstract={This is the abstract text.},
-  journal={Ann. Phys.},
-  volume={322},
-  number={6},
-  pages={132--148},
-  year={1905},
-  doi={10.1002/andp.19053220607},
-  award={Albert Einstein receveid the **Nobel Prize in Physics** 1921 *for his services to Theoretical Physics, and especially for his discovery of the law of the photoelectric effect*},
-  award_name={Nobel Prize}
-}
-
-@book{przibram1967letters,
-  bibtex_show={true},
-  title={Letters on wave mechanics},
-  author={Einstein, Albert and Schrödinger, Erwin and Planck, Max and Lorentz, Hendrik Antoon and Przibram, Karl},
-  year={1967},
-  publisher={Vision},
-  preview={wave-mechanics.gif},
-  abbr={Vision}
+@inproceedings{chowdhury2023fft,
+  title={FFT-UAVNet: FFT Based Human Action Recognition for Drone Surveillance System},
+  author={Chowdhury, Abdul Monaf and Imran, Ahsan and Hasan, Md Mehedi},
+  booktitle={2023 5th International Conference on Sustainable Technologies for Industry 5.0 (STI)},
+  pages={1--6},
+  year={2023},
+  abbr={STI},
+  organization={IEEE},
+  abstract="Unmanned aerial vehicles (UAVs) have emerged as a transformative technology for human action recognition, providing a birds-eye view and unlocking new possibilities for precise and comprehensive support in surveillance systems. While substantial advances in ground-based human action recognition have been achieved, the unique characteristics of UAV footage present new challenges that require tailored solutions. Specifically, the reduced scale of humans in aerial perspectives necessitates the development of specialised models to accurately recognize and interpret human actions. Our research focuses on modifying the well-established C3D model and incorporating Fast Fourier Transform (FFT)-based object disentanglement (FO) and space-time attention (FA) mechanisms. By leveraging the power of FFT, our model effectively disentangles the human actors from the background and captures the spatio-temporal dynamics of human actions in UAV footage, enhancing the discriminative capabilities and enabling accurate action recognition. Through extensive experimentation on a subset of the UAV-Human dataset, our proposed FFT-UAVNet (m-C3D+FO&FA+FC) model demonstrates remarkable improvements in performance. We achieve a Top-1 accuracy of 64.86% and a Top-3 accuracy of 83.37%, surpassing the results obtained by the standard C3D and X3D methods, which achieve only a Top-1 accuracy of 28.05% and 31.33%, respectively. These findings underscore the efficacy of our approach and emphasize the significance of the proposed model for UAV datasets in maximizing the potential of UAV-based human action recognition.",
+  pdf="https://drive.google.com/file/d/1V5aXfI4T6AOKbXE_85453PILYPtT9Y5e/view"
 }
