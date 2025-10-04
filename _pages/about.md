@@ -24,14 +24,18 @@ announcements:
 #   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a Research Assistant at the [MAIM Lab](https://www.maimlab.com/) of Robotics & Mechatronics Engineering in the University of Dhaka, Bangladesh. Currently, I am working on a [Wellcome Leap - In Utero](https://wellcomeleap.org/inutero/) funded project (Title: Translation of a Wearable Fetal Movement Monitor towards Stillbirth Prevention), collaborating with University College Dublin to develop a wearable device to monitor fetal movements to cut stillbirth rates.
+I am a Research Assistant at the [MAIM Lab](https://www.maimlab.com/) of Robotics & Mechatronics Engineering in the University of Dhaka, Bangladesh. Currently, I am working on a [Wellcome Leap - In Utero](https://wellcomeleap.org/inutero/) funded project (Title: Translation of a Wearable Fetal Movement Monitor towards Stillbirth Prevention), under the supervision of [Dr. Abhishek Kumar Ghosh](https://www.du.ac.bd/faculty/faculty_details/RME/2318) and [Dr. Niamh Nowlan](https://people.ucd.ie/niamh.nowlan) to develop a wearable device to monitor fetal movements to cut stillbirth rates.
 
-Recently, I graduated from the University of Dhaka in Robotics and Mechatronics Engineering, supervised by [Dr. Md Mehedi Hasan](https://www.du.ac.bd/faculty/faculty_details/HSS/4706). My fourth year thesis project was on "Enhancing UAV Based Human Action Recognition: A Deep Learning Approach". [`[Report]`](https://drive.google.com/file/d/1im1cmDKfGHdqRqx8z4r-s_zfVFTyEj2g/view?usp=sharing)
+Back in March '24, I graduated from the University of Dhaka in Robotics and Mechatronics Engineering, supervised by [Dr. Md Mehedi Hasan](https://www.du.ac.bd/faculty/faculty_details/HSS/4706). My fourth year thesis project was on "Enhancing UAV Based Human Action Recognition: A Deep Learning Approach". [`[Report]`](https://drive.google.com/file/d/1im1cmDKfGHdqRqx8z4r-s_zfVFTyEj2g/view?usp=sharing)
 
 ---
 
 ## **Research Interest**
 
-I'm interested in `Multi-modal Learning`, especially at the fusion of Vision + Language. Besides, I'm also interested in Computer Vision, Deep Learning, and Machine Learning, especially reinforcement learning. Overall, I would like to work on fusing complementary intelligence from multi-modalities with the ambitious goal of positively influencing real-world environments via embodied agents.
+I'm interested in `Multi-modal Learning`, especially at the fusion of Vision + Language. Besides, I'm also interested in Computer Vision, Embodied AI, and Reinforcement Learning. Overall, I would like to work on fusing complementary intelligence from multi-modalities with the ambitious goal of positively influencing real-world environments via embodied agents.
 
-I have extensively collaborated on interdisciplinary projects in areas ranging from Machine Learning and Deep learning to Health Informatics and Biomechatronics. My current work revolves around machine learning challenges related to biomedical sensor data, e.g., learning with limited skewed data, supervised learning, and transfer learning with applications to Medical AI and Biomechatronics.
+---
+Recently, I submitted my work on language-guided embodied agents to `ICLR '26`. VLMs were used to generate natural language task feedback for causal reasoning via self-reflection and guide the agents for embodied manipulation tasks. 
+Prior to that, I've also submitted a manuscript to `AAAI '26` on *Time Series Forecasting* using a tri-modal architecture comprising time, spectral and LLM branches.
+
+I have extensively collaborated on interdisciplinary projects in areas ranging from Machine Learning and Deep learning to Health Informatics and Biomechatronics. My current work revolves around multimodal reasoning for embodied AI, multimodal generation, scene understanding, and vision-language integration.

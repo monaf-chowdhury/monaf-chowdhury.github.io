@@ -23,6 +23,6 @@ My goal is to develop a system that improves counting accuracy under occlusion b
 
     ---
     Work is in process
-    Expected Completion Date: October, 2025
+    Expected Completion Date: November, 2025
     ---
 

@@ -2,9 +2,9 @@
 layout: page
 title: Embodied Agents in Simulated Environments
 description: 
-img: assets/img/embodied.jpg
+img: assets/img/lagea.jpg
 importance: 1
-category: ongoing
+category: research
 related_publications: false
 ---
 
@@ -35,10 +35,18 @@ I have designed and integrated a **Qwen 2.5VL-3B** VLM driven “episodic reflec
 
 The agent is trained using the **Soft Actor Critic** algorithm where usually the state space is the visual observation. To enrich the representation capability of the agent, natural language feedback along with the visual observations are utilized as the state space to guide the agent towards goal task. 
 
-    ---
-    Work is still in process 
-    Expected Completion Date: September, 2025
-    ---
+---
+
+## 📝 Citation
+
+```bibtex
+@article{chowdhury2025lagea,
+  title={LAGEA: Language Guided Embodied Agents for Robotic Manipulation},
+  author={Chowdhury, Abdul Monaf and Mazumder, Akm Moshiur Rahman and Akter, Rabeya and Arib, Safaeid Hossain},
+  journal={arXiv preprint arXiv:2509.23155},
+  year={2025}
+}
+```
 
 <!-- ############################################### -->
 {% comment %}
