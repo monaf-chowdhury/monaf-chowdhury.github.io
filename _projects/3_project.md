@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Amodal Counting using VLMs
+title: Open World Amodal Counting
 description: 
-img: assets/img/capture.jpg
+img: assets/img/countocc.jpg
 importance: 2
-category: ongoing
+category: research
 related_publications: false
 ---
 
@@ -22,7 +22,16 @@ My goal is to develop a system that improves counting accuracy under occlusion b
 </div>
 
     ---
-    Work is in process
-    Expected Completion Date: November, 2025
+    Project is currently under review at CVPR 2026
     ---
 
+## 📝 Citation
+
+```bibtex
+@article{arib2025counting,
+  title={Counting Through Occlusion: Framework for Open World Amodal Counting},
+  author={Arib, Safaeid Hossain and Akter, Rabeya and Chowdhury, Abdul Monaf and Sourov, Md Jubair Ahmed and Hasan, Md Mehedi},
+  journal={arXiv preprint arXiv:2511.12702},
+  year={2025}
+}
+```

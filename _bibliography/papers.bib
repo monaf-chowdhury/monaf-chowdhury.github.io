@@ -1,4 +1,19 @@
 
+@article{arib2025counting,
+  bibtex_show={true},
+  title={Counting Through Occlusion: Framework for Open World Amodal Counting},
+  author={Arib, Safaeid Hossain and Akter, Rabeya and Chowdhury, Abdul Monaf and Sourov, Md Jubair Ahmed and Hasan, Md Mehedi},
+  journal={arXiv preprint arXiv:2511.12702},
+  year={2025},
+  abbr={ArXiv},
+  selected={true},
+  preview={countocc.jpg},
+  abstract="Object counting has achieved remarkable success on visible instances, yet state-of-the-art (SOTA) methods fail under occlusion, a pervasive challenge in real world deployment. This failure stems from a fundamental architectural limitation where backbone networks encode occluding surfaces rather than target objects, thereby corrupting the feature representations required for accurate enumeration. To address this, we present CountOCC, an amodal counting framework that explicitly reconstructs occluded object features through hierarchical multimodal guidance. Rather than accepting degraded encodings, we synthesize complete representations by integrating spatial context from visible fragments with semantic priors from text and visual embeddings, generating class-discriminative features at occluded locations across multiple pyramid levels. We further introduce a visual equivalence objective that enforces consistency in attention space, ensuring that both occluded and unoccluded views of the same scene produce spatially aligned gradient-based attention maps. Together, these complementary mechanisms preserve discriminative properties essential for accurate counting under occlusion. For rigorous evaluation, we establish occlusion-augmented versions of FSC 147 and CARPK spanning both structured and unstructured scenes. CountOCC achieves SOTA performance on FSC 147 with 26.72% and 20.80% MAE reduction over prior baselines under occlusion in validation and test, respectively. CountOCC also demonstrates exceptional generalization by setting new SOTA results on CARPK with 49.89% MAE reduction and on CAPTUREReal with 28.79% MAE reduction, validating robust amodal counting across diverse visual domains. Code will be released soon.",
+  url="https://arxiv.org/abs/2511.12702",
+  pdf="https://arxiv.org/abs/2511.12702",
+  code="https://github.com/Safaeid48/CountOCC"
+}
+
 @article{chowdhury2025lagea,
   bibtex_show={true},
   title={LAGEA: Language Guided Embodied Agents for Robotic Manipulation},
@@ -20,7 +35,7 @@
   author={Chowdhury, Abdul Monaf and Akter, Rabeya and Arib, Safaeid Hossain},
   journal={arXiv preprint arXiv:2508.04251},
   year={2025}, 
-  abbr={ArXiv},
+  abbr={AAAI 26},
   selected={true},
   preview={t3_time.jpg},
   abstract="Multivariate time series forecasting (MTSF) seeks to model temporal dynamics among variables to predict future trends. Transformer-based models and large language models (LLMs) have shown promise due to their ability to capture long-range dependencies and patterns. However, current methods often rely on rigid inductive biases, ignore intervariable interactions, or apply static fusion strategies that limit adaptability across forecast horizons. These limitations create bottlenecks in capturing nuanced, horizon-specific relationships in time-series data. To solve this problem, we propose T3Time, a novel trimodal framework consisting of time, spectral, and prompt branches, where the dedicated frequency encoding branch captures the periodic structures along with a gating mechanism that learns prioritization between temporal and spectral features based on the prediction horizon. We also proposed a mechanism which adaptively aggregates multiple cross-modal alignment heads by dynamically weighting the importance of each head based on the features. Extensive experiments on benchmark datasets demonstrate that our model consistently outperforms state-of-the-art baselines, achieving an average reduction of 3.28% in MSE and 2.29% in MAE. Furthermore, it shows strong generalization in few-shot learning settings: with 5% training data, we see a reduction in MSE and MAE by 4.13% and 1.91%, respectively; and with 10% data, by 3.62% and 1.98% on average.",

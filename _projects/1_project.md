@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Embodied Agents in Simulated Environments
+title: Language Guided Embodied Agents
 description: 
 img: assets/img/lagea.jpg
 importance: 1
@@ -34,6 +34,11 @@ To resolve this issue, I have been working on infusing VLM based textual feedbac
 I have designed and integrated a **Qwen 2.5VL-3B** VLM driven “episodic reflection” module, automatically generating rich, natural-language self-assessments of each trial—highlighting successes and pinpointing failure causes—to provide the agent with human-like introspection. Episodic reflection will enable reward alignment towards the goal task. For the reward function, I have crafted a semantically aware dense grounded reward mode which fuses verbal reflections and CLIP-style vision–language alignment from task descriptions and goal images.
 
 The agent is trained using the **Soft Actor Critic** algorithm where usually the state space is the visual observation. To enrich the representation capability of the agent, natural language feedback along with the visual observations are utilized as the state space to guide the agent towards goal task. 
+
+
+    ---
+    Project is currently under review at ICLR 2026
+    ---
 
 ---
 

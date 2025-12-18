@@ -5,8 +5,9 @@ description:
 img: assets/img/t3_time.jpg
 importance: 1
 category: research
-giscus_comments: false
-related_publications: False
+related_publications: false
+---
+### **T3Time** accepted for a Poster @AAAI 26
 ---
 
 **T3Time** is a novel trimodal time series forecasting framework that leverages fourier, time series, and prompt domains to integrate both temporal semantics and autoregressive modeling. It is designed to exploit the full generalization potential of large-scale pre-trained models while addressing challenges specific to multivariate temporal data.
