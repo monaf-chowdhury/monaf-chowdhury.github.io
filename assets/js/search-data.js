@@ -379,9 +379,6 @@ ninja.data = [{
             },},{id: "news-my-paper-titled-fft-uavnet-fft-based-human-action-recognition-for-drone-surveillance-system-got-accepted-to-the-5th-ieee-international-conference-on-sustainable-technologies-for-industry-5-0-sti-conference",
           title: 'My paper titled FFT-UAVNet: FFT Based Human Action Recognition for Drone Surveillance System...',
           description: "",
-          section: "News",},{id: "news-attended-and-presented-my-fftuavnet-paper-to-the-5th-ieee-international-conference-on-sustainable-technologies-for-industry-5-0-sti-conference",
-          title: 'Attended and presented my FFTUAVNet paper to the 5th IEEE International Conference on...',
-          description: "",
           section: "News",},{id: "news-started-working-as-a-research-assistant-at-the-maim-lab-university-of-dhaka-under-the-supervision-of-professor-niamh-nowlan-and-dr-abhishek-kumar-ghosh",
           title: 'Started working as a research assistant at the MAIM Lab, University of Dhaka...',
           description: "",
@@ -400,8 +397,14 @@ ninja.data = [{
           section: "News",},{id: "news-submitted-my-work-on-language-guided-embodied-agents-to-iclr-39-26-and-the-paper-is-published-at-arxiv",
           title: 'Submitted my work on Language Guided Embodied Agents to ICLR &amp;#39;26, and the...',
           description: "",
-          section: "News",},{id: "projects-embodied-agents-in-simulated-environments",
-          title: 'Embodied Agents in Simulated Environments',
+          section: "News",},{id: "news-my-paper-titled-t3time-tri-modal-time-series-forecasting-via-adaptive-multi-head-alignment-and-residual-fusion-got-accepted-for-a-poster-at-aaai-39-26",
+          title: 'My paper titled T3Time: Tri-Modal Time Series Forecasting via Adaptive Multi-Head Alignment and...',
+          description: "",
+          section: "News",},{id: "news-submitted-my-work-on-open-world-amodal-counting-to-cvpr-39-26-and-the-paper-is-published-at-arxiv",
+          title: 'Submitted my work on Open World Amodal Counting to CVPR &amp;#39;26, and the...',
+          description: "",
+          section: "News",},{id: "projects-language-guided-embodied-agents",
+          title: 'Language Guided Embodied Agents',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project.html";
@@ -410,8 +413,8 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_project.html";
-            },},{id: "projects-amodal-counting-using-vlms",
-          title: 'Amodal Counting using VLMs',
+            },},{id: "projects-open-world-amodal-counting",
+          title: 'Open World Amodal Counting',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_project.html";
