@@ -78,10 +78,13 @@ See the full table in the [T3Time paper](https://www.arxiv.org/abs/2508.04251)
 ## 📝 Citation
 
 ```bibtex
-@article{chowdhury2025t3time,
-  title={T3Time: Token-Timestamp Transformers for Time Series Forecasting},
-  author={Chowdhury, Monaf and Others},
-  journal={arXiv preprint arXiv:2508.04251},
-  year={2025}
+@inproceedings{chowdhury2026t3time,
+  title={T3time: Tri-modal time series forecasting via adaptive multi-head alignment and residual fusion},
+  author={Chowdhury, Abdul Monaf and Akter, Rabeya and Arib, Safaeid Hossain},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={40},
+  number={25},
+  pages={20597--20605},
+  year={2026}
 }
 ```

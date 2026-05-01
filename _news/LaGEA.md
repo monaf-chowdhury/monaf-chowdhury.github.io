@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2025-09-20
+date: 2026-04-30
 inline: true
 ---
 
-Submitted my work on Language Guided Embodied Agents to `ICLR '26`, and the paper is published at [`ArXiv`](https://www.arxiv.org/abs/2509.23155)
+My paper titled [`LAGEA: Language Guided Embodied Agents for Robotic Manipulation`](https://arxiv.org/abs/2509.23155) got accepted for a Poster at *`ICML '26`*

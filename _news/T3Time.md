@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2025-07-31
+date: 2025-11-08 
 inline: true
 ---
 
-Submitted my work on Long Term Time Series Forecasting to `AAAI '26`, and the paper is published at [`ArXiv`](https://www.arxiv.org/abs/2508.04251)
+My paper titled [`T3Time: Tri-Modal Time Series Forecasting via Adaptive Multi-Head Alignment and Residual Fusion`](https://arxiv.org/abs/2508.04251) got accepted for a Poster at *`AAAI '26`*
