@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Research Assistant @ <a href='https://www.du.ac.bd/body/RME'>University of Dhaka, Bangladesh</a> <br> Incoming Lecturer @ <a href='https://cse.sds.bracu.ac.bd/'>BRAC University, Bangladesh</a> <br> CS PhD Aspirant
+subtitle: Research Assistant @ <a href='https://www.du.ac.bd/body/RME'>University of Dhaka, Bangladesh</a> 
 
 profile:
   align: right
@@ -24,11 +24,11 @@ announcements:
 #   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a Research Assistant at the **AVIS Lab** of the University of Dhaka, Bangladesh. Currently, I'm working on long horizon embodied manipulation problems. Along with it, I'll be joining as a lecturer of Computer Science at **BRAC University** from the upcoming Summer Semester 
+I am a Research Assistant at the **AVIS Lab** of the University of Dhaka, Bangladesh. Currently, I'm working on long horizon embodied manipulation problems.
 
 Previously, I worked as Research Assistant at the [MAIM Lab](https://www.maimlab.com/) of the University of Dhaka, Bangladesh. I  worked on a [Wellcome Leap - In Utero](https://wellcomeleap.org/inutero/) funded project (Title: Translation of a Wearable Fetal Movement Monitor towards Stillbirth Prevention), under the supervision of [Dr. Abhishek Kumar Ghosh](https://www.du.ac.bd/faculty/faculty_details/RME/2318) and [Dr. Niamh Nowlan](https://people.ucd.ie/niamh.nowlan) to develop a wearable device to monitor fetal movements to cut stillbirth rates.
 
-Back in March '24, I graduated from the University of Dhaka in Robotics and Mechatronics Engineering, supervised by [Dr. Md Mehedi Hasan](https://www.du.ac.bd/faculty/faculty_details/HSS/4706). My fourth year thesis project was on "Enhancing UAV Based Human Action Recognition: A Deep Learning Approach". 
+Back in March '24, I graduated from the University of Dhaka in Robotics and Mechatronics Engineering, supervised by [Dr. Md Mehedi Hasan](https://www.du.ac.bd/faculty/faculty_details/HSS/4706). My fourth year thesis project was on *"Enhancing UAV Based Human Action Recognition: A Deep Learning Approach"*. 
 
 ---
 
