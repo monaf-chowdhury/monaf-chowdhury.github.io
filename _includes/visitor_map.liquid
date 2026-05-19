@@ -1,0 +1,57 @@
+{% assign visitor_map = page.visitor_map %}
+{% if visitor_map and visitor_map.enabled %}
+  {% assign visitor_map_title = visitor_map.title | default: 'visitor map' %}
+  {% assign visitor_map_text_color = visitor_map.text_color | default: 'ffffff' | remove: '#' %}
+  {% assign visitor_map_ocean_color = visitor_map.ocean_color | default: '3d84b8' | remove: '#' %}
+  {% assign visitor_map_type = visitor_map.map_type | default: 'm' %}
+  {% assign visitor_map_width = visitor_map.width | default: 'a' %}
+  {% assign visitor_map_has_widget = visitor_map.widget_id and visitor_map.widget_id != '' %}
+  {% assign visitor_map_has_stats = visitor_map.stats_url and visitor_map.stats_url != '' %}
+
+  <section class="visitor-map-section" aria-labelledby="visitor-map-title">
+    <div class="visitor-map-header">
+      <h2 id="visitor-map-title">{{ visitor_map_title }}</h2>
+      {% if visitor_map.description %}
+        <p>{{ visitor_map.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="visitor-map-card">
+      <div class="visitor-map-widget-shell">
+        <div class="visitor-map-widget">
+          {% if visitor_map_has_widget %}
+            <script
+              type="text/javascript"
+              id="mapmyvisitors"
+              src="https://mapmyvisitors.com/map.js?d={{ visitor_map.widget_id | uri_escape }}&cl={{ visitor_map_text_color | uri_escape }}&w={{ visitor_map_width | uri_escape }}&t={{ visitor_map_type | uri_escape }}&co={{ visitor_map_ocean_color | uri_escape }}"
+            ></script>
+          {% else %}
+            <div class="visitor-map-placeholder">
+              <p>Add your MapMyVisitors widget ID and public stats URL in the homepage front matter to render the live map here.</p>
+            </div>
+          {% endif %}
+        </div>
+
+        {% if visitor_map_has_stats %}
+          <a
+            class="visitor-map-overlay"
+            href="{{ visitor_map.stats_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open the detailed visitor map"
+          ></a>
+        {% endif %}
+      </div>
+
+      <div class="visitor-map-footer">
+        {% if visitor_map.note %}
+          <p>{{ visitor_map.note }}</p>
+        {% endif %}
+
+        {% if visitor_map_has_stats %}
+          <a href="{{ visitor_map.stats_url }}" target="_blank" rel="noopener noreferrer">Open the detailed visitor map</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}

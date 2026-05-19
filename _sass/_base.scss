@@ -441,6 +441,113 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+.visitor-map-section {
+  margin-top: 3rem;
+
+  h2 {
+    margin-bottom: 0.5rem;
+    text-transform: lowercase;
+  }
+}
+
+.visitor-map-header {
+  margin-bottom: 1rem;
+
+  p {
+    margin-bottom: 0;
+    color: var(--global-text-color-light);
+  }
+}
+
+.visitor-map-card {
+  padding: 1rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(circle at top left, rgba(61, 132, 184, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(61, 132, 184, 0.08), rgba(61, 132, 184, 0.02));
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+}
+
+.visitor-map-widget-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #3d84b8;
+  min-height: 22rem;
+}
+
+.visitor-map-widget {
+  position: relative;
+  z-index: 1;
+  min-height: 22rem;
+
+  iframe,
+  img,
+  canvas,
+  svg {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+  }
+}
+
+.visitor-map-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+.visitor-map-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 22rem;
+  padding: 2rem;
+  text-align: center;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.22), transparent 0 18%),
+    radial-gradient(circle at 72% 38%, rgba(255, 161, 22, 0.28), transparent 0 10%),
+    linear-gradient(180deg, rgba(16, 56, 92, 0.1), rgba(16, 56, 92, 0.35));
+
+  p {
+    max-width: 32rem;
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.visitor-map-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.9rem;
+  flex-wrap: wrap;
+
+  p {
+    margin: 0;
+    color: var(--global-text-color-light);
+  }
+
+  a {
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 768px) {
+  .visitor-map-card {
+    padding: 0.75rem;
+  }
+
+  .visitor-map-widget-shell,
+  .visitor-map-widget,
+  .visitor-map-placeholder {
+    min-height: 16rem;
+  }
+}
+
 .wechat-modal {
   display: none;
   position: fixed;

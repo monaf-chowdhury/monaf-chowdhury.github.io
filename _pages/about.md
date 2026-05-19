@@ -18,6 +18,18 @@ announcements:
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
   limit:  # leave blank to include all the news in the `_news` folder
 
+visitor_map:
+  enabled: true
+  title: Global visitors
+  description: A live snapshot of where visitors have been dropping in from. Click anywhere on the map to open the more detailed view.
+  note: Powered by MapMyVisitors.
+  stats_url: https://mapmyvisitors.com/web/1c2l4
+  widget_id: rTuVfwRztL_rGV-aJs_NC5jLGSvWohL70zq6GglW844
+  text_color: ffffff
+  ocean_color: 3d84b8
+  map_type: n
+  width: a
+
 # latest_posts:
 #   enabled: false
 #   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
