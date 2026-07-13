@@ -2,11 +2,11 @@
 layout: about
 title: about
 permalink: /
-subtitle: Research Assistant @ <a href='https://www.du.ac.bd/body/RME'>University of Dhaka, Bangladesh</a> 
+subtitle: Research @ <a href='https://www.du.ac.bd/body/RME'>University of Dhaka, Bangladesh</a> 
 
 profile:
   align: right
-  image: prof_pic.png
+  image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info:
 
@@ -50,7 +50,7 @@ I'm interested in `Multi-modal Learning`, especially at the fusion of Vision + L
 
 ---
 Recently, my work on language-guided embodied agents got accepted to `ICML '26`. VLMs were used to generate natural language task feedback for causal reasoning via self-reflection and guide the agents for embodied manipulation tasks. 
-Another one of my work on Open World Amodal Counting has been under review at `ECCV '26`. 
+Another one of my work on Open World Amodal Counting has been under review at `WACV '26`. 
 Prior to that, my work on *Time Series Forecasting* using a tri-modal architecture comprising time, spectral and LLM branches got accepted for a Poster at `AAAI '26`. 
 
 Overall, my work revolves around multimodal reasoning for embodied AI, multimodal generation, scene understanding, and vision-language integration.
