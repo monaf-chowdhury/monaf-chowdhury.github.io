@@ -36,7 +36,7 @@ visitor_map:
 #   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a Research Assistant at the **AVIS Lab** of the University of Dhaka, Bangladesh. Currently, I'm working on long horizon embodied manipulation problems.
+I am a Research Assistant at the **AVIS Lab** of the University of Dhaka, Bangladesh. Currently, I'm working on long horizon embodied manipulation problems and offline goal conditioned reinforcement learning. 
 
 Previously, I worked as Research Assistant at the [MAIM Lab](https://www.maimlab.com/) of the University of Dhaka, Bangladesh. I  worked on a [Wellcome Leap - In Utero](https://wellcomeleap.org/inutero/) funded project (Title: Translation of a Wearable Fetal Movement Monitor towards Stillbirth Prevention), under the supervision of [Dr. Abhishek Kumar Ghosh](https://www.du.ac.bd/faculty/faculty_details/RME/2318) and [Dr. Niamh Nowlan](https://people.ucd.ie/niamh.nowlan) to develop a wearable device to monitor fetal movements to cut stillbirth rates.
 
@@ -46,14 +46,14 @@ Back in March '24, I graduated from the University of Dhaka in Robotics and Mech
 
 ## **Research Interest**
 
-I'm interested in `Multi-modal Learning`, especially at the fusion of Vision + Language for `Embodied AI`. Overall, I would like to work on fusing complementary intelligence from multi-modalities with the ambitious goal of positively influencing real-world environments via embodied agents.
+I'm interested in `Embodied AI` and `Reinforcement Learning`. I am also interested in `Multi-modal Learning`, especially at the fusion of Vision + Language for `Embodied AI` problems. Overall, I would like to work on fusing complementary intelligence from multi-modalities with the ambitious goal of positively influencing real-world environments via embodied agents.
 
 ---
-Recently, my work on language-guided embodied agents got accepted to `ICML '26`. VLMs were used to generate natural language task feedback for causal reasoning via self-reflection and guide the agents for embodied manipulation tasks. 
+I am about to submit my offline goal conditioned reinforcement learning algorithm `ATRL` on `ICLR 2027`. Prior to this, my work on language-guided embodied agents got accepted to `ICML '26`. VLMs were used to generate natural language task feedback for causal reasoning via self-reflection and guide the agents for embodied manipulation tasks. 
 Another one of my work on Open World Amodal Counting has been under review at `WACV '26`. 
-Prior to that, my work on *Time Series Forecasting* using a tri-modal architecture comprising time, spectral and LLM branches got accepted for a Poster at `AAAI '26`. 
+Earlier this year, my work on *Time Series Forecasting* using a tri-modal architecture comprising time, spectral and LLM branches got accepted for a Poster at `AAAI '26`. 
 
-Overall, my work revolves around multimodal reasoning for embodied AI, multimodal generation, scene understanding, and vision-language integration.
+Overall, my work revolves around multimodal reasoning for embodied AI, reinforcement learning, multimodal generation, scene understanding, and vision-language integration.
 
 ---
 
