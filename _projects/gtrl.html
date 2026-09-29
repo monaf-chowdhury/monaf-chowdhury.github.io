@@ -1,0 +1,669 @@
+---
+layout: project
+title: Grounded Transitive RL
+description: Grounding divide-and-conquer value learning with temporal differences, so offline goal-conditioned RL stays correct when the dynamics are stochastic.
+img: assets/img/projects/gtrl/thumb.jpg
+importance: 0
+category: research
+theme: sky
+venue: arXiv 2026 # shown on the homepage card
+paper_title: '<span class="pp-acr">GTRL</span>: Grounding Divide-and-Conquer Value Learning with Temporal Differences'
+eyebrow: ["arXiv 2026", "Offline goal-conditioned RL"]
+authors:
+  - name: Abdul Monaf Chowdhury
+    affil: "1"
+    me: true
+  - name: MD Sameer Iqbal Chowdhury
+    affil: "2"
+  - name: Shifat E Arman
+    affil: "1,3"
+  - name: Md Mehedi Hasan
+    affil: "1"
+affiliations:
+  - University of Dhaka
+  - Texas State University
+  - University of Oxford
+links:
+  - label: Paper
+    icon: fa-solid fa-file-pdf
+    url: https://arxiv.org/pdf/2609.33259
+  - label: arXiv
+    icon: ai ai-arxiv
+    url: https://arxiv.org/abs/2609.33259
+  - label: Code
+    icon: fa-brands fa-github
+    url: https://github.com/monaf-chowdhury/gtrl
+  - label: BibTeX
+    icon: fa-solid fa-quote-right
+    url: "#citation"
+    ghost: true
+sections:
+  - { id: overview, label: Overview }
+  - { id: background, label: Background }
+  - { id: problem, label: The problem }
+  - { id: method, label: Method }
+  - { id: results, label: Results }
+  - { id: ablations, label: Ablations }
+  - { id: citation, label: Cite }
+scripts:
+  - /assets/js/projects/gtrl-teleporter.js
+bibtex: |
+  @article{chowdhury2026gtrl,
+    title   = {{GTRL}: Grounding Divide-and-Conquer Value Learning with Temporal Differences},
+    author  = {Chowdhury, Abdul Monaf and Chowdhury, MD Sameer Iqbal and Arman, Shifat E and Hasan, Md Mehedi},
+    journal = {arXiv preprint arXiv:2609.33259},
+    year    = {2026},
+    eprint  = {2609.33259},
+    archivePrefix = {arXiv},
+    url     = {https://arxiv.org/abs/2609.33259}
+  }
+
+# Success rate (%), mean and std over four seeds; averages as reported in the paper.
+results:
+  - id: standard
+    name: Standard
+    title: Standard · 10 deterministic tasks
+    subtitle: GTRL 72.7 vs. 55.2 for the next best (TRL)
+    blurb: Deterministic navigation (point, ant and humanoid mazes, ant soccer) and manipulation (cube, scene, puzzle).
+    takeaway: >-
+      <span class="pp-pos">+17.5 points</span> over TRL (+32% relative). The largest gains are on the four maze-navigation tasks, where GTRL adds
+      18 to 46 points over TRL.
+    exception: >-
+      IQL and MC finish ahead on ant soccer and the two cube tasks. On cube-double-play, where every triangle-inequality method struggles, GTRL's
+      37% is still the best of them.
+    methods: [BC, FBC, IVL, IQL, TD-n, CRL, MC, QRL, TDP, COE, TRL, GTRL]
+    avg: [7.2, 16.9, 38.0, 53.5, 51.5, 38.2, 35.7, 12.2, 8.8, 9.9, 55.2, 72.7]
+    tasks:
+      - { name: pointmaze-large-navigate, m: [25, 71, 48, 34, 31, 33, 4, 7, 30, 34, 33, 79], s: [3, 4, 10, 3, 7, 7, 4, 7, 5, 7, 5, 6] }
+      - { name: antmaze-large-navigate, m: [22, 22, 21, 37, 55, 85, 39, 67, 27, 26, 46, 87], s: [4, 4, 6, 8, 6, 7, 5, 8, 3, 3, 5, 1] }
+      - { name: humanoidmaze-medium-navigate, m: [7, 9, 24, 36, 60, 72, 49, 18, 7, 9, 57, 75], s: [2, 3, 4, 3, 3, 5, 3, 17, 0, 2, 1, 4] }
+      - { name: humanoidmaze-large-navigate, m: [2, 1, 3, 5, 20, 28, 6, 3, 1, 2, 8, 41], s: [1, 1, 1, 1, 2, 5, 2, 2, 1, 0, 1, 9] }
+      - { name: antsoccer-arena-navigate, m: [3, 17, 62, 77, 64, 35, 42, 13, 5, 5, 73, 74], s: [1, 2, 2, 3, 4, 5, 3, 1, 1, 2, 4, 1] }
+      - { name: cube-single-play, m: [7, 18, 88, 95, 95, 63, 98, 6, 3, 13, 95, 93], s: [2, 5, 2, 1, 2, 5, 1, 3, 1, 8, 2, 4] }
+      - { name: cube-double-play, m: [1, 4, 59, 64, 10, 35, 8, 1, 1, 0, 30, 37], s: [1, 2, 2, 4, 2, 3, 2, 1, 0, 0, 5, 1] }
+      - { name: scene-play, m: [4, 23, 68, 61, 75, 26, 25, 6, 12, 8, 77, 84], s: [2, 2, 10, 3, 3, 5, 5, 2, 1, 2, 2, 4] }
+      - { name: puzzle-3x3-play, m: [1, 3, 2, 98, 99, 5, 81, 1, 2, 2, 99, 100], s: [1, 1, 1, 0, 0, 1, 12, 1, 0, 0, 0, 0] }
+      - { name: puzzle-4x4-play, m: [0, 1, 5, 28, 6, 0, 5, 0, 0, 0, 34, 57], s: [0, 0, 2, 4, 3, 0, 2, 0, 0, 0, 4, 8] }
+  - id: teleport
+    name: Teleport
+    title: Teleport · 4 stochastic tasks
+    subtitle: GTRL 42.2 vs. 38.0 for the next best (IVL)
+    blurb: Teleporters send the agent to one of three exits at random, and one exit is a dead end. The same action has several successors, so the transitive base case breaks.
+    takeaway: >-
+      <span class="pp-pos">+4.2 points</span> over the next best, GC-IVL (+11% relative), and ahead of TRL on every task, by 9.7 points on
+      average.
+    exception: The one exception is antmaze-teleport-navigate, where the Monte Carlo method CRL finishes a point ahead.
+    methods: [BC, FBC, IVL, IQL, TD, CRL, MC, QRL, TRL, GTRL]
+    avg: [28.2, 30.5, 38.0, 26.2, 27.7, 21.5, 26.0, 14.2, 32.5, 42.2]
+    tasks:
+      - { name: pointmaze-teleport-navigate, m: [25, 28, 35, 29, 24, 24, 29, 4, 26, 37], s: [3, 2, 3, 4, 7, 9, 4, 4, 5, 7] }
+      - { name: pointmaze-teleport-stitch, m: [31, 34, 43, 29, 36, 0, 26, 12, 40, 47], s: [9, 6, 2, 2, 2, 0, 1, 5, 4, 2] }
+      - { name: antmaze-teleport-navigate, m: [26, 29, 40, 29, 27, 50, 27, 28, 32, 49], s: [3, 3, 4, 3, 3, 2, 2, 4, 2, 2] }
+      - { name: antmaze-teleport-stitch, m: [31, 31, 34, 18, 24, 12, 22, 13, 32, 36], s: [6, 4, 3, 4, 2, 4, 0, 4, 4, 2] }
+  - id: stitch
+    name: Stitch
+    title: Stitch · 5 tasks
+    subtitle: GTRL 35.2 vs. 24.8 for the next best (QRL)
+    blurb: Trajectories are cut into four-cell pieces and a goal needs up to eight of them joined, so most state–goal pairs never share a trajectory.
+    takeaway: >-
+      <span class="pp-pos">+10.4 points</span> over the next best, QRL (+42% relative), and +25.4 over TRL, which averages only 9.8% when goals
+      lie off its trajectories.
+    exception: The exception is pointmaze-large-stitch, where QRL's quasimetric reaches 84% and nothing else passes 34%.
+    methods: [BC, FBC, IVL, IQL, TD, CRL, MC, QRL, TRL, GTRL]
+    avg: [13.8, 14.2, 12.8, 21.3, 9.2, 16.4, 9.4, 24.8, 9.8, 35.2]
+    tasks:
+      - { name: pointmaze-large-stitch, m: [7, 20, 12, 34, 0, 0, 0, 84, 0, 19], s: [5, 13, 6, 2, 0, 0, 0, 15, 0, 2] }
+      - { name: antmaze-large-stitch, m: [3, 6, 18, 8, 4, 8, 5, 18, 8, 31], s: [3, 4, 2, 1, 1, 5, 1, 2, 1, 4] }
+      - { name: humanoidmaze-medium-stitch, m: [29, 38, 12, 29, 38, 59, 35, 18, 36, 70], s: [5, 3, 2, 7, 1, 1, 3, 2, 0, 3] }
+      - { name: humanoidmaze-large-stitch, m: [6, 6, 1, 1, 3, 12, 7, 3, 5, 18], s: [3, 1, 1, 1, 1, 2, 1, 1, 1, 2] }
+      - { name: antsoccer-arena-stitch, m: [24, 2, 21, 34, 1, 2, 1, 1, 1, 38], s: [8, 3, 3, 2, 1, 1, 0, 1, 0, 2] }
+---
+
+<section class="pp-section" id="overview">
+  <div class="pp-tldr">
+    <span class="pp-kicker">TL;DR</span>
+    <p>
+      Divide-and-conquer value learning reaches a goal \(T\) steps away in \(O(\log T)\) updates instead of \(O(T)\), but its base case treats every
+      logged transition as something the agent can choose. Under stochastic dynamics it ends up valuing the luckiest route through the data, and
+      state–goal pairs that share no trajectory never receive a target. <strong>GTRL</strong> grounds the composition in a one-step TD target,
+      which averages over successors and needs no subgoal. The whole change costs one extra forward pass.
+    </p>
+  </div>
+
+  <div class="pp-stats pp-wide">
+    <div class="pp-stat">
+      <div class="pp-stat-value">72.7<small>%</small></div>
+      <div class="pp-stat-label">Average success on 10 standard deterministic tasks</div>
+      <span class="pp-stat-delta">+17.5 over TRL</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">42.2<small>%</small></div>
+      <div class="pp-stat-label">On 4 stochastic teleport tasks</div>
+      <span class="pp-stat-delta">+4.2 over next best</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">35.2<small>%</small></div>
+      <div class="pp-stat-label">On 5 stitching tasks</div>
+      <span class="pp-stat-delta">+10.4 over next best</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">+1<small>pass</small></div>
+      <div class="pp-stat-label">Extra forward pass per update. No new network.</div>
+    </div>
+  </div>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/gtrl/fig1_concept.jpg"
+        alt="Three panels: divide and conquer halving the horizon; the two ways its base case fails; and a one-step TD target that repairs both."
+        zoomable=true
+        loading="eager"
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 1. Where divide and conquer breaks.</b> (a) The transitive rule halves the horizon down to one logged transition, and that base case
+      is the step that breaks. (b) It breaks twice: under stochastic dynamics it reads the lucky successor as the agent's own choice (top), and it
+      has no subgoal when the state and the goal lie on different trajectories (bottom). (c) A one-step TD target averages over the successors and
+      needs no subgoal, so it repairs both, while the composition keeps the long horizon.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="background">
+  <span class="pp-kicker">Background</span>
+  <h2>Two ways to carry value across a long horizon</h2>
+  <p>
+    In offline goal-conditioned RL, an agent learns from a fixed dataset of trajectories, with no further access to the environment, to reach
+    <em>any</em> state from any other. Goals are assigned in hindsight from the data, and the reward is collected on arrival. With
+    \(T^\pi(s,g)\) the first step at which policy \(\pi\) reaches \(g\) from \(s\), the value is
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ V^\pi(s,g) = \mathbb{E}\big[\gamma^{\,T^\pi(s,g)}\big], \qquad Q^\pi(s,a,g) = \mathbb{E}\big[\gamma^{\,T^\pi(s,g)} \,\big|\, a_0 = a\big]. \]
+    </div>
+    <div class="pp-eq-tag">hitting-time value</div>
+  </div>
+  <p>
+    A larger value means a shorter expected trip. Under deterministic dynamics the optimal policy takes the shortest route, so
+    \(V^*(s,g) = \gamma^{d^*(s,g)}\), where \(d^*\) is the temporal distance. The question is how to propagate that value across hundreds of
+    steps.
+  </p>
+
+  <div class="pp-grid pp-wide">
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Temporal difference</span></div>
+      <p>Regress each value toward a target built from the next state:</p>
+      <p style="text-align: center">\( Q(s,a,g) \leftarrow \gamma\, \mathbb{E}_{s'}\big[V(s',g)\big] \)</p>
+      <p class="pp-muted">
+        Value moves one step per backup, so a goal \(T\) steps away needs \(O(T)\) backups, and each regression inherits the error of the last.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Divide and conquer</span></div>
+      <p>Temporal distances obey the triangle inequality, so values compose through any subgoal \(w\):</p>
+      <p style="text-align: center">\( V^*(s,g) \,\ge\, V^*(s,w)\, V^*(w,g) \)</p>
+      <p class="pp-muted">
+        Joining two halves at the best subgoal needs only \(O(\log T)\) updates: at best, 10 compositions instead of 1,000 backups for a goal
+        1,000 steps away.
+      </p>
+    </div>
+  </div>
+
+  <p>
+    <a href="https://arxiv.org/abs/2510.22512">Transitive RL</a> (TRL; Park et al., 2026) made the composition practical at scale with two changes:
+    an in-sample expectile replaces the maximum over subgoals, and subgoals are drawn from the same trajectory as the state and the goal. For
+    indices \(i \lt k \lt j\) on one trajectory,
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \mathcal{L}_{\text{TRL}}(Q) = \mathbb{E}\Big[\rho(s_i,s_j)\, L_{0.7}\big(Q(s_i,a_i,s_j),\, \bar Q(s_i,a_i,s_k)\,\bar Q(s_k,a_k,s_j)\big)\Big], \]
+    </div>
+    <div class="pp-eq-tag">TRL critic loss</div>
+  </div>
+  <p>
+    where \(L_\kappa\) is an expectile loss that penalises under-estimating the target by \(\kappa\) and over-estimating it by \(1-\kappa\), and
+    \(\rho\) puts more weight on short segments. <strong>Both changes assume deterministic dynamics.</strong>
+  </p>
+</section>
+
+<section class="pp-section" id="problem">
+  <span class="pp-kicker">The problem</span>
+  <h2>Where divide and conquer breaks</h2>
+  <p class="pp-lede">
+    The composition step is sound; the base case is not. The transitive rule bottoms out at a single logged transition, valued at \(\gamma\) as if
+    the agent could take it whenever it wanted. Under stochastic dynamics, the agent chooses the action but the environment chooses the successor.
+  </p>
+
+  <h3>Fault 1: it values the luckiest route</h3>
+  <p>
+    Let \(G\) be the directed graph with an edge \(s \to s'\) whenever some action reaches \(s'\) with positive probability, and let
+    \(d_G(s,g)\) be the shortest path in \(G\): the fewest steps to \(g\) if every random transition goes the agent's way.
+  </p>
+  <div class="pp-card pp-prop">
+    <div class="pp-card-title"><span class="pp-kicker">Proposition 1</span>Fixed point of the transitive update</div>
+    <p>
+      Assume every edge of \(G\) appears in the dataset, and iterate the update from its base cases. Let
+      \(V_{\text{DC}}(s,g) = \gamma^{d_G(s,g)}\). Then:
+    </p>
+    <ol type="i">
+      <li>the iterates increase pointwise to \(V_{\text{DC}}\), and reach it after \(\lceil \log_2 \operatorname{diam}(G) \rceil\) steps;</li>
+      <li>
+        \(V_{\text{DC}} \ge V^*\), with equality at \((s,g)\) if and only if some policy reaches \(g\) from \(s\) in exactly \(d_G(s,g)\) steps
+        almost surely;
+      </li>
+      <li>if the dynamics are deterministic, \(V_{\text{DC}} = V^*\).</li>
+    </ol>
+  </div>
+  <p>
+    Once the two come apart, the error has one sign, so the rule <em>overestimates</em>. The gap belongs to the fixed point itself; more data does
+    not close it.
+  </p>
+
+  <div class="pp-card pp-example">
+    <div class="pp-card-title"><span class="pp-kicker">Example 1</span>The teleporter</div>
+    <p>
+      State \(s\) has a single action that leads to \(A\) or \(B\) with probability \(\tfrac12\) each. From \(A\), one step reaches \(g\); from
+      \(B\), the only route is a 10-step corridor. Then \(d_G(s,g) = 2\), so \(V_{\text{DC}}(s,g) = \gamma^2\), while
+      \(V^*(s,g) = \tfrac12\gamma^2 + \tfrac12\gamma^{11}\). At \(\gamma = 0.99\) that is 0.980 against 0.938: a reported distance of 2 steps
+      against a true 6.4.
+    </p>
+  </div>
+
+  <div class="pp-widget pp-wide" id="pp-teleporter">
+    <div class="pp-widget-head">
+      <div><span class="pp-kicker">Interactive</span><span class="pp-widget-title">How far off is the transitive fixed point?</span></div>
+      <span class="pp-muted">Exact values for Example 1</span>
+    </div>
+    <div class="pp-widget-body">
+      <div class="pp-widget-grid">
+        <svg class="pp-diagram" viewBox="0 0 380 210" role="img" aria-labelledby="tp-title tp-desc">
+          <title id="tp-title">The teleporter</title>
+          <desc id="tp-desc">
+            From s, one action leads to A or B with probability one half each. A reaches the goal g in one step; B reaches it through a corridor.
+          </desc>
+          <defs>
+            <marker id="tp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="pp-d-arrow"></path>
+            </marker>
+            <marker id="tp-arrow-m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="pp-d-arrow-muted"></path>
+            </marker>
+          </defs>
+          <path class="pp-d-edge" d="M53,99 L166,47" marker-end="url(#tp-arrow)"></path>
+          <path class="pp-d-edge" d="M53,111 L166,163" marker-end="url(#tp-arrow)"></path>
+          <path class="pp-d-edge" d="M193,46 L316,98" marker-end="url(#tp-arrow)"></path>
+          <path class="pp-d-dash" d="M193,164 L316,112" marker-end="url(#tp-arrow-m)"></path>
+          <circle class="pp-d-node" cx="40" cy="105" r="12"></circle>
+          <circle class="pp-d-node" cx="180" cy="42" r="12"></circle>
+          <circle class="pp-d-node" cx="180" cy="168" r="12"></circle>
+          <circle class="pp-d-goal" cx="332" cy="105" r="13"></circle>
+          <text class="pp-d-italic" x="40" y="110" text-anchor="middle">s</text>
+          <text class="pp-d-italic" x="180" y="47" text-anchor="middle">A</text>
+          <text class="pp-d-italic" x="180" y="173" text-anchor="middle">B</text>
+          <text class="pp-d-italic" x="332" y="110" text-anchor="middle" style="fill: #fff">g</text>
+          <text class="pp-d-frac" x="98" y="62" text-anchor="middle">½</text>
+          <text class="pp-d-frac" x="98" y="162" text-anchor="middle">½</text>
+          <text class="pp-d-small" x="262" y="58" text-anchor="middle">1 step</text>
+          <text class="pp-d-small" x="262" y="162" text-anchor="middle" data-corridor-label>10 steps</text>
+        </svg>
+        <div>
+          <div class="pp-control">
+            <label for="tp-gamma"><span>Discount \(\gamma\)</span><output data-gamma-out>0.990</output></label>
+            <input class="pp-range" id="tp-gamma" type="range" min="0.9" max="0.999" step="0.001" value="0.99" data-gamma>
+          </div>
+          <div class="pp-control">
+            <label for="tp-len"><span>Corridor length from \(B\)</span><output data-len-out>10 steps</output></label>
+            <input class="pp-range" id="tp-len" type="range" min="1" max="40" step="1" value="10" data-len>
+          </div>
+          <p class="pp-muted" style="font-size: 0.84rem; margin: 0">
+            Bars show the distance each value implies, \(\log_\gamma V\), on a fixed 0–22 step scale.
+          </p>
+        </div>
+      </div>
+
+      <div class="pp-readout" style="margin-top: 1.25rem">
+        <div class="pp-readrow is-warn" data-row="dc">
+          <span class="pp-readrow-name">Transitive fixed point, \(\gamma^{d_G(s,g)}\)</span>
+          <span class="pp-readrow-val">V = <b data-v>0.980</b> · <span data-d>2.0</span> steps</span>
+          <span class="pp-readrow-track"><span class="pp-readrow-bar" style="width: 9%"></span></span>
+        </div>
+        <div class="pp-readrow" data-row="truth">
+          <span class="pp-readrow-name">True optimal value, \(V^*(s,g)\)</span>
+          <span class="pp-readrow-val">V = <b data-v>0.938</b> · <span data-d>6.4</span> steps</span>
+          <span class="pp-readrow-track"><span class="pp-readrow-bar" style="width: 29%"></span></span>
+        </div>
+        <div class="pp-readrow is-hl" data-row="td">
+          <span class="pp-readrow-name">One-step target, \(\gamma\,\mathbb{E}_{s'}[V^*(s',g)]\)</span>
+          <span class="pp-readrow-val">V = <b data-v>0.938</b> · <span data-d>6.4</span> steps</span>
+          <span class="pp-readrow-track"><span class="pp-readrow-bar" style="width: 29%"></span></span>
+        </div>
+      </div>
+      <p class="pp-widget-foot" data-summary>
+        The transitive rule reports <b>2.0 steps</b>; the truth is <b>6.4</b>. A one-step target that averages over both successors recovers the
+        true value, which is the fix GTRL builds on.
+      </p>
+    </div>
+  </div>
+
+  <h3>Fault 2: pairs no trajectory connects never get a target</h3>
+  <p>
+    A subgoal has to lie between \(s\) and \(g\) on a single trajectory, so \(g\) must appear after \(s\) on that trajectory in the first place.
+  </p>
+  <div class="pp-card pp-prop">
+    <div class="pp-card-title"><span class="pp-kicker">Proposition 2</span>Which pairs receive a target</div>
+    <p>
+      Let \(\mathcal{R}\) be the set of pairs \((s_i, s_j)\), \(i \le j\), that lie on a common trajectory in the dataset. Every target the
+      transitive loss forms is for a pair in \(\mathcal{R}\). For \((s,g) \notin \mathcal{R}\) the loss never produces a target, so in the tabular
+      case the value stays wherever it was initialised.
+    </p>
+  </div>
+  <p>
+    This is the everyday situation in stitching datasets, where trajectories are short and most state–goal pairs never share one. In the teleport
+    maze of Figure 2a, only a third of the states ever receive a target for the goal.
+  </p>
+  <p class="pp-muted">
+    The two propositions point at the same missing piece. One says the base case needs a one-step <em>expectation</em>; the other says
+    off-trajectory pairs need a target <em>at all</em>. A single one-step TD term supplies both.
+  </p>
+</section>
+
+<section class="pp-section" id="method">
+  <span class="pp-kicker">Method</span>
+  <h2>Keep the composition, ground its base case</h2>
+  <p class="pp-lede">
+    TD learning is what divide and conquer set out to replace: slow and error-prone over a long horizon. Over a <em>single</em> step, though, it is
+    exactly right. Its target is an expectation over the next state, so randomness averages out, and it needs only a transition and a goal, so
+    every state–goal pair gets one. GTRL adds this one-step target to the composition rather than replacing it.
+  </p>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/gtrl/method_overview.png"
+        alt="Teleport maze heatmaps. Left: TRL trains a third of the states for the goal while GTRL trains every state. Right: the hindsight goal distribution after one outcome, and the average over outcomes that the weight restores."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 2. Both components on a teleport maze</b>, where one action leads to \(A\) or \(B\) with probability \(\tfrac12\); every panel is
+      computed exactly. (a) Counterfactual goals: TRL trains only the states that reach \(g\) on a shared trajectory, while GTRL trains all of them.
+      (b) Hindsight weighting: a hindsight goal is picked after the environment has chosen a successor, so it reflects that one outcome. The weight
+      corrects it back to the average over every successor the action could have produced.
+    </p>
+  </div>
+
+  <ol class="pp-steps pp-wide">
+    <li>
+      <b>Counterfactual goals</b>Half of the critic's goals are drawn from the whole dataset instead of the state's own trajectory, so targets for
+      the same input come from every outcome of a stochastic transition.
+    </li>
+    <li>
+      <b>A one-step target everywhere</b>Goals with no subgoal between them and \(s\) still get \(y_{\text{TD}} = \gamma\,\bar Q(s',a',g)\), fit at
+      the mean.
+    </li>
+    <li>
+      <b>Take the larger</b>Where a subgoal exists, the composition and the one-step target are both valid, so GTRL regresses toward the larger of
+      the two.
+    </li>
+    <li>
+      <b>Hindsight weighting</b>In-trajectory goals are reweighted by how reachable they were from the <em>other</em> successors, a ratio read off
+      the critic in one forward pass.
+    </li>
+  </ol>
+
+  <h3>Counterfactual goals and the one-step target</h3>
+  <p>
+    For a transition \((s,a,s')\) with next logged action \(a'\), call a goal <em>decomposable</em> (\(m = 1\)) if it lies ahead of \(s\) on the
+    same trajectory, and non-decomposable (\(m = 0\)) otherwise. TRL trains only decomposable goals, whose target is the product
+    \(y_{\text{DC}} = \bar Q(s,a,w)\,\bar Q(w,a_w,g)\). Every goal, decomposable or not, also has a one-step target:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ y_{\text{TD}} = \begin{cases} 1 & \text{if } g = s, \\ \gamma & \text{if } g = s', \\ \gamma\, \bar Q(s',a',g) & \text{otherwise.} \end{cases} \]
+    </div>
+    <div class="pp-eq-tag">one-step target</div>
+  </div>
+  <p>
+    This is the transitive target at subgoal offset one. The two kinds of goal call for different statistics. On a decomposable goal the target
+    varies with the subgoal draw, and we want the best decomposition, so the expectile is optimistic. On a non-decomposable goal the target varies
+    with the environment's transition, and we want the average over outcomes:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} \kappa(s,g) &= \begin{cases} 0.7 & m = 1 \\ 0.5 & m = 0 \end{cases} \\[6pt] y_{\text{A}} &= \begin{cases} \max\{y_{\text{DC}},\, y_{\text{TD}}\} & m = 1 \\ y_{\text{TD}} & m = 0 \end{cases} \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">split expectile · target selection</div>
+  </div>
+  <p>
+    The maximum follows from the rule itself: the transitive update is a maximum over subgoals, and the one-step case is one of those subgoals. For
+    a non-decomposable goal the subgoal set is empty, so the maximum runs over the one-step case alone.
+  </p>
+
+  <h3>Hindsight weighting</h3>
+  <p>
+    \(Q(s,a,g)\) should average over every successor that \(a\) could produce, but hindsight relabelling picks the goal <em>after</em> the successor
+    is known: a trajectory that went to \(A\) only yields goals near \(A\). Because the trajectory offset is drawn from a
+    \(\mathrm{Geometric}(1-\gamma)\) with the critic's own \(\gamma\), a decomposable goal is a sample from the discounted occupancy
+    \(\mu(\cdot \mid s')\) of the successor that happened. Reweighting it toward the average over successors, and using
+    \(\mu(g \mid s) = V(s,g)\,\mu(g \mid g)\) so that the goal-only factor cancels,
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ h(s,a,s',g) = \frac{\mathbb{E}_{\tilde s \sim p(\cdot \mid s,a)}\big[\mu(g \mid \tilde s)\big]}{\mu(g \mid s')} = \frac{\mathbb{E}_{\tilde s}\big[V(\tilde s,g)\big]}{V(s',g)} = \frac{Q(s,a,g)}{\gamma\, V(s',g)}. \]
+    </div>
+    <div class="pp-eq-tag">hindsight weight</div>
+  </div>
+  <p>
+    A successor that landed close to \(g\) is weighted down, and one that landed far from it is weighted up. Under deterministic dynamics
+    \(h = 1\) identically, and non-decomposable goals, drawn without looking at the successor, keep \(h = 1\) as well. In practice both terms come
+    from the target critic (the denominator \(\bar Q(s',a',g)\) is already computed for \(y_{\text{TD}}\)), and \(h\) is clipped to
+    \([1/(1+c),\, 1+c]\) with \(c = 1\) and normalised to mean one over the decomposable goals in the batch.
+  </p>
+
+  <h3>The full objective</h3>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \mathcal{L}_{\text{GTRL}}(Q) = \mathbb{E}\Big[\, h \cdot \rho \cdot L_{\kappa(s,g)}\big(Q(s,a,g),\ y_{\text{A}}\big) \Big] \]
+    </div>
+    <div class="pp-eq-tag">GTRL critic loss</div>
+  </div>
+  <p>
+    It fits a composition wherever the data supports one, and a one-step expectation everywhere else. The policy is extracted with reparameterised
+    gradients and a behaviour-cloning term, as in TRL.
+  </p>
+
+  <div class="pp-card pp-prop">
+    <div class="pp-card-title"><span class="pp-kicker">Proposition 3</span>Where the GTRL fixed point lies</div>
+    <p>
+      In the tabular setting (entries fit exactly, successors drawn from \(p(\cdot \mid s,a)\), every dataset pair sampled with positive
+      probability), iterating the GTRL update from zero converges to a fixed point \(Q_{\text{A}}\) with
+    </p>
+    <p style="text-align: center">\( Q^\beta(s,a,g) \,\le\, Q_{\text{A}}(s,a,g) \,\le\, V_{\text{DC}}(s,g), \)</p>
+    <p>
+      where \(Q^\beta\) is the value of the behaviour policy that collected the data. The upper bound says the maximum costs nothing: GTRL is
+      <strong>no more optimistic than the rule it grounds</strong>. The lower bound is what counterfactual goals buy: off-trajectory pairs, which
+      TRL leaves at their initialisation, are floored at the behaviour value.
+    </p>
+  </div>
+
+  <details class="pp-details">
+    <summary>Algorithm 1: the full GTRL update <span class="pp-muted">pseudo-code</span></summary>
+    <div class="pp-details-body">
+      <p class="pp-muted" style="font-size: 0.88rem">
+        Requires dataset \(\mathcal{D}\), discount \(\gamma\), clip constant \(c\), target update rate \(\eta\).
+      </p>
+      <ol class="pp-algo">
+        <li>Initialise critic \(Q_\theta\), target critic \(\bar Q_{\bar\theta} \leftarrow Q_\theta\), and policy \(\pi_\phi\)</li>
+        <li><strong>for</strong> each gradient step <strong>do</strong></li>
+        <li class="pp-indent">Sample transitions \((s,a,s')\) from \(\mathcal{D}\) with the action \(a'\) logged at \(s'\), and a goal \(g\) for each</li>
+        <li class="pp-indent">Set \(m = 1\) where \(g\) lies ahead of \(s\) on the same trajectory, and \(m = 0\) otherwise</li>
+        <li class="pp-indent">Where \(m = 1\), sample a subgoal \(w\) uniformly between \(s\) and \(g\), with its logged action \(a_w\)</li>
+        <li class="pp-indent">
+          \(y_{\text{DC}} \leftarrow \bar Q(s,a,w)\,\bar Q(w,a_w,g)\) <span class="pp-algo-ref">composition</span>
+        </li>
+        <li class="pp-indent">
+          \(y_{\text{TD}} \leftarrow \gamma\,\bar Q(s',a',g)\), or a base case where \(g = s\) or \(g = s'\)
+          <span class="pp-algo-ref">one-step target</span>
+        </li>
+        <li class="pp-indent">
+          \(y_{\text{A}} \leftarrow \max\{y_{\text{DC}}, y_{\text{TD}}\}\) where \(m = 1\), and \(y_{\text{TD}}\) elsewhere
+          <span class="pp-algo-ref">target selection</span>
+        </li>
+        <li class="pp-indent">
+          \(\kappa \leftarrow 0.7\) where \(m = 1\), and \(0.5\) elsewhere <span class="pp-algo-ref">split expectile</span>
+        </li>
+        <li class="pp-indent">
+          \(h \leftarrow \bar Q(s,a,g) \,/\, \gamma\bar Q(s',a',g)\) where \(m = 1\), and \(1\) elsewhere
+          <span class="pp-algo-ref">hindsight weight</span>
+        </li>
+        <li class="pp-indent">Clip \(h\) to \([1/(1+c),\, 1+c]\), then normalise it to mean 1 over the goals with \(m = 1\)</li>
+        <li class="pp-indent">\(\theta \leftarrow \theta - \nabla_\theta\, \mathcal{L}_{\text{GTRL}}(Q_\theta)\) <span class="pp-algo-ref">critic</span></li>
+        <li class="pp-indent">\(\phi \leftarrow \phi + \nabla_\phi\, J(\phi)\) <span class="pp-algo-ref">policy extraction</span></li>
+        <li class="pp-indent">\(\bar\theta \leftarrow \eta\,\theta + (1-\eta)\,\bar\theta\)</li>
+        <li><strong>end for</strong></li>
+      </ol>
+    </div>
+  </details>
+</section>
+
+<section class="pp-section" id="results">
+  <span class="pp-kicker">Results</span>
+  <h2>Nineteen OGBench tasks, three regimes</h2>
+  <p>
+    We evaluate on the oracle-representation variants of 19
+    <a href="https://github.com/seohongpark/ogbench">OGBench</a> tasks against ten baselines from four families: behavioural cloning (BC, FBC),
+    temporal difference (IVL, IQL, TD, TD-n), Monte Carlo (CRL, MC) and triangle-inequality methods (QRL, TDP, COE, TRL). Each score is the
+    success rate over five evaluation goals, averaged over the checkpoints at 800K, 900K and 1M steps and over four seeds.
+  </p>
+
+  <div class="pp-wide" data-pp-tabs style="margin-top: 2rem">
+    <div class="pp-tabs-bar">
+      <div class="pp-seg" role="tablist" aria-label="Task group">
+        {% for g in page.results %}
+          <button
+            type="button"
+            role="tab"
+            id="tab-{{ g.id }}"
+            aria-controls="panel-{{ g.id }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            {{ g.name }} · {{ g.tasks.size }}
+          </button>
+        {% endfor %}
+      </div>
+      <span class="pp-muted" style="font-size: 0.82rem">Hover or focus a bar for its value</span>
+    </div>
+
+    {% for g in page.results %}
+      <div class="pp-tabpanel" role="tabpanel" id="panel-{{ g.id }}" aria-labelledby="tab-{{ g.id }}">
+        <p class="pp-panel-blurb">{{ g.blurb }}</p>
+        {%
+          include project/hbar_chart.liquid
+          labels=g.methods
+          values=g.avg
+          highlight="GTRL"
+          title=g.title
+          subtitle="Average success rate (%)"
+          unit="%"
+          label_w="4.5rem"
+        %}
+        <div class="pp-takeaway">
+          <p>{{ g.takeaway }}</p>
+          <p class="pp-muted">{{ g.exception }}</p>
+        </div>
+        <details class="pp-details">
+          <summary>Per-task results · {{ g.name }} <span class="pp-muted">{{ g.tasks.size }} tasks × {{ g.methods.size }} methods</span></summary>
+          <div class="pp-details-body">
+            {% include project/results_table.liquid group=g %}
+            <p class="pp-table-note">
+              Success rate (%) ± standard deviation over four seeds. Bold marks the best in each row and underline the runner-up.
+            </p>
+          </div>
+        </details>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="pp-section" id="ablations">
+  <span class="pp-kicker">Ablations</span>
+  <h2>What each component contributes</h2>
+  <p>We remove one component at a time and track success over training, on two deterministic and two stochastic tasks each.</p>
+
+  <div class="pp-wide" data-pp-tabs style="margin-top: 1.5rem">
+    <div class="pp-tabs-bar">
+      <div class="pp-seg" role="tablist" aria-label="Ablation">
+        <button type="button" role="tab" id="abl-tab-cf" aria-controls="abl-cf" aria-selected="true">Counterfactual goals</button>
+        <button type="button" role="tab" id="abl-tab-max" aria-controls="abl-max" aria-selected="false">Target selection</button>
+        <button type="button" role="tab" id="abl-tab-exp" aria-controls="abl-exp" aria-selected="false">Split expectile</button>
+      </div>
+    </div>
+
+    <div class="pp-tabpanel" role="tabpanel" id="abl-cf" aria-labelledby="abl-tab-cf">
+      <div class="pp-figure" style="margin-top: 1rem">
+        <div class="pp-fig-frame">
+          {%
+            include figure.liquid
+            path="assets/img/projects/gtrl/abl_counterfactual.jpg"
+            alt="Learning curves: GTRL versus GTRL without counterfactual goals on four tasks."
+            zoomable=true
+          %}
+        </div>
+        <p class="pp-caption">
+          <b>Without counterfactual goals</b>, goals come only from the state's own trajectory, as in TRL, and the divide-and-conquer product is the
+          only target. Success drops on every task: by up to 60.6 points on the deterministic tasks and 20.1 on the stochastic ones. These goals
+          are what let the critic generalise past its own trajectories instead of memorising them.
+        </p>
+      </div>
+    </div>
+    <div class="pp-tabpanel" role="tabpanel" id="abl-max" aria-labelledby="abl-tab-max">
+      <div class="pp-figure" style="margin-top: 1rem">
+        <div class="pp-fig-frame">
+          {%
+            include figure.liquid
+            path="assets/img/projects/gtrl/abl_target_selection.jpg"
+            alt="Learning curves: GTRL versus GTRL without the maximum over targets on four tasks."
+            zoomable=true
+          %}
+        </div>
+        <p class="pp-caption">
+          <b>Without the maximum</b>, decomposable goals always take the divide-and-conquer target and only non-decomposable goals take the one-step
+          target. The drop is almost as large as losing counterfactual goals altogether: target selection is what lets the one-step target
+          <em>fix</em> the composition instead of just filling in for it.
+        </p>
+      </div>
+    </div>
+    <div class="pp-tabpanel" role="tabpanel" id="abl-exp" aria-labelledby="abl-tab-exp">
+      <div class="pp-figure" style="margin-top: 1rem">
+        <div class="pp-fig-frame">
+          {%
+            include figure.liquid
+            path="assets/img/projects/gtrl/abl_split_expectile.jpg"
+            alt="Learning curves: GTRL versus GTRL with a single expectile on four tasks."
+            zoomable=true
+          %}
+        </div>
+        <p class="pp-caption">
+          <b>Without the split expectile</b>, every goal is fit at \(\kappa = 0.7\). That costs 40.2 points on humanoidmaze-large-navigate and 25.3
+          on antmaze-large-navigate, and 9.0 and 8.6 points on the stochastic tasks. Half of the batch carries the one-step target, so fitting it
+          optimistically inflates values everywhere.
+        </p>
+      </div>
+    </div>
+    {% comment %}
+      Hindsight-weighting ablation (paper Fig. 6). Held back: its two stochastic "w/o" curves appear identical to the
+      "w/o counterfactual goals" (pointmaze-teleport) and "w/o split expectile" (antmaze-teleport) curves. Re-enable once the figure is confirmed:
+      add a tab button with aria-controls="abl-hw" and a panel using assets/img/projects/gtrl/abl_hindsight.jpg.
+    {% endcomment %}
+  </div>
+
+  <h3>Limitations</h3>
+  <p>
+    The composition still draws its subgoal from the data, so unconnected pairs rely on one-step backups alone. The hindsight weight is read off
+    the critic, so it inherits the critic's error. Learning subgoals for unconnected pairs, and estimating the weight independently of the critic,
+    are natural next steps.
+  </p>
+</section>

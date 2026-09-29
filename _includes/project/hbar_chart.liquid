@@ -1,0 +1,79 @@
+{% comment %}
+  Horizontal bar chart rendered entirely in HTML/CSS; project-page.js only adds
+  the grow-in animation and hover tooltips.
+
+  Either pass `chart` with explicit bars:
+    chart: {id, title, subtitle, max, unit, ticks[], axis_name, label_w, legend[{label, kind}],
+            bars[{label, value, sd, n, note, hl, second, divider}]}
+  or pass parallel arrays: labels, values, highlight (label to accent), plus title/subtitle/unit/max/ticks/axis_name.
+  Whiskers are drawn only for bars that carry an `sd`.
+{% endcomment %}
+{% assign c = include.chart %}
+{% assign cmax = c.max | default: include.max | default: 100 %}
+{% assign unit = c.unit | default: include.unit %}
+{% assign title = c.title | default: include.title %}
+{% assign subtitle = c.subtitle | default: include.subtitle %}
+{% assign label_w = c.label_w | default: include.label_w %}
+{% assign ticks = c.ticks | default: include.ticks | default: '0,25,50,75,100' | join: ',' | split: ',' %}
+{% assign axis_name = c.axis_name | default: include.axis_name | default: 'success (%)' %}
+<figure
+  class="pp-chart{% if include.class %} {{ include.class }}{% endif %}"
+  {% if c.id %}
+    id="{{ c.id }}"
+  {% endif %}
+  style="--pp-max: {{ cmax }};"
+  data-unit="{{ unit }}"
+>
+  {% if title %}
+    <figcaption class="pp-chart-head">
+      <span class="pp-chart-title">{{ title }}</span>
+      {% if subtitle %}<span class="pp-chart-sub">{{ subtitle }}</span>{% endif %}
+    </figcaption>
+  {% endif %}
+
+  <div class="pp-hbars" role="list" {% if label_w %} style="--pp-label-w: min({{ label_w }}, 42%);" {% endif %}>
+    <div class="pp-grid-lines" aria-hidden="true">
+      {% for t in ticks %}<i style="left: calc({{ t }} / {{ cmax }} * 100%);"></i>{% endfor %}
+    </div>
+    {% if include.labels %}
+      {% for lab in include.labels %}
+        {% assign v = include.values[forloop.index0] %}
+        {% if lab == include.highlight %}
+          {% include project/hbar_row.liquid label=lab value=v unit=unit hl=true divider=true %}
+        {% else %}
+          {% include project/hbar_row.liquid label=lab value=v unit=unit %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% for b in c.bars %}
+        {%
+          include project/hbar_row.liquid
+          label=b.label
+          value=b.value
+          sd=b.sd
+          n=b.n
+          note=b.note
+          hl=b.hl
+          second=b.second
+          divider=b.divider
+          unit=unit
+        %}
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <div class="pp-axis" aria-hidden="true" {% if label_w %} style="--pp-label-w: min({{ label_w }}, 42%);" {% endif %}>
+    <div class="pp-axis-name">{{ axis_name }}</div>
+    <div class="pp-axis-scale">
+      {% for t in ticks %}<span style="left: calc({{ t }} / {{ cmax }} * 100%);">{{ t }}</span>{% endfor %}
+    </div>
+  </div>
+
+  {% if c.legend %}
+    <div class="pp-legend">
+      {% for l in c.legend %}
+        <span><i class="{{ l.kind }}"></i>{{ l.label }}</span>
+      {% endfor %}
+    </div>
+  {% endif %}
+</figure>

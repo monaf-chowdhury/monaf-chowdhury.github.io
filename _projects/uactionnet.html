@@ -1,0 +1,684 @@
+---
+layout: project
+title: Human Activity Detection
+description: U-ActionNet recognises human actions in drone footage. It crops each clip to the people in it, separates moving actors from the background in the frequency domain, and has a light version small enough for the edge.
+img: assets/img/u_action_abs.jpg
+importance: 2
+category: research
+theme: leaf
+venue: IEEE Access 2024 # shown on the homepage card
+paper_title: '<span class="pp-acr">U-ActionNet</span>: Dual-Pathway Fourier Networks with Region-of-Interest Module for Efficient Action Recognition in UAV Surveillance'
+eyebrow: ["IEEE Access 2024", "UAV action recognition"]
+authors:
+  - name: Abdul Monaf Chowdhury
+    affil: "1"
+    me: true
+  - name: Ahsan Imran
+    affil: "1"
+  - name: Md Mehedi Hasan
+    affil: "1"
+  - name: Riad Ahmed
+    affil: "2"
+  - name: Akm Azad
+    affil: "3"
+  - name: Salem A. Alyami
+    affil: "3"
+affiliations:
+  - University of Dhaka
+  - BRAC University
+  - Imam Mohammad Ibn Saud Islamic University
+links:
+  - label: Paper
+    icon: fa-solid fa-file-lines
+    url: https://doi.org/10.1109/ACCESS.2024.3516586
+  - label: PDF
+    icon: fa-solid fa-file-pdf
+    url: https://drive.google.com/file/d/11J1URbFJxXePijMYvL8VcGCqjXLpQGZx/view
+  - label: FFT-UAVNet (STI 2023)
+    icon: fa-solid fa-file-pdf
+    url: https://drive.google.com/file/d/1V5aXfI4T6AOKbXE_85453PILYPtT9Y5e/view
+  - label: BibTeX
+    icon: fa-solid fa-quote-right
+    url: "#citation"
+    ghost: true
+sections:
+  - { id: overview, label: Overview }
+  - { id: problem, label: The problem }
+  - { id: method, label: Method }
+  - { id: edge, label: Edge model }
+  - { id: results, label: Results }
+  - { id: lineage, label: From FFT-UAVNet }
+  - { id: citation, label: Cite }
+scripts:
+  - /assets/js/projects/uaction-fss.js
+bibtex: |
+  @article{chowdhury2024u,
+    title   = {{U-ActionNet}: Dual-Pathway Fourier Networks With Region-of-Interest
+               Module for Efficient Action Recognition in {UAV} Surveillance},
+    author  = {Chowdhury, Abdul Monaf and Imran, Ahsan and Hasan, Md Mehedi and
+               Ahmed, Riad and Azad, Akm and Alyami, Salem A.},
+    journal = {IEEE Access},
+    volume  = {12},
+    year    = {2024},
+    doi     = {10.1109/ACCESS.2024.3516586}
+  }
+
+# Fig. 2 of the paper: I3D top-1 accuracy (%) on ground-camera and drone datasets.
+i3d:
+  title: The same recogniser, from the ground and from the air
+  subtitle: I3D top-1 accuracy (%)
+  max: 100
+  axis_name: top-1 accuracy (%)
+  label_w: 8.5rem
+  legend:
+    - { label: Ground cameras, kind: "" }
+    - { label: Drone footage, kind: "is-hl" }
+  bars:
+    - { label: UCF-101, value: 98.0 }
+    - { label: HMDB-51, value: 80.9 }
+    - { label: UAV-Human, value: 23.86, hl: true, divider: true }
+    - { label: TinyVIRAT, value: 28.7, hl: true }
+    - { label: UCF-Aerial, value: 16.8, hl: true }
+
+# Table 2 (server-side model), Table 1 and Table 3 (per-class F1 for U-ActionNet and U-ActionNet Light).
+datasets:
+  - id: drone
+    name: Drone Action
+    classes: [Walking, Jogging, Running, Hitting with a bottle, Hitting with a stick, Stabbing, Punching, Kicking, Clapping, Waving hands]
+    split: 10 videos per class, 8 for training and 2 for testing
+    chart:
+      title: Drone Action · 10 classes
+      subtitle: top-1 accuracy (%)
+      max: 100
+      axis_name: top-1 accuracy (%)
+      label_w: 8rem
+      bars:
+        - { label: C3D + FC, value: 78.52 }
+        - { label: FFT-UAVNet, value: 88.77 }
+        - { label: U-ActionNet, value: 94.94, hl: true, divider: true }
+    table:
+      - { m: C3D + FC, loss: "0.3774", top1: "78.52", top3: "86.71" }
+      - { m: FFT-UAVNet, loss: "0.2554", top1: "88.77", top3: "98.19" }
+      - { m: U-ActionNet, loss: "0.1592", top1: "94.94", top3: "98.87", ours: true }
+    takeaway: >-
+      U-ActionNet reaches <span class="pp-pos">94.94%</span> top-1, 6.17 points above the conference version, FFT-UAVNet, and 16.42 above
+      C3D with fully connected layers. Top-3 is nearly saturated for both Fourier models (98.87% and 98.19%).
+    note: >-
+      The remaining errors are between actions that look alike from above: jogging is taken for running 17% of the time, and stabbing and
+      punching for hitting with a bottle 12% and 11% of the time.
+    f1:
+      - { c: Clapping, s: "0.96", l: "0.82" }
+      - { c: Hitting with a bottle, s: "0.87", l: "0.79" }
+      - { c: Hitting with a stick, s: "1.00", l: "0.90" }
+      - { c: Jogging, s: "0.90", l: "0.67" }
+      - { c: Kicking, s: "0.98", l: "0.94" }
+      - { c: Running, s: "0.88", l: "0.40" }
+      - { c: Stabbing, s: "0.94", l: "0.69" }
+      - { c: Walking, s: "1.00", l: "0.72" }
+      - { c: Waving hands, s: "0.98", l: "0.86" }
+      - { c: Punching, s: "0.94", l: "0.86" }
+  - id: uavhuman
+    name: UAV-Human
+    classes: [Punching someone, Kicking someone, Pushing someone, Slap on the back, Threat with a knife, Hold someone hostage, Threat with a gun, Drag someone, Call for help, Stab with a knife]
+    split: 30 videos per class, 24 for training and 6 for testing
+    chart:
+      title: UAV-Human · 10 classes
+      subtitle: top-1 accuracy (%)
+      max: 100
+      axis_name: top-1 accuracy (%)
+      label_w: 8rem
+      bars:
+        - { label: X3D, value: 31.33 }
+        - { label: FFT-UAVNet, value: 64.86 }
+        - { label: C3D + FC, value: 88.70 }
+        - { label: U-ActionNet, value: 95.05, hl: true, divider: true }
+    table:
+      - { m: X3D, loss: "1.977", top1: "31.33", top3: "45.60" }
+      - { m: FFT-UAVNet, loss: "0.992", top1: "64.86", top3: "83.37" }
+      - { m: C3D + FC, loss: "0.3497", top1: "88.70", top3: "94.44" }
+      - { m: U-ActionNet, loss: "0.1924", top1: "95.05", top3: "98.64", ours: true }
+    takeaway: >-
+      U-ActionNet reaches <span class="pp-pos">95.05%</span> top-1, 6.35 points above C3D with fully connected layers, the closest
+      baseline, and 4.20 points higher in top-3.
+    note: >-
+      Every class has an F1 of at least 0.91. The most common mistakes are punching taken for a threat with a knife, and pushing for
+      kicking, each 6% of the time.
+    f1:
+      - { c: Punching someone, s: "0.91", l: "0.81" }
+      - { c: Kicking someone, s: "0.92", l: "0.86" }
+      - { c: Pushing someone, s: "0.91", l: "0.72" }
+      - { c: Slap on the back, s: "0.99", l: "0.84" }
+      - { c: Threat with a knife, s: "0.93", l: "0.81" }
+      - { c: Hold someone hostage, s: "0.97", l: "0.77" }
+      - { c: Threat with a gun, s: "0.96", l: "0.91" }
+      - { c: Drag someone, s: "0.97", l: "0.84" }
+      - { c: Call for help, s: "0.99", l: "0.87" }
+      - { c: Stab with a knife, s: "0.96", l: "0.93" }
+
+# Table 7: average inference time (s).
+inference:
+  title: Average inference time
+  subtitle: seconds, lower is faster
+  max: 0.4
+  ticks: [0, 0.1, 0.2, 0.3, 0.4]
+  axis_name: seconds
+  label_w: 10.5rem
+  legend:
+    - { label: Server-side U-ActionNet, kind: "" }
+    - { label: U-ActionNet Light, kind: "is-hl" }
+  bars:
+    - { label: UAV-Human · server, value: 0.291 }
+    - { label: UAV-Human · light, value: 0.164, hl: true }
+    - { label: Drone Action · server, value: 0.395, divider: true }
+    - { label: Drone Action · light, value: 0.216, hl: true }
+
+# Table 4: the light model against its baseline (MobileNet + BiLSTM without frame sampling).
+light:
+  - { d: Drone Action, bl: "0.6037", ll: "0.5081", b1: "74.19", l1: "80.43", d1: "+6.24", b3: "86.91", l3: "90.93", d3: "+4.02" }
+  - { d: UAV-Human, bl: "0.5218", ll: "0.4988", b1: "82.38", l1: "84.74", d1: "+2.36", b3: "92.05", l3: "93.41", d3: "+1.36" }
+
+# FFT-UAVNet (STI 2023), Table I: the same ten UAV-Human classes.
+fft:
+  - { m: C3D, loss: "2.145", top1: "28.05", top3: "58.65" }
+  - { m: X3D, loss: "1.977", top1: "31.33", top3: "45.60" }
+  - { m: FFT-UAVNet, loss: "0.992", top1: "64.86", top3: "83.37", ours: true }
+---
+
+<section class="pp-section" id="overview">
+  <div class="pp-tldr">
+    <span class="pp-kicker">TL;DR</span>
+    <p>
+      From a drone, a person fills less than a tenth of the frame and the camera never stops moving, so action recognisers built for ground
+      cameras fall apart: I3D scores 98% on UCF-101 but 24% on UAV-Human. <strong>U-ActionNet</strong> first crops each clip to the people in
+      it, extracts C3D features, and then works in the frequency domain: a temporal FFT separates moving actors from the static background, and
+      Fourier self-attention captures long-range space–time context at FFT cost. A light version, with keyframe sampling, MobileNetV2 and a
+      BiLSTM, has 8.4× fewer parameters and is built to run on the edge.
+    </p>
+  </div>
+
+  <div class="pp-stats pp-wide">
+    <div class="pp-stat">
+      <div class="pp-stat-value">95.05<small>%</small></div>
+      <div class="pp-stat-label">Top-1 on ten UAV-Human actions</div>
+      <span class="pp-stat-delta">+6.35 over C3D + FC</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">94.94<small>%</small></div>
+      <div class="pp-stat-label">Top-1 on ten Drone Action actions</div>
+      <span class="pp-stat-delta">+6.17 over FFT-UAVNet</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">8.4<small>×</small></div>
+      <div class="pp-stat-label">Fewer parameters in U-ActionNet Light: 7.5M against 63.3M</div>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">0.16<small>s</small></div>
+      <div class="pp-stat-label">Light-model inference on UAV-Human, against 0.29 s server-side</div>
+    </div>
+  </div>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/uaction/fig1_pipeline.jpg"
+        alt="Pipeline: a drone records video; frames go through human actor detection, feature extraction, and action classification into labels such as punching, kicking and walking."
+        zoomable=true
+        loading="eager"
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 1. Action recognition from a drone.</b> The drone records the scene, the people in each frame are located, features are extracted
+      from the clip, and a classifier names the action.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="problem">
+  <span class="pp-kicker">The problem</span>
+  <h2>Why drone footage breaks ground-camera models</h2>
+  <p>
+    Action recognition has been built on footage from cameras at eye level, where the person is large, upright and centred. Seen from a drone,
+    the same person is a few dozen pixels in a frame dominated by ground, and a network trained on it learns more about the background than
+    about the actor. The drop is not subtle:
+  </p>
+  <div class="pp-wide">{% include project/hbar_chart.liquid chart=page.i3d unit="%" %}</div>
+
+  <div class="pp-grid pp-grid-3 pp-wide">
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Gap 1</span>Tiny actors</div>
+      <p class="pp-muted">
+        People occupy less than 10% of a UAV frame. Without being told where to look, a model spends its capacity on grass, roads and roofs.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Gap 2</span>A moving camera</div>
+      <p class="pp-muted">
+        The drone drifts and turns, so the viewpoint changes within a clip, and motion blur and occlusion blur the line between actor and scene.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Gap 3</span>No compute on board</div>
+      <p class="pp-muted">
+        Strong video models, and full space–time self-attention in particular, need desktop or cloud GPUs. A drone or an edge box has neither.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="pp-section" id="method">
+  <span class="pp-kicker">Method</span>
+  <h2>Crop to the people, then look for motion in frequency</h2>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/uaction/fig5_architecture.png"
+        alt="U-ActionNet: YOLO object localisation, m-C3D feature extraction, then Fourier substance separation and Fourier self-attention in parallel, fully connected layers, and the classification label."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 2. The server-side U-ActionNet.</b> Object localisation (green) crops each clip to its people, a modified C3D (red) extracts
+      features, two Fourier blocks (blue) run in parallel on them, and two dense layers (yellow) classify.
+    </p>
+  </div>
+
+  <h3>1 · Region of interest</h3>
+  <p>
+    Every clip goes through YOLOv8x trained on COCO. Only person detections are kept, and a person becomes the region of interest when they are
+    detected in 32 consecutive frames with a confidence above 0.60. The crops are resized to 112 × 112 and stitched back into a clip, so the
+    network sees the 10–15% of the frame where the action happens. This alone cuts the memory each video takes by up to 80%.
+  </p>
+  <details class="pp-details">
+    <summary>The region-of-interest module <span class="pp-muted">Figure 3</span></summary>
+    <div class="pp-details-body">
+      <div class="pp-fig-frame">
+        {%
+          include figure.liquid
+          path="assets/img/projects/uaction/fig6_roi.png"
+          alt="Region-of-interest module: input video, YOLO object detector, detection filter, ROI selection, resize frames to 112 by 112 by 3, generated video."
+          zoomable=true
+        %}
+      </div>
+      <p class="pp-caption">
+        <b>Figure 3.</b> YOLOv8 detects objects, a filter drops everything but people, the region of interest is selected, and the frames are
+        resized to 112 × 112 × 3 to form a new clip.
+      </p>
+    </div>
+  </details>
+
+  <h3>2 · Modified C3D features</h3>
+  <p>
+    The backbone is C3D cut after its sixth layer: those more general features transfer better and overfit less on small datasets. The Fourier
+    module works on them, followed by two redesigned dense layers with dropout 0.5. Both Fourier branches read the same features in parallel.
+  </p>
+
+  <h3>3 · Fourier substance separation</h3>
+  <p>
+    Take the C3D features \(f \in \mathbb{R}^{C \times T' \times H' \times W'}\) and run a 1D FFT along time at every channel and location.
+    A static region puts its energy at low temporal frequencies; motion shows up at high ones. Weighting the power by the squared frequency gives
+    a dynamic mask \(D_{FS}\), and multiplying by the activations keeps what both moves and matters:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} \mathcal{A}_T(f)(k) &= \textstyle\sum_{n=0}^{T'-1} f(c,n,h,w)\, e^{-2\pi i kn/T'}, \\ D_{FS} &= \lVert \mathcal{A}_T(f)(k) \rVert_2^2 \cdot \lVert fr_k \rVert_2^2, \\ \nabla_{FS} &= f \odot D_{FS}. \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">substance separation</div>
+  </div>
+  <p>The separated features rank the four kinds of region in the order an action classifier needs, from weakest to strongest:</p>
+  <ul class="pp-chips" aria-label="Regions from weakest to strongest">
+    <li>1 · static, not salient</li>
+    <li>2 · moving, not salient</li>
+    <li>3 · static, salient</li>
+    <li>4 · moving, salient</li>
+  </ul>
+
+  <div class="pp-widget pp-wide" id="pp-fss">
+    <div class="pp-widget-head">
+      <div><span class="pp-kicker">Interactive</span><span class="pp-widget-title">What the frequency mask keeps</span></div>
+      <span class="pp-muted">A synthetic 16-frame clip, computed live; not model activations</span>
+    </div>
+    <div class="pp-widget-body">
+      <div class="pp-fss-panels">
+        <figure>
+          <figcaption>Feature map <span>f at frame t</span></figcaption>
+          <canvas width="48" height="30" data-panel="f" role="img" aria-label="Synthetic feature map: grass, a parked car and one person"></canvas>
+        </figure>
+        <figure>
+          <figcaption>Dynamic mask <span>D, whole clip</span></figcaption>
+          <canvas width="48" height="30" data-panel="d" role="img" aria-label="High-frequency temporal energy at each pixel"></canvas>
+        </figure>
+        <figure>
+          <figcaption>Separated <span>f ⊙ D</span></figcaption>
+          <canvas width="48" height="30" data-panel="s" role="img" aria-label="Feature map multiplied by the dynamic mask"></canvas>
+        </figure>
+      </div>
+      <div class="pp-fss-controls">
+        <div class="pp-seg" role="group" aria-label="What the person does">
+          <button type="button" aria-pressed="true" data-action="walk">Walking</button>
+          <button type="button" aria-pressed="false" data-action="wave">Waving</button>
+          <button type="button" aria-pressed="false" data-action="still">Standing still</button>
+        </div>
+        <label class="pp-fss-check" for="fss-shake"><input type="checkbox" id="fss-shake" data-shake> Camera shake</label>
+        <div class="pp-fss-frame">
+          <button type="button" class="pp-fss-play" data-play aria-pressed="false" aria-label="Play the clip">▶</button>
+          <input class="pp-range" type="range" min="0" max="15" step="1" value="0" aria-label="Frame" data-frame>
+          <output data-frame-out>1 / 16</output>
+        </div>
+      </div>
+      <div class="pp-readout">
+        <div class="pp-readrow is-hl" data-row="actor">
+          <span class="pp-readrow-name">Share of the separated signal where the person moves</span>
+          <span class="pp-readrow-val"><b data-n>–</b></span>
+          <span class="pp-readrow-track"><span class="pp-readrow-bar"></span></span>
+        </div>
+        <div class="pp-readrow is-ink" data-row="car">
+          <span class="pp-readrow-name">On the parked car</span>
+          <span class="pp-readrow-val"><b data-n>–</b></span>
+          <span class="pp-readrow-track"><span class="pp-readrow-bar"></span></span>
+        </div>
+        <div class="pp-readrow" data-row="bg">
+          <span class="pp-readrow-name">On the grass</span>
+          <span class="pp-readrow-val"><b data-n>–</b></span>
+          <span class="pp-readrow-track"><span class="pp-readrow-bar"></span></span>
+        </div>
+      </div>
+      <p class="pp-widget-foot" data-fss-summary>Pick an action, toggle the camera shake, and play the clip.</p>
+    </div>
+  </div>
+
+  <h3>4 · Fourier self-attention</h3>
+  <p>
+    Self-attention over every space–time position costs \(O\big(C\,(HWT)^2\big)\). U-ActionNet instead correlates the features with
+    themselves in the frequency domain, the way an autocorrelation does: a 2D FFT over time and space, a product with the complex conjugate,
+    an inverse FFT, and a small scaled residual with \(\lambda_{FA} = 0.01\):
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} \mathcal{T}_{ST} &= \mathrm{FFT}_{t,\,hw}(f), \qquad \mathcal{F}_{ST} = \mathcal{T}_{ST} \odot \mathcal{T}_{ST}^{*}, \\ \psi_{FA} &= \lambda_{FA}\, \mathrm{IFFT}(\mathcal{F}_{ST}) + f. \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">Fourier attention</div>
+  </div>
+  <p>
+    That costs \(O(C \cdot HWT \log HWT)\) and relates distant parts of the clip, such as an actor and the object they act on, without a
+    single attention matrix. The server-side model trains with Adam at a learning rate of 0.001 for 50 epochs, with batches of 16 clips.
+  </p>
+</section>
+
+<section class="pp-section" id="edge">
+  <span class="pp-kicker">Edge model</span>
+  <h2>A version small enough for the drone</h2>
+  <p>
+    The server-side model has 63.3 million parameters, far too many for an edge device. <b>U-ActionNet Light</b> keeps the region-of-interest
+    crop and the Fourier module, and replaces the rest with parts built for small hardware.
+  </p>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/uaction/fig7_light.png"
+        alt="U-ActionNet Light: input frames, ROI extraction and frame sampling, MobileNet and Fourier module for feature extraction, a BiLSTM temporal information retainer, and dense layers to the classification label."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 4. U-ActionNet Light.</b> Pre-processing (region-of-interest crop and frame sampling), feature extraction (MobileNetV2 and the
+      Fourier module), a BiLSTM that keeps temporal context, and dense layers.
+    </p>
+  </div>
+
+  <ol class="pp-steps pp-wide">
+    <li>
+      <b>Keyframes</b>After the person crop, FFmpeg's scene-change detection with a threshold of 0.01 keeps only frames that differ from the last,
+      cutting the frame count by up to 30%.
+    </li>
+    <li>
+      <b>Features</b>Normalised 112 × 112 frames go through MobileNetV2, one frame at a time, with only its last ten layers fine-tuned. The same
+      Fourier module then separates motion and adds context.
+    </li>
+    <li>
+      <b>Time</b>A BiLSTM reads the frame features forwards and backwards, and dense layers with dropout and L2 regularisation (1e-4) classify.
+      It trains with SGD at a learning rate of 0.01 for 50 epochs.
+    </li>
+  </ol>
+
+  <div class="pp-grid pp-grid-2 pp-wide" style="align-items: start">
+    <div>{% include project/hbar_chart.liquid chart=page.inference unit=" s" %}</div>
+    <div class="pp-table-wrap">
+      <table class="pp-table">
+        <thead>
+          <tr>
+            <th scope="col">Parameters</th>
+            <th scope="col" style="text-align: right">Server-side</th>
+            <th scope="col" class="is-ours" style="text-align: right">Light</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total</td>
+            <td style="text-align: right">63,317,258</td>
+            <td class="is-ours" style="text-align: right">7,528,522</td>
+          </tr>
+          <tr>
+            <td>Trainable</td>
+            <td style="text-align: right">10,102,794</td>
+            <td class="is-ours" style="text-align: right">2,003,018</td>
+          </tr>
+          <tr>
+            <td>Non-trainable</td>
+            <td style="text-align: right">53,214,464</td>
+            <td class="is-ours" style="text-align: right">5,525,504</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="pp-takeaway pp-wide">
+    <p>
+      The light model has <span class="pp-pos">8.4×</span> fewer parameters (5× fewer trainable ones) and runs about
+      <span class="pp-pos">1.8×</span> faster: 0.164 s against 0.291 s on UAV-Human, and 0.216 s against 0.395 s on Drone Action.
+    </p>
+    <p class="pp-muted">What it gives up in accuracy is in the results below.</p>
+  </div>
+</section>
+
+<section class="pp-section" id="results">
+  <span class="pp-kicker">Results</span>
+  <h2>Two aerial datasets, ten actions each</h2>
+  <p>
+    Both datasets are used as ten-class subsets chosen for surveillance: fights, threats and calls for help from UAV-Human, which has 155
+    classes in full, and ten of the thirteen actions in Drone Action. Each is split 80/20 by video. The scores below are on these subsets and
+    are not comparable to results on the full benchmarks.
+  </p>
+
+  <div class="pp-wide" data-pp-tabs style="margin-top: 1.5rem">
+    <div class="pp-tabs-bar">
+      <div class="pp-seg" role="tablist" aria-label="Dataset">
+        {% for d in page.datasets %}
+          <button
+            type="button"
+            role="tab"
+            id="ds-tab-{{ d.id }}"
+            aria-controls="ds-{{ d.id }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            {{ d.name }}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+    {% for d in page.datasets %}
+      <div class="pp-tabpanel" role="tabpanel" id="ds-{{ d.id }}" aria-labelledby="ds-tab-{{ d.id }}">
+        <p class="pp-panel-blurb">{{ d.split | capitalize }}.</p>
+        <ul class="pp-chips" aria-label="{{ d.name }} classes">
+          {% for c in d.classes %}<li>{{ c }}</li>{% endfor %}
+        </ul>
+        {% include project/hbar_chart.liquid chart=d.chart unit="%" %}
+        <div class="pp-table-wrap" style="margin-top: 1rem">
+          <table class="pp-table">
+            <thead>
+              <tr>
+                <th scope="col">Method</th>
+                <th scope="col" style="text-align: right">Loss</th>
+                <th scope="col" style="text-align: right">Top-1 (%)</th>
+                <th scope="col" style="text-align: right">Top-3 (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in d.table %}
+                <tr{% if r.ours %} class="is-ours-row"{% endif %}>
+                  <td>{% if r.ours %}<b>{{ r.m }}</b>{% else %}{{ r.m }}{% endif %}</td>
+                  <td style="text-align: right">{% if r.ours %}<b>{{ r.loss }}</b>{% else %}{{ r.loss }}{% endif %}</td>
+                  <td style="text-align: right">{% if r.ours %}<b>{{ r.top1 }}</b>{% else %}{{ r.top1 }}{% endif %}</td>
+                  <td style="text-align: right">{% if r.ours %}<b>{{ r.top3 }}</b>{% else %}{{ r.top3 }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="pp-takeaway">
+          <p>{{ d.takeaway }}</p>
+          <p class="pp-muted">{{ d.note }}</p>
+        </div>
+        <details class="pp-details">
+          <summary>F1 per class · {{ d.name }} <span class="pp-muted">server-side and light models</span></summary>
+          <div class="pp-details-body">
+            <div class="pp-table-wrap">
+              <table class="pp-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Action</th>
+                    <th scope="col" class="is-ours" style="text-align: right">U-ActionNet</th>
+                    <th scope="col" style="text-align: right">U-ActionNet Light</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for r in d.f1 %}
+                    <tr>
+                      <td>{{ r.c }}</td>
+                      <td class="is-ours" style="text-align: right">{{ r.s }}</td>
+                      <td style="text-align: right">{{ r.l }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <p class="pp-table-note">F1 on the test split, from the paper's per-class classification reports.</p>
+          </div>
+        </details>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/uaction/fig9_confusion.png"
+        alt="Confusion matrices of the server-side model on UAV-Human and Drone Action; most mass is on the diagonal, with jogging confused for running and stabbing and punching for hitting with a bottle."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 5. Where the server-side model errs.</b> Confusion matrices on UAV-Human (left) and Drone Action (right), in percent of each
+      true class.
+    </p>
+  </div>
+
+  <h3>The light model against its baseline</h3>
+  <p>
+    The paper's baseline is a MobileNet and BiLSTM pipeline without keyframe sampling. U-ActionNet Light improves on it on both datasets:
+  </p>
+  <div class="pp-table-wrap pp-wide" style="margin-top: 1rem">
+    <table class="pp-table">
+      <thead>
+        <tr>
+          <th scope="col">Dataset</th>
+          <th scope="col" style="text-align: right">Loss</th>
+          <th scope="col" style="text-align: right">Top-1 (%)</th>
+          <th scope="col" style="text-align: right">Top-3 (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in page.light %}
+          <tr>
+            <td>{{ r.d }}</td>
+            <td style="text-align: right">{{ r.bl }} → <b>{{ r.ll }}</b></td>
+            <td style="text-align: right">
+              {{ r.b1 }} → <b>{{ r.l1 }}</b> <span class="pp-pos">{{ r.d1 }}</span>
+            </td>
+            <td style="text-align: right">
+              {{ r.b3 }} → <b>{{ r.l3 }}</b> <span class="pp-pos">{{ r.d3 }}</span>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="pp-table-note">Baseline → U-ActionNet Light; changes in percentage points.</p>
+  <div class="pp-takeaway pp-wide">
+    <p>
+      Against the server-side model, the light model gives up <b>10.3</b> points of top-1 on UAV-Human and <b>14.5</b> on Drone Action, in
+      exchange for 8.4× fewer parameters and about half the inference time.
+    </p>
+    <p class="pp-muted">
+      Its weakest classes are the ones that differ only in speed: on Drone Action, running reaches an F1 of 0.40 and jogging 0.67, and the
+      model often takes running for walking.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="lineage">
+  <span class="pp-kicker">From FFT-UAVNet</span>
+  <h2>From a conference paper to a journal paper</h2>
+  <p>
+    Both papers grew out of a BSc thesis in Robotics and Mechatronics Engineering at the University of Dhaka, <i>Enhancing UAV Based Human Action
+    Recognition: A Deep Learning Approach</i>, supervised by Md Mehedi Hasan.
+  </p>
+  <div class="pp-grid pp-grid-2 pp-wide">
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">STI 2023</span>FFT-UAVNet</div>
+      <p class="pp-muted">
+        The first version: C3D with Fourier object disentanglement and Fourier space–time attention, on the same ten UAV-Human classes. It more
+        than doubles the top-1 accuracy of C3D and X3D trained the same way.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">IEEE Access 2024</span>U-ActionNet</div>
+      <p class="pp-muted">
+        Adds the YOLOv8 region-of-interest crop, a second dataset (Drone Action) and the light edge model. On the same UAV-Human classes, top-1
+        goes from 64.86% to 95.05%.
+      </p>
+    </div>
+  </div>
+  <div class="pp-table-wrap pp-wide" style="margin-top: 1.25rem">
+    <table class="pp-table">
+      <thead>
+        <tr>
+          <th scope="col">FFT-UAVNet paper · UAV-Human, 10 classes</th>
+          <th scope="col" style="text-align: right">Loss</th>
+          <th scope="col" style="text-align: right">Top-1 (%)</th>
+          <th scope="col" style="text-align: right">Top-3 (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in page.fft %}
+          <tr>
+            <td>{% if r.ours %}<b>{{ r.m }}</b>{% else %}{{ r.m }}{% endif %}</td>
+            <td style="text-align: right">{% if r.ours %}<b>{{ r.loss }}</b>{% else %}{{ r.loss }}{% endif %}</td>
+            <td style="text-align: right">{% if r.ours %}<b>{{ r.top1 }}</b>{% else %}{{ r.top1 }}{% endif %}</td>
+            <td style="text-align: right">{% if r.ours %}<b>{{ r.top3 }}</b>{% else %}{{ r.top3 }}{% endif %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="pp-table-note">From Table I of the conference paper; the baselines use two fully connected layers on unmodified networks.</p>
+
+  <p class="pp-muted" style="margin-top: 2rem">
+    Scope: both datasets are used as ten-class subsets with small test splits (60 and 20 videos), and the method assumes at most two people
+    acting in a clip. Extending it to many actors doing different things at once, and to better frame sampling for the light model, is left
+    for future work.
+  </p>
+</section>

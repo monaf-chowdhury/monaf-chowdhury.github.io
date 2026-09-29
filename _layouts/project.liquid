@@ -1,0 +1,111 @@
+---
+layout: default
+---
+{% comment %}
+  Research project page.
+  Front matter: paper_title, theme (sky | violet), eyebrow[], authors[{name, affil, me, url}],
+  affiliations[], links[{label, url, icon, soon}], sections[{id, label}], bibtex, scripts[].
+{% endcomment %}
+<script>
+  document.documentElement.classList.add('pp-js');
+  // If project-page.js never runs, drop the class so nothing stays hidden.
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      if (!window.__ppReady) document.documentElement.classList.remove('pp-js');
+    }, 1500);
+  });
+</script>
+
+<div class="pp{% if page.theme %} pp-{{ page.theme }}{% endif %}">
+  <header class="pp-hero">
+    {% if page.eyebrow %}
+      <div class="pp-eyebrow">
+        {% for e in page.eyebrow %}<span>{{ e }}</span>{% endfor %}
+      </div>
+    {% endif %}
+
+    <h1 class="pp-title">{{ page.paper_title | default: page.title }}</h1>
+
+    {% if page.authors %}
+      <ul class="pp-authors">
+        {% for a in page.authors %}
+          <li>
+            <span{% if a.me %} class="pp-me"{% endif %}>
+              {%- if a.url -%}<a href="{{ a.url }}">{{ a.name }}</a>{%- else -%}{{ a.name }}{%- endif -%}
+            </span>
+            {%- if a.affil -%}<sup>{{ a.affil }}</sup>{%- endif -%}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if page.affiliations %}
+      <ul class="pp-affils">
+        {% for af in page.affiliations %}
+          <li><sup>{{ forloop.index }}</sup>{{ af }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if page.links %}
+      <div class="pp-links">
+        {% for l in page.links %}
+          {% if l.soon or l.url == nil %}
+            <span class="pp-btn is-soon" title="Coming soon">
+              {% if l.icon %}<i class="{{ l.icon }}"></i>{% endif %}
+              <span>{{ l.label }}</span><small>soon</small>
+            </span>
+          {% else %}
+            {% assign first_char = l.url | slice: 0 %}
+            {% if first_char == '#' or l.url contains '://' %}
+              {% assign href = l.url %}
+            {% else %}
+              {% assign href = l.url | relative_url %}
+            {% endif %}
+            <a
+              class="pp-btn{% if l.ghost %} pp-btn-ghost{% endif %}"
+              href="{{ href }}"
+              {% if l.url contains '://' %}
+                target="_blank" rel="noopener"
+              {% endif %}
+            >
+              {% if l.icon %}<i class="{{ l.icon }}"></i>{% endif %}
+              <span>{{ l.label }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+
+  {% if page.sections %}
+    <nav class="pp-nav" aria-label="On this page">
+      {% for s in page.sections %}
+        <a href="#{{ s.id }}">{{ s.label }}</a>
+      {% endfor %}
+    </nav>
+  {% endif %}
+
+  <article class="pp-body">
+    {{ content }}
+
+    {% if page.bibtex %}
+      <section class="pp-section" id="citation">
+        <span class="pp-kicker">Cite</span>
+        <h2>Citation</h2>
+        <p>If this work is useful to you, please cite it as:</p>
+        <div class="pp-bibtex pp-wide">
+          <button class="pp-copy" type="button" data-copy-target="pp-bibtex-code">
+            <i class="fa-regular fa-copy"></i><span>Copy</span>
+          </button>
+          <pre id="pp-bibtex-code">{{ page.bibtex | strip | escape }}</pre>
+        </div>
+      </section>
+    {% endif %}
+  </article>
+</div>
+
+<script defer src="{{ '/assets/js/project-page.js' | relative_url | bust_file_cache }}"></script>
+{% for s in page.scripts %}
+  <script defer src="{{ s | relative_url | bust_file_cache }}"></script>
+{% endfor %}

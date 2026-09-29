@@ -1,0 +1,669 @@
+---
+layout: project
+title: Language Guided Embodied Agents
+description: A vision–language model reflects on each failed episode in structured language, and the reflection becomes time-localised reward shaping for robot manipulation.
+img: assets/img/lagea.jpg
+importance: 1
+category: research
+theme: teal
+venue: ICML 2026 # shown on the homepage card
+paper_title: '<span class="pp-acr">LAGEA</span>: Language Guided Embodied Agents for Robotic Manipulation'
+eyebrow: ["ICML 2026", "Embodied AI · reinforcement learning"]
+authors:
+  - name: Abdul Monaf Chowdhury
+    affil: "1"
+    me: true
+  - name: Akm Moshiur Rahman Mazumder
+    affil: "2"
+  - name: Safaeid Hossain Arib
+    affil: "1"
+  - name: Rabeya Akter
+    affil: "1"
+affiliations:
+  - University of Dhaka
+  - Independent University, Bangladesh
+links:
+  - label: Paper
+    icon: fa-solid fa-file-pdf
+    url: https://arxiv.org/pdf/2509.23155
+  - label: arXiv
+    icon: ai ai-arxiv
+    url: https://arxiv.org/abs/2509.23155
+  - label: Code
+    icon: fa-brands fa-github
+    url: https://github.com/monaf-chowdhury/LaGEA
+  - label: BibTeX
+    icon: fa-solid fa-quote-right
+    url: "#citation"
+    ghost: true
+sections:
+  - { id: overview, label: Overview }
+  - { id: motivation, label: Motivation }
+  - { id: method, label: Method }
+  - { id: results, label: Results }
+  - { id: ablations, label: Ablations }
+  - { id: citation, label: Cite }
+scripts:
+  - /assets/js/projects/lagea-keyframes.js
+bibtex: |
+  @inproceedings{chowdhury2026lagea,
+    title     = {{LAGEA}: Language Guided Embodied Agents for Robotic Manipulation},
+    author    = {Chowdhury, Abdul Monaf and Mazumder, Akm Moshiur Rahman and
+                 Arib, Safaeid Hossain and Akter, Rabeya},
+    booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+    series    = {Proceedings of Machine Learning Research},
+    volume    = {306},
+    year      = {2026}
+  }
+
+# Success rate (%) from Tables 1–3 of the paper. The last method is LAGEA.
+results:
+  - id: fixed
+    name: MT10 · fixed goals
+    title: Meta-World MT10 · hidden, fixed goals
+    subtitle: Average success rate (%) over 10 tasks and five seeds
+    label_w: 9.5rem
+    blurb: >-
+      Ten Sawyer-arm tasks with a sparse task reward and a goal that stays fixed and unobserved. Baselines range from plain SAC to FuRL,
+      which already aligns VLM rewards and adds relay exploration.
+    takeaway: >-
+      <span class="pp-pos">80.0%</span> against 76.0% for FuRL: +4.0 points, a 5.3% relative gain. LAGEA solves eight of the ten tasks in every
+      seed, including push, where FuRL reaches 80%.
+    exception: Peg-insert-side and pick-place stay at zero for every method, LAGEA included.
+    note: Success rate (%) averaged over five seeds; the paper reports no spread for this table.
+    methods: [SAC, LIV, LIV-Proj, Relay, FuRL w/o goal image, FuRL, LAGEA]
+    avg: [37.0, 28.0, 24.0, 54.0, 70.0, 76.0, 80.0]
+    tasks:
+      - { name: button-press-topdown, m: [0, 0, 0, 60, 80, 100, 100] }
+      - { name: door-open, m: [50, 0, 0, 80, 100, 100, 100] }
+      - { name: drawer-close, m: [100, 100, 100, 100, 100, 100, 100] }
+      - { name: drawer-open, m: [20, 0, 0, 40, 80, 80, 100] }
+      - { name: peg-insert-side, m: [0, 0, 0, 0, 0, 0, 0] }
+      - { name: pick-place, m: [0, 0, 0, 0, 0, 0, 0] }
+      - { name: push, m: [0, 0, 0, 0, 40, 80, 100] }
+      - { name: reach, m: [60, 80, 80, 100, 100, 100, 100] }
+      - { name: window-close, m: [60, 60, 40, 80, 100, 100, 100] }
+      - { name: window-open, m: [80, 40, 20, 80, 100, 100, 100] }
+  - id: random
+    name: MT10 · random goals
+    title: Meta-World MT10 · observable, random goals
+    subtitle: Average success rate (%) over 10 tasks and five seeds
+    label_w: 4.5rem
+    blurb: >-
+      The same ten tasks, but the goal moves every episode and is visible to the agent, so the policy has to generalise across goal positions.
+    takeaway: >-
+      <span class="pp-pos">70.4%</span> against 64.6% for FuRL: +5.8 points, a 9.0% relative gain, with the smallest spread across seeds
+      (±1.85 against ±5.0).
+    exception: Contact-rich tasks remain hard. Pick-place reaches 4% and push 12%, and peg-insert-side stays at zero.
+    note: Success rate (%) ± standard deviation over five seeds.
+    methods: [SAC, Relay, FuRL, LAGEA]
+    avg: [49.8, 57.4, 64.6, 70.4]
+    tasks:
+      - { name: button-press-topdown, m: [16.0, 56.0, 64.0, 96], s: [32.0, 38.3, 32.6, 8] }
+      - { name: door-open, m: [78.0, 80.0, 96.0, 100], s: [39.2, 30.3, 8.0, 0] }
+      - { name: drawer-close, m: [100, 100, 100, 100], s: [0, 0, 0, 0] }
+      - { name: drawer-open, m: [40.0, 50.0, 84.0, 92], s: [49.0, 42.0, 27.3, 9.8] }
+      - { name: pick-place, m: [0, 0, 0, 4], s: [0, 0, 0, 4.9] }
+      - { name: peg-insert-side, m: [0, 0, 0, 0], s: [0, 0, 0, 0] }
+      - { name: push, m: [0, 0, 6.0, 12], s: [0, 0, 8.0, 4] }
+      - { name: reach, m: [100, 100, 100, 100], s: [0, 0, 0, 0] }
+      - { name: window-close, m: [86.0, 96.0, 100, 100], s: [28.0, 4.9, 0, 0] }
+      - { name: window-open, m: [78.0, 92.0, 96.0, 100], s: [39.2, 7.5, 4.9, 0] }
+  - id: fetch
+    name: Fetch
+    title: Gymnasium-Robotics Fetch · 4 tasks
+    subtitle: Average success rate (%) over three seeds
+    label_w: 4.5rem
+    blurb: >-
+      A 7-DoF arm with a two-finger gripper, 50-step episodes and the standard sparse binary reward: reach, push, pick-and-place and slide.
+    takeaway: >-
+      <span class="pp-pos">51.7%</span> against 44.2% for FuRL: +7.5 points, a 17% relative gain. Reach is solved by everyone; on push,
+      pick-and-place and slide LAGEA is best.
+    exception: Slide, where the puck has to be struck and left to glide, stays hard at 10%.
+    note: Success rate (%) ± standard deviation over three seeds.
+    methods: [SAC, Relay, FuRL, LAGEA]
+    avg: [34.17, 37.5, 44.17, 51.67]
+    tasks:
+      - { name: Reach, m: [100, 100, 100, 100], s: [0, 0, 0, 0] }
+      - { name: Push, m: [26.67, 30, 40, 53.33], s: [4.71, 8.16, 8.16, 4.71] }
+      - { name: PickAndPlace, m: [10, 20, 33.33, 43.33], s: [8.16, 0, 9.43, 4.71] }
+      - { name: Slide, m: [0, 0, 3.33, 10], s: [0, 0, 4.71, 8.16] }
+
+charts:
+  reward:
+    title: Remove one reward term at a time
+    subtitle: Average success rate (%), as reported in Fig. 4b
+    label_w: 11rem
+    bars:
+      - { label: w/o goal-delta reward, value: 79 }
+      - { label: w/o feedback-delta reward, value: 80 }
+      - { label: w/o adaptive ρ, value: 80 }
+      - { label: Full LAGEA, value: 99, hl: true, divider: true }
+  keyframes:
+    title: Which frames carry the feedback
+    subtitle: Average success rate (%) on five observable MT10 tasks
+    label_w: 9rem
+    bars:
+      - { label: Random keyframes, value: 68.0 }
+      - { label: Uniform keyframes, value: 67.3 }
+      - { label: LAGEA keyframes, value: 80.0, hl: true, divider: true }
+  feedback:
+    title: Structured versus free-form reflections
+    subtitle: Average success rate (%) on six MT10 tasks
+    label_w: 9rem
+    bars:
+      - { label: Free-form text, value: 78.9 }
+      - { label: Schema-constrained JSON, value: 98.9, hl: true, divider: true }
+  vlm:
+    title: Swap the reflecting VLM
+    subtitle: Average success rate (%) on five observable MT10 tasks
+    label_w: 9rem
+    bars:
+      - { label: SmolVLM2, value: 56.0 }
+      - { label: InternVL2, value: 68.0 }
+      - { label: OpenQwen2VL, value: 66.7 }
+      - { label: Qwen2.5-VL-3B, value: 80.0, hl: true, divider: true }
+  encoder:
+    title: Swap the text encoder
+    subtitle: Average success rate (%) on the same five tasks
+    label_w: 9rem
+    bars:
+      - { label: MPNet, value: 70.7 }
+      - { label: BGE, value: 71.3 }
+      - { label: LIV, value: 72.7 }
+      - { label: GPT-2, value: 80.0, hl: true, divider: true }
+  viewpoint:
+    title: Evaluate from cameras never seen in training
+    subtitle: Average success rate (%) on five observable MT10 tasks
+    label_w: 10rem
+    bars:
+      - { label: Training view, value: 80.0 }
+      - { label: Directly overhead, value: 79.3, hl: true, divider: true }
+      - { label: Front-left diagonal, value: 77.3, hl: true }
+      - { label: Behind-left diagonal, value: 79.3, hl: true }
+---
+
+<section class="pp-section" id="overview">
+  <div class="pp-tldr">
+    <span class="pp-kicker">TL;DR</span>
+    <p>
+      Vision–language models can score how close a robot is to its goal, but that score is noisy and says nothing about <em>why</em> an attempt
+      failed. <strong>LAGEA</strong> asks a small VLM to reflect on each episode in a fixed schema (what went wrong, at which frames, how to fix
+      it), aligns that reflection with the robot's visual state, and turns it into a bounded, step-wise shaping reward that is strongest early in
+      training and fades as the policy improves.
+    </p>
+  </div>
+
+  <div class="pp-stats pp-wide">
+    <div class="pp-stat">
+      <div class="pp-stat-value">80.0<small>%</small></div>
+      <div class="pp-stat-label">MT10 with hidden, fixed goals</div>
+      <span class="pp-stat-delta">+4.0 over FuRL</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">70.4<small>%</small></div>
+      <div class="pp-stat-label">MT10 with observable, random goals</div>
+      <span class="pp-stat-delta">+5.8 over FuRL</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">51.7<small>%</small></div>
+      <div class="pp-stat-label">Gymnasium-Robotics Fetch, 4 tasks</div>
+      <span class="pp-stat-delta">+7.5 over FuRL</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">92<small>min</small></div>
+      <div class="pp-stat-label">Mean wall-clock to converge, against 95 for FuRL, VLM calls included</div>
+    </div>
+  </div>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/lagea/fig1_overview.png"
+        alt="LAGEA overview: trajectories go to a replay buffer; key frames and a VLM produce structured feedback; projectors align images, goal, instruction and feedback; goal-delta and feedback-delta rewards are fused with the task reward for the policy."
+        zoomable=true
+        loading="eager"
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 1. The LAGEA loop.</b> (a) After each rollout, key frames mark the decisive moments and a frozen VLM writes a schema-constrained
+      reflection, encoded as a feedback vector \(f\). (b) Small trainable projectors map images, the goal image, the instruction and \(f\) into one
+      space, trained so that feedback agrees with the states it describes. (c) Progress toward the goal and toward the feedback become two
+      delta rewards, fused with the sparse task reward to train the policy.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="motivation">
+  <span class="pp-kicker">Motivation</span>
+  <h2>A score is not a diagnosis</h2>
+  <p>
+    Hand-designing dense rewards for every manipulation task does not scale, so a common shortcut is to use a pretrained VLM as a zero-shot reward
+    model: embed the camera image and the instruction, and reward their similarity. <a href="https://arxiv.org/abs/2406.00645">FuRL</a> showed
+    that these “fuzzy” rewards help once they are aligned to the task. But a similarity score summarises the outcome, not the cause. It drifts with
+    viewpoint, can be hallucinated, and on long, sparse-reward tasks an early misalignment compounds into misdirected exploration.
+  </p>
+  <div class="pp-quote">
+    How can an embodied policy get reliable, time-localised explanations of its own failures, straight from visual trajectories, when exploration is
+    expensive?
+  </div>
+  <p>
+    Self-reflection works for language agents: <a href="https://arxiv.org/abs/2303.11366">Reflexion</a> improves decisions with textual self-critique,
+    but in text worlds where observation, action and feedback share one symbolic interface. A robot sees pixels and acts in joint space. LAGEA
+    closes that gap in three steps: make the reflection <b>structured</b> so a small VLM cannot ramble, anchor it <b>in time</b> so it credits the
+    right steps, and <b>align</b> it with the visual state so it can be turned into a per-step reward.
+  </p>
+
+  <h3>What a reflection looks like</h3>
+  <p>
+    At the end of an episode, Qwen2.5-VL-3B sees frames from the rollout, the task instruction, a five-code error taxonomy, one success and one
+    failure exemplar, and the last few attempts. It must answer in this JSON schema; malformed answers are rejected and retried.
+  </p>
+  <ul class="pp-chips" aria-label="Error codes">
+    <li>wrong_object</li>
+    <li>bad_approach_direction</li>
+    <li>failed_grasp</li>
+    <li>insufficient_force</li>
+    <li>drift_from_goal</li>
+  </ul>
+
+  <div data-pp-tabs>
+    <div class="pp-tabs-bar">
+      <div class="pp-seg" role="tablist" aria-label="Example reflection">
+        <button type="button" role="tab" id="fb-tab-fail" aria-controls="fb-fail" aria-selected="true">A failure</button>
+        <button type="button" role="tab" id="fb-tab-ok" aria-controls="fb-ok" aria-selected="false">A success</button>
+      </div>
+      <span class="pp-muted" style="font-size: 0.82rem">button-press-topdown · examples from the paper's appendix</span>
+    </div>
+    <div class="pp-tabpanel" role="tabpanel" id="fb-fail" aria-labelledby="fb-tab-fail">
+<pre class="pp-json">{
+  <span class="k">"task"</span>: "button-press-topdown-v2-goal-observable",
+  <span class="k">"outcome"</span>: <span class="bad">"failure"</span>,
+  <span class="k">"primary_error"</span>: {
+    <span class="k">"code"</span>: <span class="bad">"bad_approach_direction"</span>,
+    <span class="k">"explanation"</span>: "The gripper came from the side, sliding off the button instead of a vertical press."
+  },
+  <span class="k">"secondary_factors"</span>: [],
+  <span class="k">"key_frame_indices"</span>: [<span class="n">18</span>, <span class="n">22</span>],
+  <span class="k">"suggested_fix"</span>: "Approach from directly above the button; align gripper normal to the button surface, then press straight down.",
+  <span class="k">"confidence"</span>: <span class="n">0.85</span>,
+  <span class="k">"summary"</span>: "The robot failed to press the button correctly because it approached from the side instead of a vertical press."
+}</pre>
+    </div>
+    <div class="pp-tabpanel" role="tabpanel" id="fb-ok" aria-labelledby="fb-tab-ok">
+<pre class="pp-json">{
+  <span class="k">"task"</span>: "button-press-topdown-v2-goal-observable",
+  <span class="k">"outcome"</span>: <span class="ok">"success"</span>,
+  <span class="k">"primary_error"</span>: {
+    <span class="k">"code"</span>: <span class="ok">"good_grasp"</span>,
+    <span class="k">"explanation"</span>: "The gripper successfully grasped the button."
+  },
+  <span class="k">"secondary_factors"</span>: [],
+  <span class="k">"key_frame_indices"</span>: [<span class="n">12</span>, <span class="n">18</span>],
+  <span class="k">"suggested_fix"</span>: "(n/a)",
+  <span class="k">"confidence"</span>: <span class="n">0.9</span>,
+  <span class="k">"summary"</span>: "The agent succeeded because it grasped the button securely and pressed it straight down, achieving the goal."
+}</pre>
+    </div>
+  </div>
+  <p class="pp-muted" style="margin-top: 1rem">
+    The reflection is embedded with a lightweight GPT-2 into a 768-dimensional feedback vector \(f\). Because the schema fixes the vocabulary,
+    near-duplicate episodes give near-duplicate vectors, which is what makes the signal usable for learning.
+  </p>
+</section>
+
+<section class="pp-section" id="method">
+  <span class="pp-kicker">Method</span>
+  <h2>From one reflection to a reward at every step</h2>
+  <p class="pp-lede">
+    A reflection arrives once per episode. The agent needs a signal at every transition, concentrated where the outcome was decided, and small
+    enough not to drown out the task reward. LAGEA builds it in four stages.
+  </p>
+
+  <h3>1 · Find the moments that mattered</h3>
+  <p>
+    Broadcasting one feedback vector across a whole episode assigns credit to steps that had nothing to do with the outcome. LAGEA picks key
+    frames from the goal-similarity trajectory itself, which keeps the selector deterministic and model-agnostic. With \(x_t\) the image
+    embedding at step \(t\) and \(g\) the goal embedding,
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} s_t &= \cos(x_t, g), \qquad v_t = s_t - s_{t-1}, \qquad a_t = v_t - v_{t-1}, \\ p_t &= \omega_s\,[z(s_t)]_+ + \omega_v\, z(|v_t|) + \omega_a\, z(|a_t|), \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">saliency</div>
+  </div>
+  <p>
+    where \(z(\cdot)\) z-scores within the episode, so frames score highly when they are close to the goal, changing fast, or turning sharply.
+    Up to \(M\) of the most salient frames are kept, a minimum distance apart, together with both endpoints. Each key frame \(k \in \mathcal{K}\)
+    then spreads weight over its neighbours with a triangular kernel of half-width \(h\) and a floor \(\beta\), and dividing by the
+    episode mean \(\bar w\) keeps the average weight at one:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} \tilde w_t &= \max_{k \in \mathcal{K}} \Big(1 - \tfrac{|t-k|}{h+1}\Big)_+, \\ w_t &= \beta + (1-\beta)\,\tilde w_t, \qquad \hat w_t = w_t / \bar w, \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">credit weights</div>
+  </div>
+
+  <div class="pp-widget pp-wide" id="pp-keyframes">
+    <div class="pp-widget-head">
+      <div><span class="pp-kicker">Interactive</span><span class="pp-widget-title">Where does one episode's feedback land?</span></div>
+      <span class="pp-muted">The equations above, run on an illustrative episode</span>
+    </div>
+    <div class="pp-widget-body">
+      <svg class="pp-diagram" viewBox="0 0 720 330" role="img" aria-labelledby="kf-title kf-desc" data-kf-plot>
+        <title id="kf-title">Key frames and credit weights</title>
+        <desc id="kf-desc">
+          Top: the goal similarity of one episode over 64 steps, with the selected key frames marked. Bottom: the per-step credit weight, compared
+          with a uniform broadcast.
+        </desc>
+      </svg>
+      <div class="pp-controls-row">
+        <div class="pp-control">
+          <label for="kf-m"><span>Key frames \(M\)</span><output data-m-out>3</output></label>
+          <input class="pp-range" id="kf-m" type="range" min="1" max="6" step="1" value="3" data-m>
+        </div>
+        <div class="pp-control">
+          <label for="kf-h"><span>Half-width \(h\)</span><output data-h-out>4 steps</output></label>
+          <input class="pp-range" id="kf-h" type="range" min="1" max="12" step="1" value="4" data-h>
+        </div>
+        <div class="pp-control">
+          <label for="kf-b"><span>Floor \(\beta\)</span><output data-b-out>0.10</output></label>
+          <input class="pp-range" id="kf-b" type="range" min="0" max="0.6" step="0.05" value="0.1" data-b>
+        </div>
+      </div>
+      <p class="pp-widget-foot" data-kf-summary>
+        The busiest quarter of the episode carries most of the credit; a uniform broadcast would give it exactly a quarter.
+      </p>
+    </div>
+  </div>
+  <p class="pp-muted" style="font-size: 0.86rem">
+    The episode is synthetic (an approach, a slip away from the goal, then contact), and the saliency weights are fixed at
+    \(\omega = (0.5, 0.3, 0.2)\) for the demo. Everything else follows the formulas above.
+  </p>
+
+  <h3>2 · Put feedback and pixels in one space</h3>
+  <p>
+    Small MLP projectors \(E_i, E_f\) map image and feedback embeddings to unit vectors \(z_t\) and \(z_f\), with \(\psi_t = \langle z_t, z_f\rangle\).
+    Two losses shape the space, each step weighted by \(u_t\) (key-frame saliency times goal proximity):
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} \mathcal{L}_{\text{bce}} &= \tfrac{1}{\sum_t u_t} \textstyle\sum_t u_t\, \mathrm{BCE}\big(\sigma(\psi_t/\tau_{\text{bce}}),\, y_t\big), \\ \mathcal{L}_{\text{nce}} &= \tfrac{1}{\sum_{i:\,y_i=1} u_i} \textstyle\sum_{i:\,y_i=1} u_i\, \mathrm{CE}\big(\mathrm{softmax}(S_{i:}),\, i\big), \\ \mathcal{L}_{\text{align}} &= \lambda_{\text{bce}}\, \mathcal{L}_{\text{bce}} + \lambda_{\text{nce}}\, \mathcal{L}_{\text{nce}}. \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">alignment</div>
+  </div>
+  <p>
+    The first pulls successful steps toward their feedback and pushes failed ones away, using the success label \(y_t\). The second is an
+    InfoNCE term over the batch, \(S_{ij} = \langle z_f^{(i)}, z^{(j)}\rangle / \tau_{\text{nce}}\), so each reflection prefers its own images to
+    everyone else's. A symmetric, weighted contrastive step with alignment and uniformity regularisers then polishes the geometry.
+  </p>
+  <details class="pp-details">
+    <summary>Does the space actually separate success from failure? <span class="pp-muted">Fig. 5</span></summary>
+    <div class="pp-details-body">
+      <div class="pp-fig-frame">
+        {%
+          include figure.liquid
+          path="assets/img/projects/lagea/fig5_alignment.png"
+          alt="Three plots over training: the gap between positive and negative logits opens around 0.5M steps; success rises after it; BCE and NCE losses rise as negatives get harder."
+          zoomable=true
+        %}
+      </div>
+      <p class="pp-caption">
+        Early on, successful and unsuccessful states score alike and success stays at zero. Around 0.5M steps a discrimination gap opens, and
+        success rises right after it. The alignment losses then <em>increase</em>: a better policy produces harder negatives, which forces
+        finer distinctions.
+      </p>
+    </div>
+  </details>
+
+  <h3>3 · Reward progress, not position</h3>
+  <p>
+    Two potentials are read off the aligned space: \(\phi_t\), the state's agreement with the instruction \(z_y\) and the goal image \(z_g\), and
+    \(\psi_t\), its agreement with the feedback. As in potential-based shaping, only their change is rewarded, so a state that merely sits near
+    the goal earns nothing. Everything is squashed with \(\tanh\), so each term stays in \([-1, 1]\).
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} r^{\text{goal}}_t &= \tanh\!\Big(\tfrac{\gamma\,\phi_{t+1} - \phi_t}{\tau_{\text{goal}}}\Big), \qquad r^{\text{fb}}_t = \hat w_t \tanh\!\Big(\tfrac{\gamma\,\psi_{t+1} - \psi_t}{\tau_f}\Big), \\ \tilde r_t &= (1-\alpha)\, r^{\text{goal}}_t + \alpha\, r^{\text{fb}}_t. \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">delta rewards</div>
+  </div>
+  <p>
+    The feedback term is gated by the key-frame weights \(\hat w_t\), and its share \(\alpha = \mathrm{clip}\big(\alpha_{\text{base}} \cdot
+    \tfrac12(1 + \langle z_y, z_f\rangle),\, [\alpha_{\min}, \alpha_{\max}]\big)\) grows when the reflection agrees with the instruction, so
+    feedback that has wandered off-task counts for less.
+  </p>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/lagea/fig2_delta.png"
+        alt="Computation of the delta rewards: goal potential from the goal image and instruction, feedback potential from the VLM feedback, and their temporal differences."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 2. The two delta rewards.</b> (a) The goal potential \(\phi_t\) aligns the current state with the goal image and the instruction.
+      (b) The feedback potential \(\psi_t\) aligns it with the reflection, weighted by the key frames. Their temporal differences form the fused
+      reward.
+    </p>
+  </div>
+
+  <h3>4 · Let the guidance fade</h3>
+  <p>
+    A dense signal can overpower a sparse one. LAGEA shapes only failing steps, \(m_t = \mathbb{1}[r^{\text{task}}_t \lt 0]\), and scales the
+    shaping by an estimate of competence \(P \in [0,1]\): the larger of a success-rate moving average \(\bar s\) and the squared fraction of steps
+    that moved toward the goal.
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} P &= \max\Big(\bar s,\ \big(\tfrac{1}{B}\textstyle\sum_t \mathbb{1}[r^{\text{goal}}_t \gt 0]\big)^2\Big), \\ \rho_t &= \rho_{\min} + (\rho_{\max} - \rho_{\min})(1 - P), \\ r_t &=r^{\text{task}}_t + m_t\, \rho_t\, \tilde r_t. \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">adaptive shaping</div>
+  </div>
+  <p>
+    Early on, when \(P \approx 0\), language guidance is at full strength; as the policy starts succeeding it recedes and the task reward takes
+    over. The critic of a standard <a href="https://arxiv.org/abs/1801.01290">SAC</a> agent trains on \(r_t\).
+  </p>
+</section>
+
+<section class="pp-section" id="results">
+  <span class="pp-kicker">Results</span>
+  <h2>Higher success on two manipulation suites</h2>
+  <p>
+    We compare against reward-learning baselines on sparse-reward tasks: SAC on the task reward alone; LIV, a robotics reward model pretrained on
+    large-scale data, and LIV-Proj, with random fixed projection heads; Relay, which adds relay exploration to LIV; and FuRL, which
+    aligns fuzzy VLM rewards and uses relay RL. Visual observations are embedded with LIV throughout.
+  </p>
+
+  <div class="pp-wide" data-pp-tabs style="margin-top: 2rem">
+    <div class="pp-tabs-bar">
+      <div class="pp-seg" role="tablist" aria-label="Benchmark">
+        {% for g in page.results %}
+          <button
+            type="button"
+            role="tab"
+            id="tab-{{ g.id }}"
+            aria-controls="panel-{{ g.id }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            {{ g.name }}
+          </button>
+        {% endfor %}
+      </div>
+      <span class="pp-muted" style="font-size: 0.82rem">Hover or focus a bar for its value</span>
+    </div>
+
+    {% for g in page.results %}
+      <div class="pp-tabpanel" role="tabpanel" id="panel-{{ g.id }}" aria-labelledby="tab-{{ g.id }}">
+        <p class="pp-panel-blurb">{{ g.blurb }}</p>
+        {%
+          include project/hbar_chart.liquid
+          labels=g.methods
+          values=g.avg
+          highlight="LAGEA"
+          title=g.title
+          subtitle=g.subtitle
+          unit="%"
+          label_w=g.label_w
+        %}
+        <div class="pp-takeaway">
+          <p>{{ g.takeaway }}</p>
+          <p class="pp-muted">{{ g.exception }}</p>
+        </div>
+        <details class="pp-details">
+          <summary>Per-task results · {{ g.name }} <span class="pp-muted">{{ g.tasks.size }} tasks × {{ g.methods.size }} methods</span></summary>
+          <div class="pp-details-body">
+            {% include project/results_table.liquid group=g %}
+            <p class="pp-table-note">{{ g.note }} Bold marks the best in each row and underline the runner-up.</p>
+          </div>
+        </details>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h3>Faster to converge, not just higher at the end</h3>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/lagea/fig3_curves.png"
+        alt="Learning curves on eight Meta-World tasks: LAGEA reaches high success earlier than FuRL and SAC."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 3. Success over 1M environment steps on eight MT10 tasks.</b> LAGEA reaches high success well before FuRL on most tasks, and SAC
+      with the sparse reward alone mostly stalls. The extra VLM call per episode is paid back in samples: averaged over nine tasks, LAGEA
+      converges in 92.4 minutes of wall-clock time against 94.9 for FuRL, and is faster on six of the nine.
+    </p>
+  </div>
+
+  <details class="pp-details">
+    <summary>The benchmarks <span class="pp-muted">Meta-World MT10 and Fetch</span></summary>
+    <div class="pp-details-body">
+      <div class="pp-fig-frame">
+        {%
+          include figure.liquid
+          path="assets/img/projects/lagea/fig6_mt10.jpg"
+          alt="The ten Meta-World MT10 tasks."
+          zoomable=true
+        %}
+      </div>
+      <p class="pp-caption">
+        <b>Meta-World MT10.</b> Ten tasks with a Sawyer arm, a 4-D action (end-effector motion and gripper) and 500-step episodes, from reaching
+        to peg insertion. Each task is paired with a one-line instruction, such as “Press a button from the top.”
+      </p>
+      <div class="pp-fig-frame" style="margin-top: 1rem">
+        {%
+          include figure.liquid
+          path="assets/img/projects/lagea/fig7_fetch.jpg"
+          alt="The four Gymnasium-Robotics Fetch tasks: reach, push, slide and pick-and-place."
+          zoomable=true
+        %}
+      </div>
+      <p class="pp-caption">
+        <b>Gymnasium-Robotics Fetch.</b> A 7-DoF arm with a two-finger gripper on reach, push, slide and pick-and-place, with 50-step episodes and
+        a sparse binary reward.
+      </p>
+    </div>
+  </details>
+</section>
+
+<section class="pp-section" id="ablations">
+  <span class="pp-kicker">Ablations</span>
+  <h2>Which parts carry the gain</h2>
+  <p>
+    Each ablation keeps the encoders, the SAC learner and the goal image fixed and changes one thing. The components turn out to be
+    complementary: removing any one of them costs about as much as removing another.
+  </p>
+
+  <div class="pp-wide" data-pp-tabs style="margin-top: 1.5rem">
+    <div class="pp-tabs-bar">
+      <div class="pp-seg" role="tablist" aria-label="Ablation">
+        <button type="button" role="tab" id="ab-tab-reward" aria-controls="ab-reward" aria-selected="true">Reward terms</button>
+        <button type="button" role="tab" id="ab-tab-kf" aria-controls="ab-kf" aria-selected="false">Key frames</button>
+        <button type="button" role="tab" id="ab-tab-fb" aria-controls="ab-fb" aria-selected="false">Structure</button>
+        <button type="button" role="tab" id="ab-tab-model" aria-controls="ab-model" aria-selected="false">VLM &amp; encoder</button>
+        <button type="button" role="tab" id="ab-tab-view" aria-controls="ab-view" aria-selected="false">Viewpoints</button>
+      </div>
+    </div>
+
+    <div class="pp-tabpanel" role="tabpanel" id="ab-reward" aria-labelledby="ab-tab-reward">
+      {% include project/hbar_chart.liquid chart=page.charts.reward unit="%" %}
+      <div class="pp-takeaway">
+        <p>
+          Dropping the goal-delta reward, the feedback-delta reward or the adaptive schedule each leaves about 80%. Only all three together reach
+          99%: long-term progress, short-term correction, and knowing when to step back.
+        </p>
+      </div>
+    </div>
+
+    <div class="pp-tabpanel" role="tabpanel" id="ab-kf" aria-labelledby="ab-tab-kf">
+      {% include project/hbar_chart.liquid chart=page.charts.keyframes unit="%" %}
+      <div class="pp-takeaway">
+        <p>
+          Random or evenly spaced frames lose 12 to 13 points. The gap is widest on button-press, 96% against 37% and 50%, where the decisive
+          moment is a brief contact.
+        </p>
+      </div>
+      <div class="pp-figure" style="margin-top: 1rem">
+        <div class="pp-fig-frame">
+          {%
+            include figure.liquid
+            path="assets/img/projects/lagea/fig4a_keyframe.png"
+            alt="Drawer-open: with key frames, the VLM reward rises and success climbs to about 78% by 0.6M steps; without them, success stays near zero."
+            zoomable=true
+          %}
+        </div>
+        <p class="pp-caption">
+          <b>Drawer-open, with and without key frames.</b> With key frames the shaped reward turns upward as the agent learns the approach, and
+          success follows. Without them the feedback is smeared over the whole episode and the agent stays stuck.
+        </p>
+      </div>
+    </div>
+
+    <div class="pp-tabpanel" role="tabpanel" id="ab-fb" aria-labelledby="ab-tab-fb">
+      {% include project/hbar_chart.liquid chart=page.charts.feedback unit="%" %}
+      <div class="pp-takeaway">
+        <p>
+          Letting the VLM answer in free text costs 20 points. The biggest single drop is button-press-topdown, 93% to 10%: verbose, ambiguous
+          explanations make noisy feedback vectors, and noisy vectors make misleading rewards.
+        </p>
+      </div>
+    </div>
+
+    <div class="pp-tabpanel" role="tabpanel" id="ab-model" aria-labelledby="ab-tab-model">
+      <div class="pp-grid pp-grid-2">
+        {% include project/hbar_chart.liquid chart=page.charts.vlm unit="%" %}
+        {% include project/hbar_chart.liquid chart=page.charts.encoder unit="%" %}
+      </div>
+      <div class="pp-takeaway">
+        <p>
+          The reflecting VLM matters more than the text encoder. All three alternative encoders stay above 70%, but a weaker VLM costs 12 to 24
+          points, with SmolVLM2 falling to 56%. Qwen2.5-VL-3B with GPT-2 is the best pairing, which is why it is the default.
+        </p>
+      </div>
+    </div>
+
+    <div class="pp-tabpanel" role="tabpanel" id="ab-view" aria-labelledby="ab-tab-view">
+      {% include project/hbar_chart.liquid chart=page.charts.viewpoint unit="%" %}
+      <div class="pp-takeaway">
+        <p>
+          Trained from one diagonal front camera and evaluated zero-shot from three others, LAGEA stays within three points of its training-view
+          score (77–79% against 80%).
+        </p>
+        <p class="pp-muted">Heavy self-occlusion and cluttered scenes were not tested and remain open.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Limitations</h3>
+  <p>
+    LAGEA inherits occasional hallucinations from its VLM; the schema and the alignment reduce them but cannot remove them. All experiments are
+    in simulation, and contact-rich insertion tasks remain unsolved. Moving to real robots, closing the sim-to-real gap, and handling long
+    horizons under partial observability are the natural next steps.
+  </p>
+</section>

@@ -1,0 +1,71 @@
+{% comment %}
+  Per-task results table. include.group: {methods[], avg[], tasks[{name, m[], s[]}], ours, lower, digits, avg_label}.
+  `ours` names the tinted column (default: the last method). In every row the best
+  value is marked .is-best and the runner-up .is-second (ties share the mark); with
+  `lower: true` the smallest value is best (errors, MSE). `digits` pads every value
+  to that many decimals. Rows without `s` omit the ± spread; `avg` is optional.
+{% endcomment %}
+{% assign g = include.group %}
+{% assign ours = g.ours | default: g.methods.last %}
+<div class="pp-table-wrap">
+  <table class="pp-table">
+    <thead>
+      <tr>
+        <th scope="col">{{ include.first_col | default: 'Task' }}</th>
+        {% for m in g.methods %}
+          <th scope="col" {% if m == ours %} class="is-ours" {% endif %}>{{ m }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in g.tasks %}
+        {% assign b1 = -999999 %}
+        {% assign b2 = -999999 %}
+        {% for v in t.m %}
+          {% if g.lower %}{% assign k = v | times: -1 %}{% else %}{% assign k = v %}{% endif %}
+          {% if k > b1 %}
+            {% assign b2 = b1 %}
+            {% assign b1 = k %}
+          {% elsif k < b1 and k > b2 %}
+            {% assign b2 = k %}
+          {% endif %}
+        {% endfor %}
+        <tr>
+          <td>{{ t.name }}</td>
+          {% for v in t.m %}
+            {% assign i = forloop.index0 %}
+            {% if g.lower %}{% assign k = v | times: -1 %}{% else %}{% assign k = v %}{% endif %}
+            <td class="{% if g.methods[i] == ours %}is-ours {% endif %}{% if k == b1 %}is-best{% elsif k == b2 %}is-second{% endif %}">
+              {%- include project/fmt.liquid v=v digits=g.digits -%}
+              {%- if t.s -%}<span class="sd">±{{ t.s[i] }}</span>{%- endif -%}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+
+      {% if g.avg %}
+        {% assign b1 = -999999 %}
+        {% assign b2 = -999999 %}
+        {% for v in g.avg %}
+          {% if g.lower %}{% assign k = v | times: -1 %}{% else %}{% assign k = v %}{% endif %}
+          {% if k > b1 %}
+            {% assign b2 = b1 %}
+            {% assign b1 = k %}
+          {% elsif k < b1 and k > b2 %}
+            {% assign b2 = k %}
+          {% endif %}
+        {% endfor %}
+        <tr class="is-avg">
+          <td>{{ g.avg_label | default: 'Average' }}</td>
+          {% for v in g.avg %}
+            {% assign i = forloop.index0 %}
+            {% if g.lower %}{% assign k = v | times: -1 %}{% else %}{% assign k = v %}{% endif %}
+            <td class="{% if g.methods[i] == ours %}is-ours {% endif %}{% if k == b1 %}is-best{% elsif k == b2 %}is-second{% endif %}">
+              {%- include project/fmt.liquid v=v digits=g.digits -%}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>

@@ -32,9 +32,28 @@ $grey-900: #212529;
 $white-color: #ffffff !default;
 $black-color: #000000 !default;
 
+// Warm paper palette for the single light theme.
+// $paper-color is the page background; the other surfaces are tuned to sit with it.
+$paper-color: #f9f6f0; // page background: soft paper
+$paper-color-raised: #fffdfa; // cards sitting on the page
+$paper-color-tint: #f3eee5; // tinted panels and table heads
+$paper-color-deep: #f0ebe2; // footer band
+$ink-color: #1d1a16; // body text: warm near-black
+$ink-color-soft: #3b362f; // secondary prose
+$ink-color-light: #625b51; // captions, dates, metadata
+
+// Accent: links, the active nav item and highlights
+$accent-color: #2b5a8e; // deep ink blue
+$accent-color-hover: #1d4170;
+
+// Type: Inter for reading, Source Serif 4 for display, JetBrains Mono for small labels
+$font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-serif: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+$font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
 // Theme colors
 
-$code-bg-color-light: rgba($purple-color, 0.05);
+$code-bg-color-light: rgba($accent-color, 0.06);
 $code-bg-color-dark: #2c3237 !default;
 
 // Font awesome location

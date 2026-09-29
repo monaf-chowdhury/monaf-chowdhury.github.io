@@ -1,0 +1,62 @@
+/*******************************************************************************
+ * Site-wide type. The theme's defaults (Roboto Light via MDB) read thin on the
+ * paper background, so body text uses Inter at a regular weight and page titles
+ * use the same serif as the project pages. Font families live in _variables.scss.
+ ******************************************************************************/
+
+body {
+  font-family: $font-sans;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+b,
+strong {
+  font-weight: 600;
+}
+
+.post-title,
+.post-header h1 {
+  font-family: $font-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.post-description,
+.post-header .desc {
+  color: var(--global-text-color-light);
+}
+
+.navbar {
+  font-weight: 500;
+
+  .navbar-brand {
+    font-family: $font-serif;
+    font-weight: 600;
+  }
+}
+
+// Project cards on /projects/: serif titles at a size that fits the card.
+.projects .card-title {
+  font-family: $font-serif;
+  font-weight: 600;
+  font-size: 1.45rem;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+}
+
+.projects .card-text {
+  line-height: 1.6;
+}

@@ -6,6 +6,11 @@ window.MathJax = {
       ["\\(", "\\)"],
     ],
   },
+  // MathJax matches the x-height of the surrounding text. Inter's is ~3% taller than
+  // Roboto's, which the equations were sized for, so scale back to the same size.
+  chtml: {
+    scale: 0.967,
+  },
   options: {
     renderActions: {
       addCss: [

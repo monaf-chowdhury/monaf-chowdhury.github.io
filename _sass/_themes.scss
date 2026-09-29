@@ -4,21 +4,22 @@
 
 @use "sass:color";
 
+// The site uses one warm, paper-like light theme (dark mode is off in _config.yml).
 :root {
   color-scheme: light;
-  --global-bg-color: #{$white-color};
+  --global-bg-color: #{$paper-color};
   --global-code-bg-color: #{$code-bg-color-light};
-  --global-text-color: #{$black-color};
-  --global-text-color-light: #{$grey-color};
-  --global-theme-color: #{$purple-color};
-  --global-hover-color: #{$purple-color};
+  --global-text-color: #{$ink-color};
+  --global-text-color-light: #{$ink-color-light};
+  --global-theme-color: #{$accent-color};
+  --global-hover-color: #{$accent-color-hover};
   --global-hover-text-color: #{$white-color};
-  --global-footer-bg-color: #{$grey-color-dark};
-  --global-footer-text-color: #{$grey-color-light};
-  --global-footer-link-color: #{$white-color};
-  --global-distill-app-color: #{$grey-color};
-  --global-divider-color: rgba(0, 0, 0, 0.1);
-  --global-card-bg-color: #{$white-color};
+  --global-footer-bg-color: #{$paper-color-deep};
+  --global-footer-text-color: #{$ink-color-light};
+  --global-footer-link-color: #{$ink-color};
+  --global-distill-app-color: #{$ink-color-light};
+  --global-divider-color: rgba(74, 55, 30, 0.13);
+  --global-card-bg-color: #{$paper-color-raised};
   --global-highlight-color: #{$red-color-dark};
   --global-back-to-top-bg-color: rgba(
     #{color.channel($black-color, "red", $space: rgb)},

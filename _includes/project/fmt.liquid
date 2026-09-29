@@ -1,0 +1,12 @@
+{%- comment -%}
+  Prints include.v; with include.digits it pads the decimals so 0.37 reads 0.370.
+{%- endcomment -%}
+{%- if include.digits -%}
+  {%- capture raw -%}{{ include.v }}{%- endcapture -%}
+  {%- assign parts = raw | split: '.' -%}
+  {%- assign dec = parts[1] | default: '' -%}
+  {%- assign pad = include.digits | minus: dec.size -%}
+  {{- parts[0] }}.{{ dec }}{% for k in (1..pad) %}0{% endfor -%}
+{%- else -%}
+  {{- include.v -}}
+{%- endif -%}

@@ -1,0 +1,27 @@
+{% comment %}
+  One row of a pp horizontal bar chart. Params: label, value, sd, n, note, hl, second, divider, unit.
+{% endcomment %}
+<div
+  class="pp-hrow{% if include.hl %} is-hl{% endif %}{% if include.second %} is-second{% endif %}{% if include.divider %} is-divider{% endif %}"
+  role="listitem"
+  tabindex="0"
+  data-label="{{ include.label | strip_html | escape }}"
+  data-value="{{ include.value }}"
+  {% if include.sd %}
+    data-sd="{{ include.sd }}"
+  {% endif %}
+  {% if include.n %}
+    data-n="{{ include.n }}"
+  {% endif %}
+  {% if include.note %}
+    data-note="{{ include.note | escape }}"
+  {% endif %}
+  aria-label="{{ include.label | strip_html | escape }}: {{ include.value }}{{ include.unit }}{% if include.sd %} plus or minus {{ include.sd }}{% endif %}"
+>
+  <span class="pp-hrow-label">{{ include.label }}</span>
+  <span class="pp-hrow-track" style="--v: {{ include.value }}; --sd: {{ include.sd | default: 0 }};">
+    <span class="pp-hrow-bar"></span>
+    {% if include.sd %}<span class="pp-hrow-err"></span>{% endif %}
+    <span class="pp-hrow-val">{{ include.value }}</span>
+  </span>
+</div>

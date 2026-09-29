@@ -1,0 +1,613 @@
+---
+layout: project
+title: Open World Amodal Counting
+description: CountOCC counts the objects you cannot see, by reconstructing their features under the occluder and checking its attention against an unoccluded view.
+img: assets/img/countocc.jpg
+importance: 2
+category: research
+theme: terracotta
+paper_title: '<span class="pp-acr">Counting Through Occlusion</span>: Framework for Open World Amodal Counting'
+eyebrow: ["arXiv 2025", "CountOCC", "Open-world counting"]
+authors:
+  - name: Safaeid Hossain Arib
+    affil: "1"
+  - name: Rabeya Akter
+    affil: "1"
+  - name: Abdul Monaf Chowdhury
+    affil: "1"
+    me: true
+  - name: Md Jubair Ahmed Sourov
+    affil: "1"
+  - name: Md Mehedi Hasan
+    affil: "1"
+affiliations:
+  - University of Dhaka
+links:
+  - label: Paper
+    icon: fa-solid fa-file-pdf
+    url: https://arxiv.org/pdf/2511.12702
+  - label: arXiv
+    icon: ai ai-arxiv
+    url: https://arxiv.org/abs/2511.12702
+  - label: Code
+    icon: fa-brands fa-github
+    soon: true
+  - label: BibTeX
+    icon: fa-solid fa-quote-right
+    url: "#citation"
+    ghost: true
+sections:
+  - { id: overview, label: Overview }
+  - { id: problem, label: The problem }
+  - { id: method, label: Method }
+  - { id: results, label: Results }
+  - { id: analysis, label: Analysis }
+  - { id: citation, label: Cite }
+scripts:
+  - /assets/js/projects/countocc-occluder.js
+bibtex: |
+  @article{arib2025counting,
+    title   = {Counting Through Occlusion: Framework for Open World Amodal Counting},
+    author  = {Arib, Safaeid Hossain and Akter, Rabeya and Chowdhury, Abdul Monaf and
+               Sourov, Md Jubair Ahmed and Hasan, Md Mehedi},
+    journal = {arXiv preprint arXiv:2511.12702},
+    year    = {2025}
+  }
+
+# Counting error from Tables 1–3 and 8 of the paper; lower is better. CountOCC is the last column.
+benchmarks:
+  - id: fsc
+    name: FSC-147-OCC
+    blurb: >-
+      The FSC-147 validation and test splits with black rectangles laid over 25–35% of the annotated objects in every image. The test split's 29
+      categories never appear in training.
+    chart:
+      title: FSC-147-OCC · test split
+      subtitle: Mean absolute counting error, lower is better
+      max: 25
+      ticks: [0, 5, 10, 15, 20, 25]
+      axis_name: MAE
+      label_w: 6.5rem
+      bars:
+        - { label: CLIP-Count, value: "23.90" }
+        - { label: CounTX, value: "23.04" }
+        - { label: CounTR, value: "22.25" }
+        - { label: LOCA, value: "16.77" }
+        - { label: CountGD, value: "14.42" }
+        - { label: CountOCC, value: "11.42", hl: true, divider: true }
+    takeaway: >-
+      <span class="pp-pos">11.42</span> test MAE against 14.42 for CountGD, the strongest open-world counter: −20.8% on test and −26.7% on
+      validation. RMSE falls further, by 54.7% on test, so the worst failures shrink the most.
+    exception: >-
+      Text-only counters suffer most under occlusion; CountOCC roughly halves the error of CounTX and CLIP-Count.
+    table:
+      lower: true
+      digits: 2
+      ours: CountOCC
+      methods: [CLIP-Count, CounTX, CounTR, LOCA, CountGD, CountOCC]
+      tasks:
+        - { name: Validation MAE, m: [26.31, 24.81, 23.14, 17.13, 15.83, 11.60] }
+        - { name: Validation RMSE, m: [80.45, 75.58, 66.78, 44.25, 54.38, 35.40] }
+        - { name: Test MAE, m: [23.90, 23.04, 22.25, 16.77, 14.42, 11.42] }
+        - { name: Test RMSE, m: [108.57, 113.83, 104.75, 78.41, 85.40, 38.68] }
+    note: "Targets are specified by text (CLIP-Count, CounTX), visual exemplars (CounTR, LOCA) or both (CountGD, CountOCC)."
+  - id: carpk
+    name: CARPK-OCC
+    blurb: >-
+      Drone images of parking lots with the same occlusion scheme, evaluated zero-shot: CountOCC never sees a CARPK image in training.
+    chart:
+      title: CARPK-OCC · test split, zero-shot
+      subtitle: Mean absolute counting error, lower is better
+      max: 25
+      ticks: [0, 5, 10, 15, 20, 25]
+      axis_name: MAE
+      label_w: 6.5rem
+      bars:
+        - { label: CLIP-Count, value: "17.43" }
+        - { label: CounTX, value: "12.58" }
+        - { label: CounTR, value: "14.99" }
+        - { label: LOCA, value: "22.02" }
+        - { label: CountGD, value: "9.28" }
+        - { label: CountOCC, value: "4.65", hl: true, divider: true }
+    takeaway: >-
+      <span class="pp-pos">4.65</span> MAE against 9.28 for CountGD: the error halves (−49.9%), and RMSE falls by 47.6%.
+    exception: CounTR was fine-tuned on the original CARPK and still ends at 14.99.
+    table:
+      lower: true
+      digits: 2
+      ours: CountOCC
+      methods: [CLIP-Count, CounTX, CounTR, LOCA, CountGD, CountOCC]
+      tasks:
+        - { name: Test MAE, m: [17.43, 12.58, 14.99, 22.02, 9.28, 4.65] }
+        - { name: Test RMSE, m: [20.74, 15.4, 16.84, 24.55, 11.27, 5.91] }
+    note: Two annotated boxes per image serve as visual exemplars, and the text prompt is “car”.
+  - id: capture
+    name: CAPTURe-Real
+    blurb: >-
+      924 FSC-147 images in which people placed occluders over regular, repeated patterns, so hidden objects can be inferred from the pattern.
+    chart:
+      title: CAPTURe-Real · zero-shot
+      subtitle: Mean absolute counting error, lower is better
+      max: 20
+      ticks: [0, 5, 10, 15, 20]
+      axis_name: MAE
+      label_w: 6.5rem
+      bars:
+        - { label: CountGD, value: "14.97" }
+        - { label: CountOCC, value: "10.66", hl: true, divider: true }
+    takeaway: >-
+      <span class="pp-pos">10.66</span> MAE against 14.97 for CountGD, a 28.8% reduction, with the same model and no further training.
+    exception: RMSE barely moves (41.62 to 41.31), so a few large errors remain on this benchmark.
+    table:
+      lower: true
+      digits: 2
+      ours: CountOCC
+      methods: [CountGD, CountOCC]
+      tasks:
+        - { name: MAE, m: [14.97, 10.66] }
+        - { name: RMSE, m: [41.62, 41.31] }
+    note: Only CountGD is reported as a baseline on CAPTURe-Real.
+  - id: crowd
+    name: CrowdHuman
+    blurb: >-
+      Real crowds, where people hide each other. CrowdHuman's annotated overlap regions serve as the occlusion masks.
+    chart:
+      title: CrowdHuman · validation
+      subtitle: Mean absolute counting error, lower is better
+      max: 12
+      ticks: [0, 3, 6, 9, 12]
+      axis_name: MAE
+      label_w: 6.5rem
+      bars:
+        - { label: CountGD, value: "9.97" }
+        - { label: CountOCC, value: "8.24", hl: true, divider: true }
+    takeaway: >-
+      <span class="pp-pos">8.24</span> MAE against 9.97 for CountGD (−17.4%), and RMSE drops from 24.46 to 17.87 (−26.9%).
+    exception: Here occlusion is natural rather than a synthetic black mask.
+    table:
+      lower: true
+      digits: 2
+      ours: CountOCC
+      methods: [CountGD, CountOCC]
+      tasks:
+        - { name: MAE, m: [9.97, 8.24] }
+        - { name: RMSE, m: [24.46, 17.87] }
+    note: The ground-truth total is the number of annotated people in each image.
+
+breakdown:
+  title: Where the error goes
+  subtitle: FSC-147-OCC test MAE by instance type, lower is better
+  max: 20
+  ticks: [0, 5, 10, 15, 20]
+  axis_name: MAE
+  label_w: 9.5rem
+  bars:
+    - { label: CountGD · visible, value: "9.74" }
+    - { label: CountOCC · visible, value: "8.52" }
+    - { label: CountGD · occluded, value: "18.16", divider: true }
+    - { label: CountOCC · occluded, value: "5.80", hl: true }
+
+design:
+  mae:
+    title: Test MAE
+    subtitle: FSC-147-OCC
+    max: 16
+    ticks: [0, 4, 8, 12, 16]
+    axis_name: MAE
+    label_w: 7.5rem
+    bars:
+      - { label: No FRM, value: "14.42" }
+      - { label: FRM · one level, value: "13.77" }
+      - { label: FRM · all levels, value: "11.90" }
+      - { label: + VisEQ, value: "11.42", hl: true, divider: true }
+  rmse:
+    title: Test RMSE
+    subtitle: FSC-147-OCC
+    max: 120
+    ticks: [0, 30, 60, 90, 120]
+    axis_name: RMSE
+    label_w: 7.5rem
+    bars:
+      - { label: No FRM, value: "85.40" }
+      - { label: FRM · one level, value: "108.63" }
+      - { label: FRM · all levels, value: "91.45" }
+      - { label: + VisEQ, value: "38.68", hl: true, divider: true }
+  table:
+    lower: true
+    digits: 2
+    ours: FRM + VisEQ
+    methods: [No FRM, FRM · one level, FRM · all levels, FRM + VisEQ]
+    tasks:
+      - { name: Validation MAE, m: [15.83, 13.16, 11.32, 11.60] }
+      - { name: Validation RMSE, m: [54.38, 54.51, 48.12, 35.40] }
+      - { name: Test MAE, m: [14.42, 13.77, 11.90, 11.42] }
+      - { name: Test RMSE, m: [85.40, 108.63, 91.45, 38.68] }
+  losses:
+    lower: true
+    digits: 2
+    ours: + VisEQ losses
+    methods: [ℓ2, + cosine, + Charbonnier, + VisEQ losses]
+    tasks:
+      - { name: Validation MAE, m: [13.88, 12.18, 11.32, 11.60] }
+      - { name: Validation RMSE, m: [78.67, 48.88, 48.12, 35.40] }
+      - { name: Test MAE, m: [13.24, 12.38, 11.90, 11.42] }
+      - { name: Test RMSE, m: [88.93, 87.04, 91.45, 38.68] }
+---
+
+<section class="pp-section" id="overview">
+  <div class="pp-tldr">
+    <span class="pp-kicker">TL;DR</span>
+    <p>
+      Open-world counters count whatever you name, but only what they can see: put a box over part of a tray and they report the visible
+      objects and stop. The reason is architectural. Under an occluder, the backbone encodes the occluder. <strong>CountOCC</strong>
+      reconstructs the missing object features at every level of the feature pyramid, from the visible context and the text and exemplar prompt,
+      and trains the occluded view to <em>attend</em> where an unoccluded view would.
+    </p>
+  </div>
+
+  <div class="pp-stats pp-wide">
+    <div class="pp-stat">
+      <div class="pp-stat-value">−20.8<small>%</small></div>
+      <div class="pp-stat-label">Test MAE on FSC-147-OCC against CountGD (−26.7% on validation)</div>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">−49.9<small>%</small></div>
+      <div class="pp-stat-label">MAE on CARPK-OCC, zero-shot on parking-lot images</div>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">−28.8<small>%</small></div>
+      <div class="pp-stat-label">MAE on CAPTURe-Real, with occluders placed by people</div>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">3.1<small>×</small></div>
+      <div class="pp-stat-label">Lower error on the hidden instances themselves (18.16 → 5.80)</div>
+    </div>
+  </div>
+
+  <div class="pp-figure" style="max-width: 560px; margin-left: auto; margin-right: auto">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/countocc/fig1_occlusion.jpg"
+        alt="A tray of twelve donuts, the same tray with two donuts hidden by a black box, a prior counter predicting 10 visible and 0 occluded, and CountOCC predicting 10 visible and 2 occluded."
+        zoomable=true
+        loading="eager"
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 1. The occlusion challenge.</b> (a) Twelve donuts, all visible. (b) An occluder hides two. (c) A state-of-the-art counter finds
+      the ten it can see and misses the rest. (d) CountOCC places density inside the occluder and recovers both hidden donuts, for a total of 12.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="problem">
+  <span class="pp-kicker">The problem</span>
+  <h2>Counters count what they see</h2>
+  <p>
+    Open-world counting went from one model per category to models told what to count at test time, by visual exemplars
+    (<a href="https://arxiv.org/abs/2208.13721">CounTR</a>, <a href="https://arxiv.org/abs/2211.08217">LOCA</a>), by text (CLIP-Count, CounTX),
+    or by both (<a href="https://arxiv.org/abs/2407.04619">CountGD</a>, the current state of the art). All of them assume the targets are
+    mostly visible. Humans do not: we infer the donuts under the napkin from the rows around it.
+  </p>
+  <p>
+    <b>Amodal counting</b> asks for the total, visible or not. Given an image \(X_I\), exemplar boxes \(\mathcal{B}\), a text prompt \(t\) and an
+    occlusion mask \(M_o\), the model must return
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">\[ \hat y = f(X_I, \mathcal{B}, t, M_o) = \hat y_{\text{vis}} + \hat y_{\text{occ}}. \]</div>
+    <div class="pp-eq-tag">amodal count</div>
+  </div>
+
+  <div class="pp-widget pp-wide" id="pp-occluder">
+    <div class="pp-widget-head">
+      <div><span class="pp-kicker">Interactive</span><span class="pp-widget-title">Drag the occluder</span></div>
+      <span class="pp-muted">An illustration of the task, not model output</span>
+    </div>
+    <div class="pp-widget-body">
+      <div class="pp-widget-grid pp-widget-grid-maze">
+        <svg class="pp-diagram pp-occ-scene" viewBox="0 0 560 360" role="img" aria-labelledby="oc-title oc-desc" data-oc-scene>
+          <title id="oc-title">A tray of twenty objects and a movable occluder</title>
+          <desc id="oc-desc">
+            Twenty objects on a tray. A black rectangle can be dragged over them; objects whose centre it covers count as hidden.
+          </desc>
+        </svg>
+        <div>
+          <div class="pp-seg" role="group" aria-label="Scene layout" style="margin-bottom: 1rem">
+            <button type="button" aria-pressed="true" data-layout="grid">Regular tray</button>
+            <button type="button" aria-pressed="false" data-layout="scatter">Scattered</button>
+          </div>
+          <div class="pp-control">
+            <label for="oc-size"><span>Occluder size</span><output data-size-out>230 px</output></label>
+            <input class="pp-range" id="oc-size" type="range" min="90" max="280" step="10" value="230" data-size>
+          </div>
+          <div class="pp-control" style="margin-bottom: 0.5rem">
+            <label for="oc-peek" style="justify-content: flex-start; gap: 0.5rem; cursor: pointer">
+              <input type="checkbox" id="oc-peek" data-peek> <span>Show what is hidden</span>
+            </label>
+          </div>
+          <div class="pp-readout">
+            <div class="pp-readrow" data-row="vis">
+              <span class="pp-readrow-name">What a visible-only counter can find</span>
+              <span class="pp-readrow-val"><b data-n>14</b></span>
+              <span class="pp-readrow-track"><span class="pp-readrow-bar"></span></span>
+            </div>
+            <div class="pp-readrow is-ink" data-row="occ">
+              <span class="pp-readrow-name">Hidden behind the occluder</span>
+              <span class="pp-readrow-val"><b data-n>6</b></span>
+              <span class="pp-readrow-track"><span class="pp-readrow-bar"></span></span>
+            </div>
+            <div class="pp-readrow is-hl" data-row="all">
+              <span class="pp-readrow-name">Amodal count, the answer we want</span>
+              <span class="pp-readrow-val"><b data-n>20</b></span>
+              <span class="pp-readrow-track"><span class="pp-readrow-bar" style="width: 100%"></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="pp-widget-foot" data-oc-summary>Drag the box, or focus it and use the arrow keys.</p>
+    </div>
+  </div>
+
+  <p>
+    The benchmark <a href="https://arxiv.org/abs/2504.15485">CAPTURe</a> tests this on regular patterns, where the hidden objects can be read off
+    the visible ones. Real scenes are often unstructured, and nothing outside the occluder says what is under it. To cover both, the paper builds
+    occlusion-augmented versions of two standard benchmarks, keeping their splits and annotations:
+    <b>FSC-147-OCC</b> (147 categories, with disjoint training, validation and test classes) and <b>CARPK-OCC</b> (parking lots seen from a
+    drone). Black rectangles, at most 256 px on a side, are centred on annotated objects until 25–35% of the instances in each image are covered.
+  </p>
+  <details class="pp-details">
+    <summary>Examples from the two benchmarks <span class="pp-muted">FSC-147-OCC and CARPK-OCC</span></summary>
+    <div class="pp-details-body">
+      <div class="pp-fig-frame">
+        {%
+          include figure.liquid
+          path="assets/img/projects/countocc/fig5_samples.jpg"
+          alt="Sample occluded images: fruit, shells, and other objects from FSC-147-OCC, and parking-lot images from CARPK-OCC, each with black rectangles over some objects."
+          zoomable=true
+        %}
+      </div>
+    </div>
+  </details>
+</section>
+
+<section class="pp-section" id="method">
+  <span class="pp-kicker">Method</span>
+  <h2>Reconstruct the features, then check the attention</h2>
+  <p class="pp-lede">
+    CountOCC builds on CountGD and adds two forms of supervision. One works in feature space: rebuild what the backbone would have seen without
+    the occluder. The other works in attention space: make the occluded view look where the clean view looks.
+  </p>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/countocc/fig2_arch.png"
+        alt="CountOCC architecture: original and occluded images through image encoders; FRM reconstructs occluded tokens; VisEQ compares attention; feature enhancer and cross-modality decoder produce visible and occluded counts."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 2. The CountOCC architecture.</b> At each pyramid level, the Feature Reconstruction Module (FRM) replaces corrupted occluded
+      tokens with reconstructed ones. Visual Equivalence (VisEQ) aligns gradient-based attention maps of a teacher that sees the clean image and a
+      student that sees the occluded one. The reconstructed features flow through CountGD's feature enhancer and cross-modality decoder, which
+      count the visible and the occluded instances.
+    </p>
+  </div>
+
+  <h3>Feature Reconstruction Module</h3>
+  <p>
+    The Swin backbone produces features at three pyramid levels (256, 512 and 1024 channels). At each level \(\ell\), tokens outside the mask are
+    kept as visible context \(Z_{\text{vis}}\), and every occluded position starts from a learned mask embedding. The queries first attend to each
+    other, then to the visible context, then to the fused text and exemplar tokens \(Z_{v,t}\), which keeps the reconstruction on the right
+    category:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} Q_0 &= \mathrm{Replicate}(\mu_{\text{mask}}, N_o), \\ Q_{\text{vis}} &= \Psi_{ca}\big(\Psi_{sa}(Q_0),\, Z_{\text{vis}}\big) + \Psi_{sa}(Q_0), \\ Z_{\text{cond}} &= \Psi_{ca}(Q_{\text{vis}},\, Z_{v,t}) + Q_{\text{vis}}, \\ \hat Z_{\text{occ}} &= \Phi_{\text{mlp}}(Z_{\text{cond}}) + Z_{\text{cond}}. \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">FRM, per level</div>
+  </div>
+  <p>
+    The reconstructed tokens replace the occluded positions, so the decoder sees a complete feature pyramid. They are supervised by a frozen
+    teacher that sees the clean image: on occluded positions only, a Charbonnier term, a cosine term and an \(\ell_2\) term pull the student's
+    reconstruction \(\hat Z_S\) toward the teacher's features \(\hat Z_T\), with \(\Delta = \hat Z_S - \hat Z_T\) and weights
+    \((\lambda_{\text{charb}}, \lambda_{\cos}, \lambda_{\ell_2}) = (0.3, 0.5, 1.0)\):
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} \mathcal{L}_{\text{rec}} = \sum_{\ell} \sum_{i \in \mathcal{O}^{(\ell)}} \Big[ & \lambda_{\text{charb}} \sqrt{\|\Delta\|_2^2 + \epsilon^2} \\ & + \lambda_{\cos}\big(1 - \cos(\hat Z_S, \hat Z_T)\big) + \lambda_{\ell_2} \|\Delta\|_2^2 \Big]. \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">reconstruction</div>
+  </div>
+
+  <h3>Visual Equivalence</h3>
+  <p>
+    Good features are not enough if the model looks in the wrong place. Inspired by SelfEQ, CountOCC computes a language-conditioned Grad-CAM map
+    \(G\) for each view: the gradient of the matching score (the mean of the top 900 query confidences) weights the channels of each pyramid
+    level, and the levels are blended by their gradient energy. The student's map \(G_S\) on the occluded image is pulled toward the teacher's
+    \(G_T\) on the clean one:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} \mathcal{L}_{\text{sim}} &= \textstyle\sum_{H,W} \Big[ \|G_T - G_S\|_2^2 + 0.5\,\big(1 - \cos(G_T, G_S)\big) \Big], \\ \mathcal{L}_{\text{cst}} &= \mathbb{E}\Big[\sigma^T_{\text{RoI}} + \sigma^S_{\text{RoI}} + \max\big(0, \tfrac{\tau}{2} - \mu^T_{\text{RoI}}\big) + \max\big(0, \tfrac{\tau}{2} - \mu^S_{\text{RoI}}\big)\Big]. \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">VisEQ</div>
+  </div>
+  <p>
+    The second term looks only at the region of interest where either map is confident (\(G_T + G_S \ge \tau\)): it asks for high and uniform
+    activation there, which rules out the trivial solution of two maps that agree by both being flat.
+  </p>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/countocc/fig3_modules.png"
+        alt="Left: the Feature Reconstruction Module with self-attention, cross-attention to visible tokens and to fused text-visual tokens, and an MLP. Right: the Visual Equivalence framework comparing teacher and student attention maps."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 3. The two modules.</b> (a) FRM: learnable queries at occluded positions attend to each other, to the visible tokens and to the
+      fused prompt, and an MLP turns them into reconstructed features. (b) VisEQ: the teacher's attention on the clean image and the student's
+      on the occluded image are aligned by \(\mathcal{L}_{\text{sim}}\) and made confident by \(\mathcal{L}_{\text{cst}}\).
+    </p>
+  </div>
+
+  <ol class="pp-steps pp-wide">
+    <li>
+      <b>Stage 1 · reconstruction</b>Train FRM alone on FSC-147 training images with occluders drawn on the fly: 128–256 px black rectangles
+      anchored on objects until 15–50% of them are covered. The Swin-B image and BERT text encoders stay frozen.
+    </li>
+    <li><b>Stage 2 · attention</b>Starting from the best FRM checkpoint, train FRM and VisEQ together with the counting loss.</li>
+    <li>
+      <b>Inference</b>Only the student runs. The teacher and VisEQ exist only in training, so CountOCC adds no cost beyond the reconstruction
+      module.
+    </li>
+  </ol>
+</section>
+
+<section class="pp-section" id="results">
+  <span class="pp-kicker">Results</span>
+  <h2>Lower error on four occluded benchmarks</h2>
+  <p>
+    Baselines run from their official checkpoints under their own protocols, with the same occluded inputs as CountOCC. One model, trained only
+    on FSC-147, is evaluated everywhere.
+  </p>
+
+  <div class="pp-wide" data-pp-tabs style="margin-top: 2rem">
+    <div class="pp-tabs-bar">
+      <div class="pp-seg" role="tablist" aria-label="Benchmark">
+        {% for b in page.benchmarks %}
+          <button
+            type="button"
+            role="tab"
+            id="tab-{{ b.id }}"
+            aria-controls="panel-{{ b.id }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            {{ b.name }}
+          </button>
+        {% endfor %}
+      </div>
+      <span class="pp-muted" style="font-size: 0.82rem">Shorter bars are better</span>
+    </div>
+
+    {% for b in page.benchmarks %}
+      <div class="pp-tabpanel" role="tabpanel" id="panel-{{ b.id }}" aria-labelledby="tab-{{ b.id }}">
+        <p class="pp-panel-blurb">{{ b.blurb }}</p>
+        {% include project/hbar_chart.liquid chart=b.chart %}
+        <div class="pp-takeaway">
+          <p>{{ b.takeaway }}</p>
+          <p class="pp-muted">{{ b.exception }}</p>
+        </div>
+        <details class="pp-details">
+          <summary>MAE and RMSE · {{ b.name }} <span class="pp-muted">{{ b.table.methods.size }} methods</span></summary>
+          <div class="pp-details-body">
+            {% include project/results_table.liquid group=b.table first_col="Metric" %}
+            <p class="pp-table-note">Lower is better. Bold marks the best in each row and underline the runner-up. {{ b.note }}</p>
+          </div>
+        </details>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h3>The gain is on the hidden objects</h3>
+  <p>
+    Splitting the error by instance type shows where the improvement comes from. Counts inside the mask and outside it are scored separately.
+  </p>
+  <div class="pp-wide">{% include project/hbar_chart.liquid chart=page.breakdown %}</div>
+  <div class="pp-takeaway pp-wide">
+    <p>
+      On occluded instances the error falls from 18.16 to <span class="pp-pos">5.80</span>, to about a third; on validation, from 17.46 to 5.61.
+      On visible instances it barely moves: 9.74 to 8.52 on test and 8.05 to 8.04 on validation. CountOCC has learned to reason about what is
+      hidden, not just to count the visible objects better.
+    </p>
+    <p class="pp-muted">Visible-instance RMSE is slightly higher than CountGD's on both splits (30.03 vs 27.04, 55.28 vs 53.94).</p>
+  </div>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/countocc/fig8_compare.jpg"
+        alt="Five occluded FSC-147 scenes, one per row, with density maps from CLIP-Count, CounTX, CounTR, LOCA, CountGD and CountOCC; only CountOCC places density inside the black occluders."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 4. Density maps on occluded FSC-147 scenes.</b> Columns: CLIP-Count, CounTX, CounTR, LOCA, CountGD and CountOCC. The baselines
+      leave the occluded regions empty and undercount; CountOCC places density inside the masks.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="analysis">
+  <span class="pp-kicker">Analysis</span>
+  <h2>What each piece does</h2>
+  <p>
+    Reconstruction and attention supervision fix different errors. FRM lowers the typical error; VisEQ removes the catastrophic ones.
+  </p>
+  <div class="pp-grid pp-grid-2 pp-wide">
+    {% include project/hbar_chart.liquid chart=page.design.mae %}
+    {% include project/hbar_chart.liquid chart=page.design.rmse %}
+  </div>
+  <div class="pp-takeaway pp-wide">
+    <p>
+      Reconstruction at one pyramid level cuts validation MAE by 16.9%, and at all three levels by 28.5%. But test RMSE <em>rises</em>, from 85.40
+      to 108.63 and 91.45, so a few images still go badly wrong. Adding VisEQ brings test RMSE down to <span class="pp-pos">38.68</span>, 54.7%
+      below the baseline, and gives the lowest test MAE.
+    </p>
+  </div>
+  <details class="pp-details pp-wide">
+    <summary>Design variants and loss terms <span class="pp-muted">FSC-147-OCC, validation and test</span></summary>
+    <div class="pp-details-body">
+      <h4 class="pp-table-title">Design variants</h4>
+      {% include project/results_table.liquid group=page.design.table first_col="Metric" %}
+      <h4 class="pp-table-title">Reconstruction loss terms, added one at a time</h4>
+      {% include project/results_table.liquid group=page.design.losses first_col="Metric" %}
+      <p class="pp-table-note">
+        Lower is better. The cosine term brings the largest single gain in validation RMSE (78.67 to 48.88); the full objective is the most
+        consistent across splits.
+      </p>
+    </div>
+  </details>
+
+  <h3>Reconstructed features land where the clean ones are</h3>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/countocc/fig4_tsne.jpg"
+        alt="t-SNE at three pyramid levels for three occluded images: occluded features in red lie apart from ground-truth features in green, while reconstructed features in blue overlap the green."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 5. t-SNE of features at the three pyramid levels (256, 512, 1024 channels).</b> Red: features of the occluded image. Green:
+      features of the clean image. Blue: reconstructions. The occluded features sit apart from the clean ones at every level. At the finest level
+      the reconstructions overlap them almost completely, and at coarser levels they stay close though more spread out.
+    </p>
+  </div>
+
+  <h3>Limitations</h3>
+  <ul>
+    <li>
+      <b>Totals, not positions.</b> FRM reconstructs features that give the right count, but the density inside a mask need not sit exactly
+      where the hidden objects are.
+    </li>
+    <li>
+      <b>It needs the mask.</b> The occlusion mask is an input. Without one, CountOCC behaves like an ordinary open-world counter and cannot
+      estimate hidden instances. Predicting the mask jointly is future work.
+    </li>
+    <li>
+      <b>Synthetic occluders.</b> The black rectangles are simple. The gains concentrate on occluded-region error while visible-region error is
+      unchanged, which suggests the model is not exploiting the occluder's appearance, and the CrowdHuman results use natural occlusion.
+    </li>
+    <li>
+      <b>A small cost on clean images.</b> On unoccluded FSC-147, CountOCC stays competitive but trails CountGD (test MAE 7.02 against 5.74): a
+      trade-off between robustness to occlusion and accuracy when everything is visible.
+    </li>
+  </ul>
+</section>

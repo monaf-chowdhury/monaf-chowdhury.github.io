@@ -1,0 +1,602 @@
+---
+layout: project
+title: Time Series Forecasting
+description: T3Time reads a series three ways (in time, in frequency, and as a language prompt) and lets the forecast horizon decide how to weigh them.
+img: assets/img/t3_time.jpg
+importance: 1
+category: research
+theme: indigo
+venue: AAAI 2026 # shown on the homepage card
+paper_title: '<span class="pp-acr">T3Time</span>: Tri-Modal Time Series Forecasting via Adaptive Multi-Head Alignment and Residual Fusion'
+eyebrow: ["AAAI 2026", "Multivariate forecasting"]
+authors:
+  - name: Abdul Monaf Chowdhury
+    affil: "1"
+    me: true
+  - name: Rabeya Akter
+    affil: "1"
+  - name: Safaeid Hossain Arib
+    affil: "1"
+affiliations:
+  - University of Dhaka
+links:
+  - label: Paper
+    icon: fa-solid fa-file-pdf
+    url: https://ojs.aaai.org/index.php/AAAI/article/view/39196
+  - label: arXiv
+    icon: ai ai-arxiv
+    url: https://arxiv.org/abs/2508.04251
+  - label: Code
+    icon: fa-brands fa-github
+    url: https://github.com/monaf-chowdhury/T3Time
+  - label: BibTeX
+    icon: fa-solid fa-quote-right
+    url: "#citation"
+    ghost: true
+sections:
+  - { id: overview, label: Overview }
+  - { id: background, label: Background }
+  - { id: method, label: Method }
+  - { id: results, label: Results }
+  - { id: few-shot, label: Few-shot }
+  - { id: ablations, label: Ablations }
+  - { id: citation, label: Cite }
+scripts:
+  - /assets/js/projects/t3time-spectrum.js
+bibtex: |
+  @inproceedings{chowdhury2026t3time,
+    title     = {{T3Time}: Tri-Modal Time Series Forecasting via Adaptive
+                 Multi-Head Alignment and Residual Fusion},
+    author    = {Chowdhury, Abdul Monaf and Akter, Rabeya and Arib, Safaeid Hossain},
+    booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+    volume    = {40},
+    number    = {25},
+    pages     = {20597--20605},
+    year      = {2026},
+    doi       = {10.1609/aaai.v40i25.39196}
+  }
+
+# Change in MSE against the strongest baseline on each dataset (computed from the paper's tables).
+delta_long:
+  - { d: ETTm1, ours: "0.372", base: TimeCMA, bv: "0.380", pct: -2.1 }
+  - { d: ETTm2, ours: "0.279", base: TimeCMA, bv: "0.275", pct: 1.5 }
+  - { d: ETTh1, ours: "0.418", base: TimeCMA, bv: "0.423", pct: -1.2 }
+  - { d: ETTh2, ours: "0.348", base: TimeCMA, bv: "0.372", pct: -6.5 }
+  - { d: ECL, ours: "0.170", base: TimeCMA, bv: "0.174", pct: -2.3 }
+  - { d: Weather, ours: "0.244", base: TimeCMA, bv: "0.250", pct: -2.4 }
+  - { d: ILI, ours: "1.705", base: TimeCMA, bv: "1.922", pct: -11.3 }
+  - { d: Exchange, ours: "0.353", base: DLinear, bv: "0.354", pct: -0.3 }
+
+# Long-term forecasting, Table 1: averages over horizons {96, 192, 336, 720} ({24, 36, 48, 60} for ILI), input length 96.
+long:
+  mse:
+    lower: true
+    digits: 3
+    ours: T3Time
+    methods: [T3Time, TimeCMA, TimeLLM, UniTime, TimesNet, DLinear, iTransformer, PatchTST, OFA]
+    tasks:
+      - { name: ETTm1, m: [0.372, 0.380, 0.410, 0.385, 0.400, 0.403, 0.407, 0.392, 0.396] }
+      - { name: ETTm2, m: [0.279, 0.275, 0.296, 0.293, 0.291, 0.350, 0.288, 0.285, 0.294] }
+      - { name: ETTh1, m: [0.418, 0.423, 0.448, 0.442, 0.458, 0.456, 0.454, 0.463, 0.457] }
+      - { name: ETTh2, m: [0.348, 0.372, 0.381, 0.378, 0.414, 0.559, 0.383, 0.395, 0.389] }
+      - { name: ECL, m: [0.170, 0.174, 0.195, 0.216, 0.192, 0.212, 0.178, 0.207, 0.217] }
+      - { name: Weather, m: [0.244, 0.250, 0.275, 0.253, 0.259, 0.265, 0.258, 0.257, 0.279] }
+      - { name: ILI, m: [1.705, 1.922, 2.432, 2.108, 2.139, 2.616, 2.444, 2.388, 2.623] }
+      - { name: Exchange, m: [0.353, 0.395, 0.372, 0.364, 0.416, 0.354, 0.360, 0.390, 0.519] }
+  mae:
+    lower: true
+    digits: 3
+    ours: T3Time
+    methods: [T3Time, TimeCMA, TimeLLM, UniTime, TimesNet, DLinear, iTransformer, PatchTST, OFA]
+    tasks:
+      - { name: ETTm1, m: [0.393, 0.392, 0.409, 0.399, 0.406, 0.407, 0.410, 0.402, 0.401] }
+      - { name: ETTm2, m: [0.322, 0.323, 0.340, 0.334, 0.333, 0.401, 0.332, 0.328, 0.339] }
+      - { name: ETTh1, m: [0.430, 0.431, 0.443, 0.448, 0.450, 0.452, 0.447, 0.449, 0.450] }
+      - { name: ETTh2, m: [0.390, 0.397, 0.404, 0.403, 0.427, 0.515, 0.407, 0.414, 0.414] }
+      - { name: ECL, m: [0.266, 0.269, 0.288, 0.306, 0.295, 0.300, 0.270, 0.289, 0.308] }
+      - { name: Weather, m: [0.275, 0.276, 0.291, 0.276, 0.287, 0.317, 0.278, 0.280, 0.297] }
+      - { name: ILI, m: [0.835, 0.921, 1.012, 0.929, 0.931, 1.090, 1.203, 1.011, 1.060] }
+      - { name: Exchange, m: [0.401, 0.429, 0.416, 0.404, 0.443, 0.414, 0.403, 0.429, 0.500] }
+
+# Few-shot forecasting, Tables 2 and 3: input length 512, averages over the four horizons.
+few:
+  - id: ten
+    name: 10% of training data
+    avg_delta: -3.6
+    vs: "7.1% lower MSE than TimeCMA, 7.4% lower than Time-LLM and 13.4% lower than GPT4TS on average"
+    delta:
+      - { d: ETTm1, ours: "0.376", base: TimeCMA, bv: "0.387", pct: -2.8 }
+      - { d: ETTm2, ours: "0.266", base: TimeLLM, bv: "0.277", pct: -4.0 }
+      - { d: ETTh1, ours: "0.449", base: TimeCMA, bv: "0.480", pct: -6.5 }
+      - { d: ETTh2, ours: "0.357", base: TimeLLM, bv: "0.370", pct: -3.5 }
+      - { d: Weather, ours: "0.226", base: TimeCMA, bv: "0.229", pct: -1.3 }
+    mse:
+      lower: true
+      digits: 3
+      ours: T3Time
+      methods: [T3Time, TimeCMA, TimeLLM, GPT4TS, TimesNet, DLinear, PatchTST, FEDformer]
+      tasks:
+        - { name: ETTm1, m: [0.376, 0.387, 0.404, 0.464, 0.677, 0.411, 0.501, 0.722] }
+        - { name: ETTm2, m: [0.266, 0.312, 0.277, 0.293, 0.320, 0.316, 0.296, 0.463] }
+        - { name: ETTh1, m: [0.449, 0.480, 0.556, 0.590, 0.869, 0.691, 0.633, 0.639] }
+        - { name: ETTh2, m: [0.357, 0.398, 0.370, 0.397, 0.479, 0.605, 0.415, 0.466] }
+        - { name: Weather, m: [0.226, 0.229, 0.234, 0.238, 0.279, 0.241, 0.242, 0.284] }
+    mae:
+      lower: true
+      digits: 3
+      ours: T3Time
+      methods: [T3Time, TimeCMA, TimeLLM, GPT4TS, TimesNet, DLinear, PatchTST, FEDformer]
+      tasks:
+        - { name: ETTm1, m: [0.398, 0.410, 0.427, 0.441, 0.537, 0.429, 0.466, 0.605] }
+        - { name: ETTm2, m: [0.327, 0.358, 0.323, 0.335, 0.353, 0.368, 0.343, 0.488] }
+        - { name: ETTh1, m: [0.454, 0.479, 0.522, 0.525, 0.628, 0.600, 0.542, 0.561] }
+        - { name: ETTh2, m: [0.388, 0.433, 0.394, 0.421, 0.465, 0.538, 0.431, 0.475] }
+        - { name: Weather, m: [0.268, 0.272, 0.273, 0.275, 0.301, 0.283, 0.279, 0.324] }
+  - id: five
+    name: 5% of training data
+    avg_delta: -4.1
+    vs: "8.0% lower MSE than TimeCMA, 12.3% lower than Time-LLM and 18.4% lower than GPT4TS on average"
+    delta:
+      - { d: ETTm1, ours: "0.384", base: TimeCMA, bv: "0.396", pct: -3.0 }
+      - { d: ETTm2, ours: "0.267", base: TimeLLM, bv: "0.274", pct: -2.6 }
+      - { d: ETTh1, ours: "0.442", base: TimeCMA, bv: "0.472", pct: -6.4 }
+      - { d: ETTh2, ours: "0.357", base: TimeLLM, bv: "0.382", pct: -6.5 }
+      - { d: Weather, ours: "0.226", base: TimeCMA, bv: "0.231", pct: -2.2 }
+    mse:
+      lower: true
+      digits: 3
+      ours: T3Time
+      methods: [T3Time, TimeCMA, TimeLLM, GPT4TS, TimesNet, DLinear, PatchTST, FEDformer]
+      tasks:
+        - { name: ETTm1, m: [0.384, 0.396, 0.425, 0.472, 0.717, 0.400, 0.526, 0.730] }
+        - { name: ETTm2, m: [0.267, 0.329, 0.274, 0.308, 0.344, 0.399, 0.314, 0.381] }
+        - { name: ETTh1, m: [0.442, 0.472, 0.627, 0.681, 0.925, 0.750, 0.694, 0.658] }
+        - { name: ETTh2, m: [0.357, 0.395, 0.382, 0.400, 0.439, 0.694, 0.827, 0.463] }
+        - { name: Weather, m: [0.226, 0.231, 0.260, 0.263, 0.298, 0.263, 0.269, 0.309] }
+    mae:
+      lower: true
+      digits: 3
+      ours: T3Time
+      methods: [T3Time, TimeCMA, TimeLLM, GPT4TS, TimesNet, DLinear, PatchTST, FEDformer]
+      tasks:
+        - { name: ETTm1, m: [0.405, 0.416, 0.434, 0.450, 0.561, 0.417, 0.476, 0.592] }
+        - { name: ETTm2, m: [0.330, 0.367, 0.323, 0.346, 0.372, 0.426, 0.352, 0.404] }
+        - { name: ETTh1, m: [0.451, 0.470, 0.543, 0.560, 0.647, 0.611, 0.569, 0.562] }
+        - { name: ETTh2, m: [0.403, 0.430, 0.418, 0.433, 0.448, 0.577, 0.615, 0.454] }
+        - { name: Weather, m: [0.269, 0.273, 0.309, 0.301, 0.318, 0.308, 0.303, 0.353] }
+
+# Design variants, Table 4 (input length 96). The chart is the mean relative MSE increase over the seven datasets, computed from this table.
+ablation:
+  chart:
+    title: What each component is worth
+    subtitle: Mean MSE increase when it is removed (%), 7 datasets
+    max: 10
+    ticks: [0, 2, 4, 6, 8, 10]
+    axis_name: MSE increase (%)
+    label_w: 11rem
+    bars:
+      - { label: w/o residual connection, value: 9.7, hl: true }
+      - { label: w/o frequency branch, value: 3.4 }
+      - { label: w/o multi-head CMA, value: 2.9 }
+      - { label: w/o horizon gating, value: 2.2 }
+  mse:
+    lower: true
+    digits: 3
+    ours: T3Time
+    methods: [T3Time, w/o frequency, w/o multi-head, w/o residual, w/o gating]
+    tasks:
+      - { name: ETTm1, m: [0.372, 0.381, 0.374, 0.404, 0.373] }
+      - { name: ETTm2, m: [0.279, 0.279, 0.283, 0.288, 0.280] }
+      - { name: ETTh1, m: [0.418, 0.433, 0.421, 0.433, 0.425] }
+      - { name: ETTh2, m: [0.348, 0.364, 0.355, 0.384, 0.363] }
+      - { name: Weather, m: [0.244, 0.250, 0.249, 0.249, 0.249] }
+      - { name: ILI, m: [1.705, 1.786, 1.813, 2.176, 1.724] }
+      - { name: Exchange, m: [0.353, 0.374, 0.378, 0.396, 0.373] }
+  mae:
+    lower: true
+    digits: 3
+    ours: T3Time
+    methods: [T3Time, w/o frequency, w/o multi-head, w/o residual, w/o gating]
+    tasks:
+      - { name: ETTm1, m: [0.393, 0.394, 0.395, 0.413, 0.396] }
+      - { name: ETTm2, m: [0.322, 0.324, 0.325, 0.329, 0.322] }
+      - { name: ETTh1, m: [0.430, 0.433, 0.432, 0.443, 0.432] }
+      - { name: ETTh2, m: [0.390, 0.398, 0.392, 0.411, 0.398] }
+      - { name: Weather, m: [0.275, 0.280, 0.277, 0.280, 0.277] }
+      - { name: ILI, m: [0.835, 0.884, 0.865, 0.969, 0.837] }
+      - { name: Exchange, m: [0.401, 0.410, 0.413, 0.427, 0.412] }
+---
+
+<section class="pp-section" id="overview">
+  <div class="pp-tldr">
+    <span class="pp-kicker">TL;DR</span>
+    <p>
+      A time series can be read in the time domain, in the frequency domain, or through a language model. Most forecasters pick one or two views
+      and fuse them the same way at every horizon. <strong>T3Time</strong> encodes all three, lets the forecast horizon decide how much weight the
+      temporal and spectral views get, aligns them with the language view through several cross-attention heads weighted per variable, and keeps
+      a learned residual path back to the raw features.
+    </p>
+  </div>
+
+  <div class="pp-stats pp-wide">
+    <div class="pp-stat">
+      <div class="pp-stat-value">14<small>/16</small></div>
+      <div class="pp-stat-label">Best average MSE or MAE across 8 datasets × 2 metrics</div>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">−4.4<small>%</small></div>
+      <div class="pp-stat-label">Average MSE against TimeCMA, the strongest prompt-based baseline</div>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">−11.3<small>%</small></div>
+      <div class="pp-stat-label">MSE on ILI against the best baseline, the largest single gain</div>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">−4.1<small>%</small></div>
+      <div class="pp-stat-label">MSE with only 5% of the training data, against the best baseline per dataset</div>
+      <span class="pp-stat-delta">−3.6% at 10%</span>
+    </div>
+  </div>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/t3time/fig1_bimodal.png"
+        alt="Left: a bimodal model fuses a time-series encoder and an LLM statically into a weak representation. Right: T3Time adds a frequency encoder, horizon gating, and cross-modal alignment with adaptive fusion for a robust representation."
+        zoomable=true
+        loading="eager"
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 1. Two modalities versus three.</b> (a) Bimodal forecasters fuse time-series and prompt features statically, with no view of
+      frequency and no notion of horizon. (b) T3Time adds a frequency encoder, gates time against frequency by horizon, and fuses the result with
+      the prompt view through adaptive multi-head alignment.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="background">
+  <span class="pp-kicker">Background</span>
+  <h2>Three ways to read one series</h2>
+  <p>
+    Multivariate forecasting takes the last \(L\) observations of \(N\) variables and predicts the next \(L_p\). Architectures have split along
+    the representation they trust. Time-domain Transformers such as <a href="https://arxiv.org/abs/2211.14730">PatchTST</a> and
+    <a href="https://arxiv.org/abs/2310.06625">iTransformer</a> learn from raw values; frequency-domain models such as FEDformer model periodicity;
+    and a newer line prompts a pretrained language model, either by reprogramming it (Time-LLM) or by aligning series and prompt embeddings
+    (<a href="https://arxiv.org/abs/2406.01638">TimeCMA</a>).
+  </p>
+
+  <div class="pp-grid pp-grid-3 pp-wide">
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Gap 1</span>Isolated modalities</div>
+      <p class="pp-muted">
+        Most models commit to one representation. Time-language models such as TimeCMA still leave out the spectral view that captures global
+        periodicity.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Gap 2</span>Narrow alignment</div>
+      <p class="pp-muted">
+        When modalities are combined, a single cross-attention head carries all of the alignment, which limits how many different
+        interactions it can capture.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Gap 3</span>Horizon rigidity</div>
+      <p class="pp-muted">
+        The same fusion is applied whether the model forecasts 96 or 720 steps ahead, although near-term forecasts lean on local detail and
+        long ones on periodic structure.
+      </p>
+    </div>
+  </div>
+
+  <div class="pp-widget pp-wide" id="pp-spectrum">
+    <div class="pp-widget-head">
+      <div><span class="pp-kicker">Interactive</span><span class="pp-widget-title">What the frequency branch sees</span></div>
+      <span class="pp-muted">A 96-step window and its real FFT, computed live</span>
+    </div>
+    <div class="pp-widget-body">
+      <svg class="pp-diagram" viewBox="0 0 720 330" role="img" aria-labelledby="sp-title sp-desc" data-sp-plot>
+        <title id="sp-title">A time series and its magnitude spectrum</title>
+        <desc id="sp-desc">
+          Top: a 96-step synthetic series with a daily cycle, a half-day harmonic, a trend and noise. Bottom: the magnitude of its real Fourier
+          transform over 49 frequency bins.
+        </desc>
+      </svg>
+      <div class="pp-controls-row">
+        <div class="pp-control">
+          <label for="sp-a1"><span>Daily cycle · 24</span><output data-a1-out>1.00</output></label>
+          <input class="pp-range" id="sp-a1" type="range" min="0" max="1.5" step="0.05" value="1" data-a1>
+        </div>
+        <div class="pp-control">
+          <label for="sp-a2"><span>Half-day cycle · 12</span><output data-a2-out>0.40</output></label>
+          <input class="pp-range" id="sp-a2" type="range" min="0" max="1" step="0.05" value="0.4" data-a2>
+        </div>
+        <div class="pp-control">
+          <label for="sp-tr"><span>Trend</span><output data-tr-out>0.00</output></label>
+          <input class="pp-range" id="sp-tr" type="range" min="0" max="2" step="0.1" value="0" data-tr>
+        </div>
+        <div class="pp-control">
+          <label for="sp-nz"><span>Noise</span><output data-nz-out>0.30</output></label>
+          <input class="pp-range" id="sp-nz" type="range" min="0" max="1.5" step="0.05" value="0.3" data-nz>
+        </div>
+      </div>
+      <p class="pp-widget-foot" data-sp-summary>The strongest bin is k = 4, a period of 24 steps.</p>
+    </div>
+  </div>
+  <p class="pp-muted" style="font-size: 0.86rem">
+    Each of the \(\lfloor 96/2 \rfloor + 1 = 49\) bins becomes one token for the frequency encoder. Noise spreads across every bin, but a cycle
+    stays in one, which is why a few spectral tokens can summarise periodic structure that would take attention over the whole window to find in
+    the time domain. The series is z-scored first, as the model's input is.
+  </p>
+</section>
+
+<section class="pp-section" id="method">
+  <span class="pp-kicker">Method</span>
+  <h2>Encode three views, gate by horizon, align, and keep a residual path</h2>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/t3time/fig2_framework.png"
+        alt="T3Time architecture: frequency, time-series and LLM encoding branches; horizon-aware gating; multi-head cross-modal attention with adaptive head fusion; channel-wise residual connection; Transformer decoder."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 2. The T3Time architecture.</b> Three encoding branches (frequency, time series, and a frozen LLM over text prompts), a
+      horizon-aware gate that fuses time and frequency, multi-head cross-modal alignment with per-head importance weights, and a channel-wise
+      residual connection before the decoder.
+    </p>
+  </div>
+
+  <h3>Tri-modal encoding</h3>
+  <p>
+    For a normalised input \(X \in \mathbb{R}^{B \times N \times L}\), the <b>frequency branch</b> takes the real FFT along time and keeps the
+    magnitude. Each of the \(L_f\) bins is a token: projected, encoded by a one-layer Transformer, and pooled with learned attention weights over
+    the bins.
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ F = \big|\mathcal{F}_r(X)\big|,\quad L_f = \lfloor L/2 \rfloor + 1, \qquad \tilde F = \sum_{l=1}^{L_f} \alpha_l\, \mathcal{T}\big(\phi(F W_f^\top)\big)_{:,l}, \]
+    </div>
+    <div class="pp-eq-tag">frequency</div>
+  </div>
+  <p>
+    The <b>time branch</b> embeds each variable's whole window, \(Z_t = X W_t\), and encodes it with a Transformer into \(\tilde Z_t\). The
+    <b>language branch</b> writes one prompt per variable, runs it through a frozen GPT-2, and keeps the last token's embedding as
+    \(Z_{\text{LLM}}\):
+  </p>
+<pre class="pp-json"><span class="c"># prompt template, one per variable and window</span>
+From <span class="k">[t1]</span> to <span class="k">[t2]</span>, the values were <span class="k">value1, ..., valuen</span> every <span class="k">f</span>. The total trend value was <span class="k">T</span>.</pre>
+
+  <h3>Horizon-aware gating</h3>
+  <p>
+    Short forecasts should lean on local, time-domain detail and long ones on global periodicity. A small MLP sees the pooled time encoding and
+    the normalised prediction length, and outputs a per-channel gate that mixes the two views:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ g = \sigma\big(W_4\, \phi(W_3\, [\,\mathrm{pool}(\tilde Z_t);\ L_p / c\,])\big), \qquad Z_g = g \odot \tilde F + (1-g) \odot \tilde Z_t. \]
+    </div>
+    <div class="pp-eq-tag">horizon gate</div>
+  </div>
+
+  <h3>Adaptive multi-head cross-modal alignment</h3>
+  <p>
+    Following TimeCMA, the fused temporal–spectral features query the prompt embeddings through cross-attention, but with \(H\) independent
+    heads instead of one. A gating network then scores the heads for each variable and takes their convex combination, so different variables
+    can rely on different alignments:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \begin{aligned} H^{(h)} &= \mathrm{CrossAttn}_h\big(Z_g,\, Z_{\text{LLM}}\big), \quad \pi =\mathrm{softmax}\big(W_6\, \phi(\mathrm{LN}(W_5\, U))\big), \\ \Lambda &= \textstyle\sum_{h=1}^{H} \pi^{(h)}\, H^{(h)}, \end{aligned} \]
+    </div>
+    <div class="pp-eq-tag">head fusion</div>
+  </div>
+  <p>
+    where \(U\) concatenates the head outputs. The model uses \(H = 4\); a sweep over 1 to 16 heads finds four best on average, with more heads
+    fragmenting the attention rather than helping.
+  </p>
+
+  <h3>Channel-wise residual fusion</h3>
+  <p>
+    Alignment should add context, not overwrite what the series already says. A learned coefficient per latent channel, \(\gamma_c \in [0,1]\),
+    decides how much of each channel comes from the aligned features and how much from the gated temporal–spectral features, before a
+    Transformer decoder and a linear head produce the forecast:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \Theta_{c} = \gamma_c\, \Lambda_{c} + (1 - \gamma_c)\, Z_{g,c}, \qquad \hat Y = \mathcal{D}(\Theta^\top)\, W_p^\top + b_p. \]
+    </div>
+    <div class="pp-eq-tag">residual</div>
+  </div>
+</section>
+
+<section class="pp-section" id="results">
+  <span class="pp-kicker">Results</span>
+  <h2>Long-term forecasting on eight benchmarks</h2>
+  <p>
+    Following TimeCMA's protocol, the input window is 96 steps and each score averages four horizons, \(\{96, 192, 336, 720\}\) (for ILI, a
+    36-step input and \(\{24, 36, 48, 60\}\)). The eight datasets cover electricity transformers (ETTh1/2, ETTm1/2), electricity consumption (ECL),
+    weather, influenza-like illness (ILI) and exchange rates. Each result averages three seeds.
+  </p>
+
+  <div class="pp-table-wrap pp-wide" style="margin-top: 1.5rem">
+    <table class="pp-table">
+      <thead>
+        <tr>
+          <th scope="col">Dataset</th>
+          <th scope="col" class="is-ours">T3Time MSE</th>
+          <th scope="col">Strongest baseline</th>
+          <th scope="col" style="text-align: right">Change in MSE</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in page.delta_long %}
+          <tr>
+            <td>{{ r.d }}</td>
+            <td class="is-ours">{{ r.ours }}</td>
+            <td>{{ r.base }} · {{ r.bv }}</td>
+            <td class="pp-delta{% if r.pct < 0 %} is-better{% endif %}">
+              {% if r.pct > 0 %}+{% endif %}{{ r.pct | replace: '-', '−' }}%
+              <span class="pp-dbar{% if r.pct < 0 %} is-better{% endif %}" style="--v: {{ r.pct }};"><i></i></span>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="pp-table-note">
+    Negative is better. The bar runs from zero on a shared −12% to +4% scale; it is coloured where T3Time has the lower error.
+  </p>
+
+  <div class="pp-takeaway pp-wide">
+    <p>
+      T3Time has the lowest MSE on seven of eight datasets and the lowest MAE on seven of eight. Averaged over all eight it cuts MSE by
+      <span class="pp-pos">4.4%</span> against TimeCMA, 8.9% against iTransformer and 11.2% against Time-LLM.
+    </p>
+    <p class="pp-muted">
+      The exceptions are ETTm2, where TimeCMA's MSE is 1.5% lower, and ETTm1 MAE, where TimeCMA leads by 0.001. The largest gains are on ILI
+      (−11.3%) and ETTh2 (−6.5%).
+    </p>
+  </div>
+
+  <details class="pp-details pp-wide">
+    <summary>All baselines · average MSE and MAE <span class="pp-muted">8 datasets × 9 methods</span></summary>
+    <div class="pp-details-body">
+      <h4 class="pp-table-title">MSE</h4>
+      {% include project/results_table.liquid group=page.long.mse first_col="Dataset" %}
+      <h4 class="pp-table-title">MAE</h4>
+      {% include project/results_table.liquid group=page.long.mae first_col="Dataset" %}
+      <p class="pp-table-note">Lower is better. Bold marks the best in each row and underline the runner-up. OFA is also known as GPT4TS.</p>
+    </div>
+  </details>
+</section>
+
+<section class="pp-section" id="few-shot">
+  <span class="pp-kicker">Few-shot</span>
+  <h2>With a tenth or a twentieth of the data</h2>
+  <p>
+    Following Time-LLM's few-shot setup, models train on only 10% or 5% of the training time steps, with a 512-step input window. This
+    is where pretrained language priors are supposed to pay off, and where the gap to non-LLM baselines grows: TimesNet, DLinear and PatchTST
+    trail by more than 15% in MSE.
+  </p>
+
+  <div class="pp-wide" data-pp-tabs style="margin-top: 1.5rem">
+    <div class="pp-tabs-bar">
+      <div class="pp-seg" role="tablist" aria-label="Training data">
+        {% for f in page.few %}
+          <button
+            type="button"
+            role="tab"
+            id="few-tab-{{ f.id }}"
+            aria-controls="few-{{ f.id }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            {{ f.name }}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+    {% for f in page.few %}
+      <div class="pp-tabpanel" role="tabpanel" id="few-{{ f.id }}" aria-labelledby="few-tab-{{ f.id }}">
+        <div class="pp-table-wrap" style="margin-top: 1rem">
+          <table class="pp-table">
+            <thead>
+              <tr>
+                <th scope="col">Dataset</th>
+                <th scope="col" class="is-ours">T3Time MSE</th>
+                <th scope="col">Strongest baseline</th>
+                <th scope="col" style="text-align: right">Change in MSE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in f.delta %}
+                <tr>
+                  <td>{{ r.d }}</td>
+                  <td class="is-ours">{{ r.ours }}</td>
+                  <td>{{ r.base }} · {{ r.bv }}</td>
+                  <td class="pp-delta is-better">
+                    {{ r.pct | replace: '-', '−' }}%
+                    <span class="pp-dbar is-better" style="--v: {{ r.pct }};"><i></i></span>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="pp-takeaway">
+          <p>
+            Lower MSE than the strongest baseline on all five datasets, by <span class="pp-pos">{{ f.avg_delta | replace: '-', '' }}%</span> on
+            average: {{ f.vs }}.
+          </p>
+          <p class="pp-muted">On ETTm2, Time-LLM keeps a slightly lower MAE; T3Time has the best MAE on the other four.</p>
+        </div>
+        <details class="pp-details">
+          <summary>All baselines · {{ f.name }} <span class="pp-muted">5 datasets × 8 methods</span></summary>
+          <div class="pp-details-body">
+            <h4 class="pp-table-title">MSE</h4>
+            {% include project/results_table.liquid group=f.mse first_col="Dataset" %}
+            <h4 class="pp-table-title">MAE</h4>
+            {% include project/results_table.liquid group=f.mae first_col="Dataset" %}
+            <p class="pp-table-note">Averages over the four horizons; lower is better.</p>
+          </div>
+        </details>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="pp-section" id="ablations">
+  <span class="pp-kicker">Ablations</span>
+  <h2>Every component helps; the residual path most</h2>
+  <p>
+    Removing one component at a time under the long-term setup, the full model is best, or tied for best, in all 14 dataset–metric pairs of the
+    design study.
+  </p>
+  <div class="pp-wide">
+    {% include project/hbar_chart.liquid chart=page.ablation.chart unit="%" %}
+  </div>
+  <div class="pp-takeaway pp-wide">
+    <p>
+      Without the <b>channel-wise residual</b>, MSE rises by 9.7% on average and by 28% on ILI: aligned features alone lose information the
+      raw temporal–spectral path still carries. Dropping the <b>frequency branch</b> costs 3.4%, most on Exchange (+5.9%) and ILI (+4.8%).
+    </p>
+    <p class="pp-muted">
+      Values are relative MSE increases per dataset, averaged over the seven datasets of the design study and computed from its table below.
+    </p>
+  </div>
+  <details class="pp-details pp-wide">
+    <summary>Design-variant table <span class="pp-muted">7 datasets × 5 variants</span></summary>
+    <div class="pp-details-body">
+      <h4 class="pp-table-title">MSE</h4>
+      {% include project/results_table.liquid group=page.ablation.mse first_col="Dataset" %}
+      <h4 class="pp-table-title">MAE</h4>
+      {% include project/results_table.liquid group=page.ablation.mae first_col="Dataset" %}
+      <p class="pp-table-note">Averages over the four horizons; lower is better.</p>
+    </div>
+  </details>
+
+  <h3>What the three views learn</h3>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/t3time/fig3_tsne.png"
+        alt="t-SNE of time-series, frequency, prompt and forecast embeddings, coloured by dataset. Time and frequency embeddings cluster by dataset; prompt embeddings are mixed."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 3. t-SNE of each modality's embeddings, coloured by dataset.</b> Time-series and especially frequency embeddings separate the
+      datasets cleanly, since each has its own periodicities. Prompt embeddings are more mixed, reflecting how similar the textual descriptions
+      are. The forecast embeddings cluster much like the time-series ones.
+    </p>
+  </div>
+  <p class="pp-muted">
+    Scope: all results use standard public benchmarks and a frozen GPT-2 for the prompt branch. Larger-scale pretraining and richer
+    representations for each modality are left for future work.
+  </p>
+</section>

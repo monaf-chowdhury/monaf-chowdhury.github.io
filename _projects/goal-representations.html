@@ -1,0 +1,598 @@
+---
+layout: project
+title: Goal Representations & the State Pathway
+description: Handed a perfect goal representation, a goal-conditioned agent barely acts better. The headroom is in how it sees its own position.
+img: assets/img/projects/goal-reps/thumb.jpg
+importance: 0.5
+category: research
+theme: violet
+venue: Preprint 2026 # shown on the homepage card
+paper_title: Do Better Goal Representations Improve Goal-Conditioned Reinforcement Learning?
+eyebrow: ["Preprint", "2026", "Goal-conditioned RL"]
+authors:
+  - name: Syed Nazmus Sakib
+    affil: "1"
+  - name: Abdul Monaf Chowdhury
+    affil: "1"
+    me: true
+  - name: Nafiul Haque
+    affil: "1"
+  - name: Shifat E Arman
+    affil: "1,2"
+  - name: Md Mehedi Hasan
+    affil: "1"
+affiliations:
+  - University of Dhaka
+  - University of Oxford
+links:
+  - label: Paper
+    icon: fa-solid fa-file-pdf
+    soon: true
+  - label: arXiv
+    icon: ai ai-arxiv
+    soon: true
+  - label: Code
+    icon: fa-brands fa-github
+    soon: true
+  - label: BibTeX
+    icon: fa-solid fa-quote-right
+    url: "#citation"
+    ghost: true
+sections:
+  - { id: overview, label: Overview }
+  - { id: question, label: The question }
+  - { id: setup, label: Setup }
+  - { id: goal-side, label: Goal side }
+  - { id: state-side, label: State side }
+  - { id: position-features, label: Position features }
+  - { id: scope, label: Scope }
+  - { id: citation, label: Cite }
+scripts:
+  - /assets/js/projects/goalrep-fourier.js
+bibtex: |
+  @article{sakib2026goalreps,
+    title   = {Do Better Goal Representations Improve Goal-Conditioned Reinforcement Learning?},
+    author  = {Sakib, Syed Nazmus and Chowdhury, Abdul Monaf and Haque, Nafiul and Arman, Shifat E and Hasan, Md Mehedi},
+    journal = {Preprint},
+    year    = {2026}
+  }
+
+# Table 1 of the paper: success x100, mean ± std (seeds). diff = ideal − learned with a 95% Welch interval.
+goal_table:
+  - { env: pointmaze-medium, algo: GCIVL, pub: "76 ± 7", learned: "70.9 ± 6.1", ln: 5, ideal: "62.7 ± 3.0", idn: 5, d: "−8.2 [−15.6, −0.7]", pt: -8.2, lo: -15.6, hi: -0.7 }
+  - { env: pointmaze-large, algo: GCIVL, pub: "46 ± 6", learned: "46.4 ± 6.5", ln: 5, ideal: "46.3 ± 7.9", idn: 5, d: "−0.1 [−10.7, +10.5]", pt: -0.1, lo: -10.7, hi: 10.5 }
+  - { env: antmaze-medium, algo: GCIVL, pub: "75 ± 4", learned: "76.5 ± 7.4", ln: 5, ideal: "68.4 ± 4.0", idn: 5, d: "−8.0 [−17.2, +1.1]", pt: -8.0, lo: -17.2, hi: 1.1 }
+  - { env: antmaze-large, algo: GCIVL, pub: "28 ± 11", learned: "32.2 ± 8.9", ln: 8, ideal: "30.0 ± 8.0", idn: 8, d: "−2.2 [−11.3, +6.9]", pt: -2.2, lo: -11.3, hi: 6.9 }
+  - { env: humanoidmaze-medium, algo: GCIVL, pub: "29 ± 3", learned: "27.8 ± 3.6", ln: 5, ideal: "34.2 ± 3.1", idn: 5, d: "+6.4 [+1.5, +11.4]", pt: 6.4, lo: 1.5, hi: 11.4 }
+  - { env: pointmaze-medium, algo: CRL, pub: "33 ± 1", learned: "37.8 ± 3.3", ln: 5, ideal: "57.4 ± 11.6", idn: 5, d: "+19.5 [+5.4, +33.7]", pt: 19.5, lo: 5.4, hi: 33.7 }
+  - { env: pointmaze-large, algo: CRL, pub: "39 ± 12", learned: "35.4 ± 7.9", ln: 5, ideal: "43.0 ± 17.6", idn: 4, d: "+7.6 [−18.8, +34.1]", pt: 7.6, lo: -18.8, hi: 34.1 }
+  - { env: antmaze-medium, algo: CRL, pub: "93 ± 3", learned: "94.6 ± 1.6", ln: 2, ideal: "92.5 ± 0.4", idn: 2, d: "−2.1 [−13.8, +9.7]", pt: -2.1, lo: -13.8, hi: 9.7 }
+  - { env: antmaze-large, algo: CRL, pub: "87 ± 2", learned: "82.2 ± 3.4", ln: 8, ideal: "80.8 ± 3.4", idn: 8, d: "−1.4 [−5.1, +2.2]", pt: -1.4, lo: -5.1, hi: 2.2 }
+
+charts:
+  same_code:
+    title: The same random code, on either side of the interface
+    subtitle: antmaze-large · GCIVL · success (%)
+    unit: "%"
+    label_w: 11.5rem
+    legend:
+      - { label: "Code on the goal", kind: "" }
+      - { label: "Code on the state", kind: "is-hl" }
+    bars:
+      - { label: "Learned goal rep. (DGR)", value: 32.2, note: "± 8.9 over 8 seeds" }
+      - { label: "Exact goal rep. (BFS)", value: 30.0, note: "± 8.0 over 8 seeds" }
+      - { label: "Random code as goal", value: 31.9, note: "± 2.4. Rank correlation with true distance: 0.004" }
+      - { label: "Random code on state", value: 71.5, hl: true, divider: true, note: "39.6 points above the same code applied to the goal" }
+  state_code:
+    title: What the state code needs to contain
+    subtitle: antmaze-large · GCIVL · success (%)
+    unit: "%"
+    label_w: 11.5rem
+    legend:
+      - { label: "No state code", kind: "" }
+      - { label: "Exact geodesic code", kind: "is-second" }
+      - { label: "Corrupted or random code", kind: "is-hl" }
+    bars:
+      - { label: "None", value: 30.0 }
+      - { label: "Exact geodesics · ρ = 1.00", value: 64.7, second: true, note: "± 9.4 over 5 seeds" }
+      - { label: "Gaussian σ = 8 · ρ = 0.39", value: 84.5, hl: true, note: "19.8 points above the exact code" }
+      - { label: "Far-field σ = 8 · ρ = 0.00", value: 77.6, hl: true, note: "12.9 points above the exact code" }
+      - { label: "Random N(0, 1) · ρ = 0.00", value: 71.5, hl: true, note: "+6.8 [−4.8, +18.3] over the exact code" }
+  controls:
+    title: Position features, and the controls around them
+    subtitle: antmaze-large · GCIVL · success (%)
+    unit: "%"
+    label_w: 13rem
+    legend:
+      - { label: "Without position features", kind: "" }
+      - { label: "With position features", kind: "is-hl" }
+    bars:
+      - { label: "Raw goal", value: 15.7 }
+      - { label: "Raw goal + position features", value: 71.0, hl: true, note: "No goal representation at all" }
+      - { label: "Learned goal rep. (DGR)", value: 32.2, divider: true }
+      - { label: "DGR + position features", value: 83.9, hl: true, note: "Published goal-representation methods span 9 to 28 here" }
+      - { label: "DGR + standardised x, y", value: 7.1, note: "Rescales position without adding a basis" }
+      - { label: "DGR + 1024-wide actor", value: 31.8, note: "−0.4 [−8.8, +8.0] against the 512-unit actor" }
+---
+
+<section class="pp-section" id="overview">
+  <div class="pp-tldr">
+    <span class="pp-kicker">TL;DR</span>
+    <p>
+      Goal-representation research assumes that encoding reachability more accurately makes goal-conditioned agents act better. We test this
+      directly by handing agents an <strong>exactly computed</strong> goal representation. It barely helps, and neither corrupting it nor
+      replacing it with random noise hurts much. The same intervention applied to the agent's <em>own state</em> more than doubles success, and a
+      map-free version, random Fourier features of the agent's \((x, y)\), raises GCIVL on antmaze-large from 32 to 84.
+    </p>
+  </div>
+
+  <div class="pp-stats pp-wide">
+    <div class="pp-stat">
+      <div class="pp-stat-value">6<small>of 9</small></div>
+      <div class="pp-stat-label">Exact-vs-learned goal comparisons that are statistically indistinguishable</div>
+      <span class="pp-stat-delta">3 split both ways</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">7.6<small>pts</small></div>
+      <div class="pp-stat-label">Largest shift across 16 corrupted goal representations</div>
+      <span class="pp-stat-delta">every CI includes zero</span>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">+39.6<small>pts</small></div>
+      <div class="pp-stat-label">From moving one random code from the goal to the state</div>
+    </div>
+    <div class="pp-stat">
+      <div class="pp-stat-value">32 → 84</div>
+      <div class="pp-stat-label">GCIVL on antmaze-large with map-free position features</div>
+    </div>
+  </div>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/goal-reps/fig1_interface.png"
+        alt="Left: a goal described by its temporal distances to landmark states, and nested distance radii. Right: raw observations lifted into a higher-dimensional state encoding from which the policy acts."
+        zoomable=true
+        loading="eager"
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Figure 1. Two sides of the same interface.</b> Left, top: goal-side representations, the axis this literature optimises, describe a goal
+      by its temporal distances to other states. Left, bottom: the property that motivates them: such distances compose, so a policy accurate within
+      one radius extends to two and four. Right: our proposal encodes the agent's own position instead, lifting observations that are close together
+      in raw coordinates into a representation in which they are far apart, and from which the policy acts.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="question">
+  <span class="pp-kicker">The question</span>
+  <h2>The premise under test</h2>
+  <p>
+    Offline goal-conditioned RL learns one policy \(\pi(a \mid s, g)\) that reaches diverse target states, from a fixed dataset whose goals are
+    relabelled in hindsight. A central design question is how the goal should be represented. Recent work characterises goals through future
+    occupancy, temporal distance or controllability: contrastive representations, value-implicit pre-training, quasimetric and temporal-distance
+    embeddings, and dual goal representations. The objectives differ, but the premise is shared: <strong>a representation that captures
+    reachability more accurately should enable better control.</strong>
+  </p>
+  <p>
+    Existing evaluations don't isolate that premise. Comparisons change the representation-learning procedure and the resulting embedding at the
+    same time, so it is hard to tell whether a gain comes from the information the representation carries or from how it was learned. We ask
+    the question directly:
+  </p>
+  <blockquote class="pp-quote">If a goal-conditioned agent were handed a perfect goal representation, how much better would it act?</blockquote>
+  <p>
+    In deterministic mazes, the question has an exact answer, because the perfect representation can be computed. The answer turns out to be
+    <em>barely</em>, and it points somewhere else: the other argument of the policy, the agent's own state.
+  </p>
+</section>
+
+<section class="pp-section" id="setup">
+  <span class="pp-kicker">Setup</span>
+  <h2>Measuring with a perfect representation</h2>
+
+  <h3>The goal interface</h3>
+  <p>
+    Any goal-conditioned network combines its two arguments before producing an output. Writing that combination explicitly as the
+    <em>goal interface</em> \(I\),
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \pi(a \mid s, g) = h\big(I(s, \varphi(g))\big), \qquad I_{\text{concat}}(s, \varphi) = \mathrm{MLP}\big([\,s\,;\,\varphi\,]\big). \]
+    </div>
+    <div class="pp-eq-tag">goal interface</div>
+  </div>
+  <p>
+    Every goal-representation method we know of fixes the interface to concatenation. The representation \(\varphi\), the interface \(I\) and the
+    state pathway are separate design axes, and this work measures all three.
+  </p>
+
+  <h3>An exact dual representation</h3>
+  <p>
+    <a href="https://arxiv.org/abs/2510.06714">Dual goal representations</a> (DGR; Park et al., 2026) describe a goal by its temporal distances from
+    other states, which is provably sufficient for optimal control. In practice it is evaluated against \(K\) landmark states \(a_1, \dots, a_K\)
+    sampled from the data:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">\[ \varphi(g) = \big[\, d(a_1, g),\ \dots,\ d(a_K, g) \,\big] \in \mathbb{R}^K. \]</div>
+    <div class="pp-eq-tag">dual representation</div>
+  </div>
+  <p>
+    In continuous domains DGR has to <em>learn</em> these distances, with a bilinear value parameterisation. In the deterministic OGBench mazes,
+    though, temporal distance is a graph geodesic, so a breadth-first search from every landmark gives the exact table (\(K = 256\) for AntMaze
+    and HumanoidMaze, \(64\) for PointMaze). We call this the <strong>ideal</strong> representation and swap it in for the learned one, leaving
+    the downstream algorithm, objective and every other component unchanged. The two downstream algorithms are GCIVL (expectile value learning
+    with advantage-weighted regression) and CRL (a contrastive critic with a behaviour-regularised policy).
+  </p>
+
+  <h3>Measuring quality without a probe</h3>
+  <p>
+    To score how much distance structure a representation keeps, we decode distances with a min-plus rule and take the Spearman correlation
+    \(\rho\) with the true geodesic, overall and within distance quartiles:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">\[ \hat d(s, g) = \min_i\, \big[\, d(a_i, s) + \varphi_i(g) \,\big]. \]</div>
+    <div class="pp-eq-tag">min-plus decode</div>
+  </div>
+  <p class="pp-muted">
+    A learned probe is uninformative here: in a maze, the goal state determines its own position, so any representation that preserves goal
+    identity contains complete distance information. An MLP probe scores 0.997 to 0.999 on a raw 2-D goal, a frozen random projection and a
+    learned representation alike. The decode reads the representation directly and fits nothing.
+  </p>
+
+  <h3>A corruption ladder</h3>
+  <p>
+    Starting from the exact table, we remove distance information in two ways: <strong>Gaussian</strong> noise on every entry, and
+    <strong>far-field</strong> noise on only the furthest quartile, which keeps nearby relationships intact:
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">\[ \tilde\varphi_i(g) = \max\big(0,\ \varphi_i(g) + \sigma\,\epsilon_{i,g}\big), \qquad \epsilon_{i,g} \sim \mathcal{N}(0, 1). \]</div>
+    <div class="pp-eq-tag">corruption</div>
+  </div>
+  <p>
+    The noise is drawn once and fixed, so each setting is a deterministic representation rather than observation noise. The same constructions
+    can be applied to the <em>state</em> instead, by appending a fixed per-cell code, \(\tilde s = [\,s\,;\, c(s)\,]\), of the same
+    dimensionality and indexing. State codes need the maze layout, so they are diagnostics, not a method.
+  </p>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/goal-reps/fig9_quartiles.png"
+        alt="Rank correlation between decoded and true distance within each distance quartile, as Gaussian and far-field corruption grow."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>What the two corruptions do to the geometry.</b> Spearman correlation between decoded and true distance, within quartiles of true
+      distance. Gaussian corruption degrades every range at once. Far-field corruption keeps the nearest quartile exact while driving the
+      furthest negative, so at \(\sigma = 8\) distant goals are ranked in reverse.
+    </p>
+  </div>
+</section>
+
+<section class="pp-section" id="goal-side">
+  <span class="pp-kicker">Finding 1</span>
+  <h2>Goal representations are saturated</h2>
+  <p class="pp-lede">
+    Replacing the learned representation with the exact one, with everything else held fixed, does not reliably improve control.
+  </p>
+
+  <div class="pp-wide">
+    <div class="pp-table-wrap">
+      <table class="pp-table">
+        <thead>
+          <tr>
+            <th scope="col">Environment</th>
+            <th scope="col">Algo</th>
+            <th scope="col">DGR (published)</th>
+            <th scope="col">Learned (ours)</th>
+            <th scope="col">Ideal (ours)</th>
+            <th scope="col" style="text-align: right">Ideal − learned, 95% CI</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in page.goal_table %}
+            {% assign sig = false %}
+            {% if r.lo > 0 or r.hi < 0 %}{% assign sig = true %}{% endif %}
+            <tr>
+              <td>{{ r.env }}</td>
+              <td>{{ r.algo }}</td>
+              <td>{{ r.pub }}</td>
+              <td>{{ r.learned }} <span class="sd">({{ r.ln }})</span></td>
+              <td>{{ r.ideal }} <span class="sd">({{ r.idn }})</span></td>
+              <td class="pp-diff{% if sig %} is-sig{% endif %}">
+                <span class="pp-diff-num">{{ r.d }}</span>
+                <span class="pp-ci{% if sig %} is-sig{% endif %}" style="--pt: {{ r.pt }}; --lo: {{ r.lo }}; --hi: {{ r.hi }};" aria-hidden="true"><i></i><b></b></span>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="pp-table-note">
+      Success rate (%), mean ± std with seed counts in parentheses; published DGR numbers are over 8 seeds. Intervals are 95% Welch intervals,
+      drawn on a shared −20 to +35 scale with the vertical line at zero. Highlighted intervals exclude zero.
+    </p>
+  </div>
+
+  <p>
+    Six of the nine comparisons are statistically indistinguishable. Of the other three, the exact representation wins by 6.4 points
+    (humanoidmaze-medium, GCIVL) and 19.5 points (pointmaze-medium, CRL), and <em>loses</em> by 8.2 (pointmaze-medium, GCIVL). The differences
+    have no consistent direction, and across the five GCIVL tasks the exact representation averages 48% against 51% for the learned one. In the
+    tabular Lights-Out setting of the original DGR paper the exact representation does help; in these continuous-control mazes it does not help
+    consistently.
+  </p>
+
+  <details class="pp-details">
+    <summary>Learning curves: exact vs. learned <span class="pp-muted">six settings</span></summary>
+    <div class="pp-details-body">
+      <div class="pp-fig-frame" style="max-width: 560px; margin: 0 auto">
+        {%
+          include figure.liquid
+          path="assets/img/projects/goal-reps/fig3_curves.png"
+          alt="Evaluation curves over one million steps for learned and exact goal representations in six settings."
+          zoomable=true
+        %}
+      </div>
+      <p class="pp-caption">
+        Mean ± 1 SE over 2 to 8 seeds per panel; violet is learned, gold exact. Learning speed and asymptotic success are indistinguishable.
+      </p>
+    </div>
+  </details>
+
+  <h3>Degrading the representation barely matters</h3>
+  <p>
+    The learned representation might simply be good enough already. So we walk the exact one down the corruption ladder, from exact geodesics to
+    essentially no distance information.
+  </p>
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/goal-reps/fig4_ladder.png"
+        alt="Success rate against representation quality for Gaussian and far-field corruption, for GCIVL and CRL, staying close to the uncorrupted line."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Control is insensitive to goal quality.</b> antmaze-large, mean ± 1 SD over 5 to 8 seeds. Across corruption ladders from exact geodesics to
+      zero distance information, no performance difference is distinguishable from zero.
+    </p>
+  </div>
+  <p>
+    Far-field corruption at \(\sigma = 8\) removes essentially all rank information about distant goals: the far-quartile correlation falls from
+    1.00 to −0.41 while the near quartile stays at 0.997. Yet success drops by only 6.4 points for GCIVL and 5.1 for CRL. Across all sixteen
+    settings, every point estimate is within 7.6 points of the uncorrupted representation, every interval includes zero, and the correlation
+    between measured quality and success stays between +0.21 and +0.27, none distinguishable from zero.
+  </p>
+  <p class="pp-muted">
+    This is not a claim of exact flatness: the pre-stated tolerance was five points, and several intervals extend past it. The supported
+    conclusion is narrower. Over nearly the full range of representation quality, no difference is distinguishable from zero, while the
+    state-side interventions below move success by 30 to 50 points.
+  </p>
+
+  <h3>A code with no geometry does just as well</h3>
+  <p>
+    Finally, we replace the goal representation with a table of the same shape and indexing whose entries are i.i.d. \(\mathcal{N}(0, 1)\). It
+    identifies the goal cell and contains no geometry at all (rank correlation with true distance: 0.004). It scores 31.9 ± 2.4 on
+    antmaze-large, against 30.0 ± 8.0 for exact geodesics (+1.9 [−4.9, +8.8]) and 32.2 ± 8.9 for DGR's learned representation
+    (−0.2 [−7.9, +7.4]). <strong>Whatever these agents extract from the goal, it is little more than its identity.</strong>
+  </p>
+</section>
+
+<section class="pp-section" id="state-side">
+  <span class="pp-kicker">Finding 2</span>
+  <h2>The state pathway is the bottleneck</h2>
+  <p class="pp-lede">
+    If the goal side is saturated, the headroom lies elsewhere. So we move the identical intervention to the other argument of the policy.
+  </p>
+
+  {% include project/hbar_chart.liquid chart=page.charts.same_code class="pp-wide" %}
+
+  <p style="margin-top: 1.5rem">
+    In the last two rows the construction, dimensionality, cell indexing and information content are identical; only the argument the code is
+    applied to differs. That alone is worth <strong>39.6 points</strong>. The same holds for CRL, where an exact state code raises success from
+    80.8 ± 3.4 to 89.9 ± 1.5 (+9.2 [+6.1, +12.3]) on a task where the goal-side intervention was worth −1.4 [−5.1, +2.2].
+  </p>
+
+  <h3>What must the state code contain?</h3>
+  <p>We run the state code through the same corruption ladder used for the goal, alongside the random table.</p>
+
+  {% include project/hbar_chart.liquid chart=page.charts.state_code class="pp-wide" %}
+
+  <p style="margin-top: 1.5rem">
+    Every code helps, and the exact geodesics are the weakest of them. Corrupting the table <em>improves</em> it, by 19.8 points for Gaussian
+    \(\sigma = 8\) and 12.9 for far-field \(\sigma = 8\), and a table with no geometry at all is worth 6.8 points more than the exact one
+    (+6.8 [−4.8, +18.3]). The effect is <strong>positional encoding</strong>: what the network gains is a high-dimensional, distinguishable
+    representation of where it currently is. The exact geodesic table is a comparatively poor one, because it varies smoothly and nearly linearly
+    across neighbouring cells.
+  </p>
+</section>
+
+<section class="pp-section" id="position-features">
+  <span class="pp-kicker">Method</span>
+  <h2>Position features: a map-free state encoding</h2>
+  <p class="pp-lede">
+    State codes need the maze layout. Position features need only the agent's coordinates: fixed random Fourier features of \((x, y)\), appended to
+    the observation.
+  </p>
+  <div class="pp-eq">
+    <div class="pp-eq-math">
+      \[ \tilde s = \big[\, s\ ;\ \sin(2\pi B\,[x, y]^\top)\ ;\ \cos(2\pi B\,[x, y]^\top) \,\big] \]
+    </div>
+    <div class="pp-eq-tag">position features</div>
+  </div>
+  <p>
+    The frequency matrix \(B \in \mathbb{R}^{F \times 2}\) has entries drawn from \(\mathcal{N}(0, \varsigma^2)\), where \(\varsigma\) sets the
+    frequency scale in cycles per coordinate unit. With \(F = 128\), that is 256 fixed features. \(B\) is drawn once and kept fixed across
+    training and seeds. The objective, optimiser, network
+    widths, goal representation and hyperparameters are all unchanged, and the only requirement is knowing which two observation dimensions hold
+    the agent's position: no map, no transition graph.
+  </p>
+
+  <div class="pp-widget pp-wide" id="pp-fourier">
+    <div class="pp-widget-head">
+      <div><span class="pp-kicker">Interactive</span><span class="pp-widget-title">What the policy sees of its own position</span></div>
+      <span class="pp-muted">Click or drag in the maze to move the agent</span>
+    </div>
+    <div class="pp-widget-body">
+      <div class="pp-widget-grid pp-widget-grid-maze">
+        <div>
+          <div class="pp-maze-wrap">
+            <canvas
+              width="576"
+              height="432"
+              tabindex="0"
+              aria-label="Large maze heat map of feature similarity to the agent. Use the arrow keys to move the agent."
+            ></canvas>
+          </div>
+          <div class="pp-scale" aria-hidden="true">
+            <span>0</span><span class="pp-scale-bar"></span><span>1</span>
+            <span style="margin-left: 0.3rem">similarity to the agent's code</span>
+          </div>
+        </div>
+        <div>
+          <div class="pp-seg" role="group" aria-label="State encoding">
+            <button type="button" data-mode="8.5" aria-pressed="true">λ = 8.5 cells</button>
+            <button type="button" data-mode="2.1" aria-pressed="false">2.1</button>
+            <button type="button" data-mode="0.5" aria-pressed="false">0.5</button>
+            <button type="button" data-mode="geo" aria-pressed="false">Exact geodesic</button>
+          </div>
+          <p class="pp-mode-text" data-mode-text></p>
+          <div class="pp-readout">
+            <div class="pp-readrow is-hl" data-row="near">
+              <span class="pp-readrow-name">Similarity 1 cell away</span>
+              <span class="pp-readrow-val"><b data-v>–</b></span>
+              <span class="pp-readrow-track"><span class="pp-readrow-bar" style="width: 0"></span></span>
+            </div>
+            <div class="pp-readrow is-hl" data-row="far">
+              <span class="pp-readrow-name">Similarity 3 cells away</span>
+              <span class="pp-readrow-val"><b data-v>–</b></span>
+              <span class="pp-readrow-track"><span class="pp-readrow-bar" style="width: 0"></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="pp-widget-foot">
+        Colour is the kernel the features induce, \(k(x, x') = \tfrac{1}{F}\sum_i \cos\big(2\pi\, b_i^\top (x - x')\big)\), between each location and
+        the agent, with \(F = 128\) frequencies drawn once. Wavelengths are the paper's three settings in maze-cell units. Fourier features are
+        Euclidean, so they ignore walls; the exact geodesic code respects walls but changes too slowly to tell neighbours apart.
+      </p>
+    </div>
+  </div>
+
+  {% include project/hbar_chart.liquid chart=page.charts.controls class="pp-wide" %}
+
+  <p style="margin-top: 1.5rem">
+    On antmaze-large, position features raise GCIVL from <strong>32.2 to 83.9</strong> with DGR's learned representation; published
+    goal-representation methods span 9 to 28 on this task. On humanoidmaze-medium they roughly double success under both representations. They
+    work without any goal representation at all, lifting a raw-goal baseline from 15.7 to 71.0, and DGR adds +12.9 [+9.0, +16.9] on top: goal
+    representations are not useless, but their contribution is second-order. Across settings, the longest wavelength works best and the shortest
+    worst.
+  </p>
+
+  <div class="pp-figure pp-wide">
+    <div class="pp-fig-frame">
+      {%
+        include figure.liquid
+        path="assets/img/projects/goal-reps/fig10_wavelength.png"
+        alt="Success rate against feature wavelength for antmaze-large and humanoidmaze-medium, with and without position features."
+        zoomable=true
+      %}
+    </div>
+    <p class="pp-caption">
+      <b>Success against feature wavelength.</b> Dashed lines mark the same agent without position features. Longer wavelengths keep nearby states
+      similar while separating distant ones; short ones behave like random codes. The sweep stops at 8.5 cells, so where the trend peaks is open.
+    </p>
+  </div>
+
+  <h3>Ruling out other explanations</h3>
+  <div class="pp-grid pp-grid-2 pp-wide">
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Capacity</span></div>
+      <p>
+        Doubling the actor to 1024 units changes nothing (<span class="pp-num">−0.4 [−8.8, +8.0]</span>). Across interfaces, parameter count does not
+        track performance: the best uses 635k parameters against 676k for concatenation, and the largest, at 1.47M, is the worst.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Input scale</span></div>
+      <p>
+        Standardising \((x, y)\) in place, the smallest change that aligns position with the proprioceptive dimensions, drops success from 32.2 to
+        7.1. The features help by separating positions, not by rescaling them.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Goal input width</span></div>
+      <p>
+        Passing \(\varphi(g)\) through a bottleneck matched to the attention context width changes nothing:
+        <span class="pp-num">−2.8 [−13.5, +7.8]</span> with the exact representation, <span class="pp-num">−0.1 [−6.5, +6.3]</span> with raw goals.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Shortest-path routing</span></div>
+      <p>
+        Cross-attention over landmark tokens could implement the min-plus decode, but doesn't. The landmark it would select gets 1.59× and 1.43×
+        chance attention in two seeds; a state-independent "nearest to the goal" heuristic gets more, 2.52× and 1.85×.
+      </p>
+    </div>
+  </div>
+
+  <h3>The interface is a design axis too</h3>
+  <p>
+    Swapping concatenation for cross-attention, with queries formed from the state, is worth +23.2 [+15.6, +30.9] on antmaze-large with the exact
+    representation, and +33.2 [+25.2, +41.1] when both actor and critic use it. The same actor-and-critic change with the learned representation
+    gives only +3.9 [−3.9, +11.7]. Because the query comes from the state, cross-attention carries an implicit positional encoding, and it becomes
+    largely redundant once an explicit state code is present (+8.9 [−3.4, +21.2]): two routes to the same quantity. Across fifteen controlled
+    comparisons the swap moves success by −8.4 to +26.9 points. Architectural defaults fixed by convention shift performance more than optimising
+    the goal representation does.
+  </p>
+  <details class="pp-details">
+    <summary>Full interface sweep <span class="pp-muted">15 comparisons</span></summary>
+    <div class="pp-details-body">
+      <div class="pp-fig-frame" style="max-width: 640px; margin: 0 auto">
+        {%
+          include figure.liquid
+          path="assets/img/projects/goal-reps/fig11_interface_sweep.png"
+          alt="Cross-attention minus concatenation with 95% intervals for fifteen settings."
+          zoomable=true
+        %}
+      </div>
+      <p class="pp-caption">
+        Cross-attention minus concatenation, everything else fixed within a row; whiskers are 95% Welch intervals. Violet marks intervals that exclude
+        zero in favour of cross-attention, gold in favour of concatenation, grey a tie.
+      </p>
+    </div>
+  </details>
+</section>
+
+<section class="pp-section" id="scope">
+  <span class="pp-kicker">Scope</span>
+  <h2>Where it holds, and where it doesn't</h2>
+  <div class="pp-grid pp-wide">
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">PointMaze</span></div>
+      <p>
+        None of the interventions help. Observations are four-dimensional and the coordinates are most of them, so there is little for a position
+        encoding to disambiguate. Raising the landmark count from 64 to 256 does not change this.
+      </p>
+    </div>
+    <div class="pp-card">
+      <div class="pp-card-title"><span class="pp-kicker">Manipulation</span></div>
+      <p>
+        The interface result does not transfer: cross-attention is worse than concatenation on cube-single-play
+        (<span class="pp-num">−3.6 [−6.5, −0.7]</span>) and no better on scene-play (<span class="pp-num">−6.5 [−13.2, +0.2]</span>). These tasks have
+        no maze geometry and no single pair of coordinates that locates the agent.
+      </p>
+    </div>
+  </div>
+  <p>
+    We rule out capacity, input scale and internal shortest-path routing, but the precise mechanism by which spatial distinguishability aids
+    policy learning remains open. The usual explanation for Fourier features, spectral bias, is not supported by the frequency sweep. The
+    evaluation is restricted to state-based navigation, position features are untested in pixel-based domains, and we do not claim
+    state-of-the-art results over hierarchical methods.
+  </p>
+</section>
