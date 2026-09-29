@@ -397,36 +397,14 @@ ninja.data = [{
           section: "News",},{id: "news-my-paper-titled-lagea-language-guided-embodied-agents-for-robotic-manipulation-got-accepted-for-a-poster-at-icml-39-26",
           title: 'My paper titled LAGEA: Language Guided Embodied Agents for Robotic Manipulation got accepted...',
           description: "",
-          section: "News",},{id: "projects-language-guided-embodied-agents",
-          title: 'Language Guided Embodied Agents',
+          section: "News",},{id: "news-submitted-two-papers-to-iclr-39-27-gtrl-grounding-divide-and-conquer-value-learning-with-temporal-differences-and-do-better-goal-representations-improve-goal-conditioned-reinforcement-learning",
+          title: 'Submitted two papers to ICLR &amp;#39;27: GTRL: Grounding Divide-and-Conquer Value Learning with Temporal...',
           description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/1_project.html";
-            },},{id: "projects-time-series-forecasting",
-          title: 'Time Series Forecasting',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/2_project.html";
-            },},{id: "projects-open-world-amodal-counting",
-          title: 'Open World Amodal Counting',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/3_project.html";
-            },},{id: "projects-human-activity-detection",
-          title: 'Human Activity Detection',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/4_project.html";
-            },},{id: "projects-human-robot-interaction",
+          section: "News",},{id: "projects-human-robot-interaction",
           title: 'Human–Robot Interaction',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/5_project.html";
-            },},{id: "projects-automated-stock-trading",
-          title: 'Automated Stock Trading',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/6_project.html";
             },},{id: "projects-project-7",
           title: 'project 7',
           description: "with background image",
@@ -442,6 +420,36 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project.html";
+            },},{id: "projects-open-world-amodal-counting",
+          title: 'Open World Amodal Counting',
+          description: "CountOCC counts the objects you cannot see, by reconstructing their features under the occluder and checking its attention against an unoccluded view.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/countocc.html";
+            },},{id: "projects-goal-representations-amp-the-state-pathway",
+          title: 'Goal Representations &amp;amp; the State Pathway',
+          description: "Handed a perfect goal representation, a goal-conditioned agent barely acts better. The headroom is in how it sees its own position.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/goal-representations.html";
+            },},{id: "projects-grounded-transitive-rl",
+          title: 'Grounded Transitive RL',
+          description: "Grounding divide-and-conquer value learning with temporal differences, so offline goal-conditioned RL stays correct when the dynamics are stochastic.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/gtrl.html";
+            },},{id: "projects-language-guided-embodied-agents",
+          title: 'Language Guided Embodied Agents',
+          description: "A vision–language model reflects on each failed episode in structured language, and the reflection becomes time-localised reward shaping for robot manipulation.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/lagea.html";
+            },},{id: "projects-time-series-forecasting",
+          title: 'Time Series Forecasting',
+          description: "T3Time reads a series three ways (in time, in frequency, and as a language prompt) and lets the forecast horizon decide how to weigh them.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/t3time.html";
+            },},{id: "projects-human-activity-detection",
+          title: 'Human Activity Detection',
+          description: "U-ActionNet recognises human actions in drone footage. It crops each clip to the people in it, separates moving actors from the background in the frequency domain, and has a light version small enough for the edge.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/uactionnet.html";
             },},{
         id: 'social-email',
         title: 'email',
@@ -484,30 +492,4 @@ ninja.data = [{
         handler: () => {
           window.open("https://twitter.com/monaf_chowdhury", "_blank");
         },
-      },{
-      id: 'light-theme',
-      title: 'Change theme to light',
-      description: 'Change the theme of the site to Light',
-      section: 'Theme',
-      handler: () => {
-        setThemeSetting("light");
-      },
-    },
-    {
-      id: 'dark-theme',
-      title: 'Change theme to dark',
-      description: 'Change the theme of the site to Dark',
-      section: 'Theme',
-      handler: () => {
-        setThemeSetting("dark");
-      },
-    },
-    {
-      id: 'system-theme',
-      title: 'Use system default theme',
-      description: 'Change the theme of the site to System Default',
-      section: 'Theme',
-      handler: () => {
-        setThemeSetting("system");
-      },
-    },];
+      },];
