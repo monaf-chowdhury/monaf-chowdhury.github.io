@@ -28,7 +28,7 @@ research:
     not just *that* it failed, and representations that bring together what an agent sees, reads and
     measures. My work so far follows three threads.
   threads:
-    - title: Offline goal-conditioned RL
+    - title: Reinforcement Learning
       tone: sky
       text: >-
         Learning to reach any goal from a fixed dataset. I study value learning that stays correct over
@@ -37,7 +37,7 @@ research:
       projects:
         - { label: GTRL, url: /projects/gtrl.html }
         - { label: Goal representations, url: /projects/goal-representations.html }
-    - title: Language-guided embodied agents
+    - title: Embodied AI
       tone: teal
       text: >-
         Vision–language models as critics for robot learning: structured reflections on failed
@@ -67,12 +67,12 @@ phd:
     I'd love to hear from you.
   directions_title: What I want to work on
   directions:
-    - title: Long-horizon RL from offline data
-      text: Value learning and planning that chain short behaviours into long tasks without compounding error.
-    - title: Language as a learning signal
-      text: Feedback from vision–language models that is grounded in time and tells a robot what to fix.
-    - title: Multimodal agents in the real world
-      text: Agents that fuse vision, language and other senses so they act reliably outside simulation.
+    - title: Reinforcement Learning
+      text: Decision-making that scales to long horizons, whether learned offline from data or online through interaction.
+    - title: Embodied AI/Robot Learning
+      text: Teaching robots new skills from demonstrations, data and their own experience.
+    - title: Multimodal Learning
+      text: Models that understand vision, language and other modalitiess for perception and reasoning.
   actions:
     - { label: Email me, icon: fa-solid fa-envelope, url: "mailto:monafabdul15@gmail.com", primary: true }
     - { label: Download CV, icon: fa-solid fa-arrow-down, url: /assets/pdf/resume.pdf }
@@ -104,7 +104,7 @@ visitor_map:
   width: a
 ---
 
-I'm a Research Assistant at the **AVIS Lab**, University of Dhaka, working on offline goal-conditioned reinforcement learning and long-horizon robot manipulation. Most recently, I grounded divide-and-conquer value learning with temporal differences so it holds up under stochastic dynamics ([GTRL](/projects/gtrl.html)), and turned a vision–language model's reflections on failed episodes into reward for robot manipulation ([LAGEA](/projects/lagea.html), ICML 2026).
+I'm a Research Assistant at the **AVIS Lab**, University of Dhaka, working on offline goal-conditioned reinforcement learning and long-horizon robot manipulation. Most recently, I grounded divide-and-conquer value learning with temporal differences so it holds up under stochastic dynamics ([GTRL](/projects/gtrl.html)), and turned a vision–language model's reflections on failed episodes into reward for robot manipulation ([LAGEA](/projects/lagea.html), **ICML 2026**).
 
 Before this, I was a Research Assistant at the [MAIM Lab](https://www.maimlab.com/), building a wearable fetal-movement monitor for stillbirth prevention, a [Wellcome Leap In Utero](https://wellcomeleap.org/inutero/) project with [Dr. Abhishek Kumar Ghosh](https://www.du.ac.bd/faculty/faculty_details/RME/2318) and [Dr. Niamh Nowlan](https://people.ucd.ie/niamh.nowlan). I hold a BSc in Robotics and Mechatronics Engineering from the University of Dhaka (2024), where [Dr. Md Mehedi Hasan](https://www.du.ac.bd/faculty/faculty_details/HSS/4706) supervised my thesis on UAV-based human action recognition.
 
