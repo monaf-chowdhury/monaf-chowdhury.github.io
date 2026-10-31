@@ -1,12 +1,13 @@
 /*******************************************************************************
- * Site-wide type. The theme's defaults (Roboto Light via MDB) read thin on the
- * paper background, so body text uses Inter at a regular weight and page titles
- * use the same serif as the project pages. Font families live in _variables.scss.
+ * Site-wide type. One variable typeface, Archivo, set Swiss style: regular body
+ * text, heavy expanded page titles and condensed uppercase labels. Font
+ * families live in _variables.scss.
  ******************************************************************************/
 
 body {
   font-family: $font-sans;
   font-weight: 400;
+  font-stretch: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -18,7 +19,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 
@@ -29,9 +30,11 @@ strong {
 
 .post-title,
 .post-header h1 {
-  font-family: $font-serif;
-  font-weight: 600;
-  letter-spacing: -0.015em;
+  font-family: $font-display;
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .post-description,
@@ -39,24 +42,15 @@ strong {
   color: var(--global-text-color-light);
 }
 
-.navbar {
-  font-weight: 500;
-
-  .navbar-brand {
-    font-family: $font-serif;
-    font-weight: 600;
-  }
-}
-
-// Project cards on /projects/: serif titles at a size that fits the card.
-.projects .card-title {
-  font-family: $font-serif;
-  font-weight: 600;
-  font-size: 1.45rem;
+// Project cards on /projects/ (.card raises specificity above the theme's card rules)
+.projects .card .card-title {
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: 1.3rem;
   line-height: 1.22;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.01em;
 }
 
 .projects .card-text {
-  line-height: 1.6;
+  line-height: 1.55;
 }

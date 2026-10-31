@@ -4,7 +4,7 @@
 
 @use "sass:color";
 
-// The site uses one warm, paper-like light theme (dark mode is off in _config.yml).
+// The site uses one white Swiss theme (dark mode is off in _config.yml).
 :root {
   color-scheme: light;
   --global-bg-color: #{$paper-color};
@@ -18,7 +18,9 @@
   --global-footer-text-color: #{$ink-color-light};
   --global-footer-link-color: #{$ink-color};
   --global-distill-app-color: #{$ink-color-light};
-  --global-divider-color: rgba(74, 55, 30, 0.13);
+  --global-divider-color: #{$hair-color};
+  --global-rule-color: #{$rule-color};
+  --global-signal-color: #{$signal-color};
   --global-card-bg-color: #{$paper-color-raised};
   --global-highlight-color: #{$red-color-dark};
   --global-back-to-top-bg-color: rgba(

@@ -4,7 +4,7 @@ title: about
 permalink: /
 
 # ---- hero ----
-kicker: Research Assistant · AVIS Lab, University of Dhaka
+kicker: Research · AVIS Lab, University of Dhaka
 tagline: I work on embodied agents that learn *long-horizon skills* from *offline data* and from *language feedback*.
 status: Applying for PhD positions · Fall 2027 # links to the PhD section below
 
@@ -12,11 +12,11 @@ profile:
   image: prof_pic.jpg
   alt: Portrait of Abdul Monaf Chowdhury
 
-links:
+links: # shown with their logos under the name
   - { label: Email, icon: fa-solid fa-envelope, url: "mailto:monafabdul15@gmail.com" }
-  - { label: CV, icon: fa-solid fa-file-lines, url: /assets/pdf/resume.pdf }
-  - { label: Scholar, icon: ai ai-google-scholar, url: "https://scholar.google.com/citations?user=LBoyI9cAAAAJ" }
+  - { label: Scholar, icon: fa-brands fa-google-scholar, url: "https://scholar.google.com/citations?user=LBoyI9cAAAAJ" }
   - { label: GitHub, icon: fa-brands fa-github, url: "https://github.com/monaf-chowdhury" }
+  - { label: Kaggle, icon: fa-brands fa-kaggle, url: "https://www.kaggle.com/monafchowdhury" }
   - { label: LinkedIn, icon: fa-brands fa-linkedin, url: "https://www.linkedin.com/in/monaf-chowdhury" }
   - { label: X, icon: fa-brands fa-x-twitter, url: "https://x.com/monaf_chowdhury" }
 
@@ -90,6 +90,7 @@ featured:
   - goal-representations
   - lagea
   - t3time
+  - countocc
 
 visitor_map:
   enabled: true

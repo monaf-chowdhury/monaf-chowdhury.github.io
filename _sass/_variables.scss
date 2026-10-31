@@ -32,28 +32,33 @@ $grey-900: #212529;
 $white-color: #ffffff !default;
 $black-color: #000000 !default;
 
-// Warm paper palette for the single light theme.
-// $paper-color is the page background; the other surfaces are tuned to sit with it.
-$paper-color: #f9f6f0; // page background: soft paper
-$paper-color-raised: #fffdfa; // cards sitting on the page
-$paper-color-tint: #f3eee5; // tinted panels and table heads
-$paper-color-deep: #f0ebe2; // footer band
-$ink-color: #1d1a16; // body text: warm near-black
-$ink-color-soft: #3b362f; // secondary prose
-$ink-color-light: #625b51; // captions, dates, metadata
+// Swiss palette for the single light theme: white paper, near-black ink, one signal
+// red for structure and one blue for anything clickable.
+$paper-color: #ffffff; // page background
+$paper-color-raised: #ffffff; // cards sitting on the page
+$paper-color-tint: #f3f3f3; // tinted panels and table heads
+$paper-color-deep: #ffffff; // footer band
+$ink-color: #121212; // body text and heavy rules
+$ink-color-soft: #2e2e2e; // secondary prose
+$ink-color-light: #5d5d5d; // captions, dates, metadata
+$rule-color: #121212; // 3px rules between sections
+$hair-color: #d4d4d4; // hairlines between list rows
 
-// Accent: links, the active nav item and highlights
-$accent-color: #2b5a8e; // deep ink blue
-$accent-color-hover: #1d4170;
+// Signal red marks structure: section names, reference numbers, the active nav item, status
+$signal-color: #cf1f2e;
 
-// Type: Inter for reading, Source Serif 4 for display, JetBrains Mono for small labels
-$font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-$font-serif: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+// Accent: links. RGB(8, 114, 168) keeps 5.3:1 contrast on white.
+$accent-color: #0872a8;
+$accent-color-hover: #055a86;
+
+// Type: Archivo (variable width) for everything, JetBrains Mono for code and small labels
+$font-sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+$font-display: $font-sans;
 $font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
 // Theme colors
 
-$code-bg-color-light: rgba($accent-color, 0.06);
+$code-bg-color-light: rgba($ink-color, 0.05);
 $code-bg-color-dark: #2c3237 !default;
 
 // Font awesome location

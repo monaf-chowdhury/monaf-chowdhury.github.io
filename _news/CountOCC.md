@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2025-11-16 
+date: 2026-10-31
 inline: true
 ---
 
-Submitted my work on Open World Amodal Counting to *`WACCV '26`*, and the paper is published at [`ArXiv`](https://arxiv.org/abs/2511.12702)
+Our paper [`Beyond Visible Evidence: Open-World Amodal Counting Under Spatial Occlusion`](https://arxiv.org/abs/2511.12702) got accepted to *`WACV '27`*

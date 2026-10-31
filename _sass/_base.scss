@@ -166,8 +166,25 @@ ul.task-list input[type="checkbox"] {
 
 // Card
 
+// Swiss cards: square corners, a hairline instead of a shadow, ink outline on hover.
 .card {
   background-color: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0;
+  box-shadow: none;
+
+  &.hoverable {
+    transition: border-color 0.15s ease;
+
+    &:hover {
+      box-shadow: none;
+      border-color: var(--global-rule-color);
+    }
+  }
+
+  .card-img-top {
+    border-radius: 0;
+  }
 
   .card-img {
     width: 100%;
@@ -243,11 +260,55 @@ ul.task-list input[type="checkbox"] {
 
 // Navbar customization
 
+// Swiss header: name on the left, uppercase links on the right, and a heavy rule
+// drawn at the content width (inside the container's 15px padding) so it lines up
+// with the page below.
 .navbar {
   box-shadow: none;
-  border-bottom: 1px solid var(--global-divider-color);
+  border-bottom: 0;
   background-color: var(--global-bg-color);
-  opacity: 0.95;
+  padding-left: 0;
+  padding-right: 0;
+
+  > .container,
+  &.navbar-expand-sm > .container {
+    position: relative;
+    padding: 0.35rem 15px 0.3rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      bottom: 0;
+      height: 3px;
+      background: var(--global-rule-color);
+    }
+  }
+
+  .navbar-brand.title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (min-width: 576px) {
+    .navbar-nav .nav-item .nav-link {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .navbar-nav .nav-item:last-child .nav-link {
+      padding-right: 0;
+    }
+  }
 }
 
 .navbar .dropdown-menu {
@@ -291,17 +352,16 @@ ul.task-list input[type="checkbox"] {
     color: var(--global-text-color);
 
     &:hover {
-      color: var(--global-hover-color);
+      color: var(--global-signal-color);
     }
   }
 
   .navbar-nav .nav-item.active > .nav-link {
     background-color: inherit;
-    font-weight: bolder;
-    color: var(--global-theme-color);
+    color: var(--global-signal-color);
 
     &:hover {
-      color: var(--global-hover-color);
+      color: var(--global-signal-color);
     }
   }
 
@@ -601,14 +661,38 @@ footer.fixed-bottom {
   }
 }
 
+// Swiss footer: a heavy rule at the content width, small left-aligned text.
 footer.sticky-bottom {
-  border-top: 1px solid var(--global-divider-color);
-  padding-top: 40px;
   padding-bottom: 40px;
-  font-size: 0.9rem;
+  font-size: 13px;
+  color: var(--global-text-color-light);
 
   .container {
-    text-align: center;
+    position: relative;
+    padding-top: 14px;
+    text-align: left;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15px;
+      right: 15px;
+      height: 3px;
+      background: var(--global-rule-color);
+    }
+  }
+
+  a {
+    color: var(--global-text-color);
+    text-decoration: underline;
+    text-decoration-color: var(--global-divider-color);
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: var(--global-theme-color);
+      text-decoration-color: currentColor;
+    }
   }
 }
 
@@ -796,13 +880,19 @@ footer.sticky-bottom {
     margin-bottom: 10px;
   }
 
+  // Swiss section label: a heavy rule with a red condensed name under it
   h2.category {
-    color: var(--global-divider-color);
-    border-bottom: 1px solid var(--global-divider-color);
-    padding-top: 0.5rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    text-align: right;
+    color: var(--global-signal-color);
+    border-top: 3px solid var(--global-rule-color);
+    padding-top: 14px;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+    font-stretch: 75%;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 }
 
@@ -827,12 +917,24 @@ footer.sticky-bottom {
     }
   }
 
+  // Year headings as Swiss section labels
   h2.bibliography {
-    color: var(--global-divider-color);
-    border-top: 1px solid var(--global-divider-color);
-    padding-top: 1rem;
-    margin-top: 2rem;
-    text-align: right;
+    color: var(--global-signal-color);
+    border-top: 3px solid var(--global-rule-color);
+    padding-top: 14px;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+    font-stretch: 75%;
+    letter-spacing: 0.04em;
+  }
+
+  .preview {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: 1px solid var(--global-divider-color);
   }
 
   ol.bibliography {
@@ -851,6 +953,7 @@ footer.sticky-bottom {
 
         abbr {
           display: inline-block;
+          border-radius: 0;
           background-color: var(--global-theme-color);
           margin-bottom: 0.5rem;
           color: var(--global-card-bg-color) !important;
@@ -905,6 +1008,7 @@ footer.sticky-bottom {
         a.btn {
           color: var(--global-text-color);
           border: 1px solid var(--global-text-color);
+          border-radius: 0;
           padding-left: 1rem;
           padding-right: 1rem;
           padding-top: 0.25rem;

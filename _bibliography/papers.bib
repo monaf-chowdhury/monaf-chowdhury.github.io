@@ -27,13 +27,13 @@
   website="/projects/goal-representations.html"
 }
 
-@article{arib2025counting,
+@inproceedings{arib2025counting,
   bibtex_show={true},
   title={Counting Through Occlusion: Framework for Open World Amodal Counting},
   author={Arib, Safaeid Hossain and Akter, Rabeya and Chowdhury, Abdul Monaf and Sourov, Md Jubair Ahmed and Hasan, Md Mehedi},
-  journal={arXiv preprint arXiv:2511.12702},
-  year={2025},
-  abbr={ArXiv},
+  booktitle={IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  year={2027},
+  abbr={WACV 27},
   preview={countocc.jpg},
   abstract="Object counting has achieved remarkable success on visible instances, yet state-of-the-art (SOTA) methods fail under occlusion, a pervasive challenge in real world deployment. This failure stems from a fundamental architectural limitation where backbone networks encode occluding surfaces rather than target objects, thereby corrupting the feature representations required for accurate enumeration. To address this, we present CountOCC, an amodal counting framework that explicitly reconstructs occluded object features through hierarchical multimodal guidance. Rather than accepting degraded encodings, we synthesize complete representations by integrating spatial context from visible fragments with semantic priors from text and visual embeddings, generating class-discriminative features at occluded locations across multiple pyramid levels. We further introduce a visual equivalence objective that enforces consistency in attention space, ensuring that both occluded and unoccluded views of the same scene produce spatially aligned gradient-based attention maps. Together, these complementary mechanisms preserve discriminative properties essential for accurate counting under occlusion. For rigorous evaluation, we establish occlusion-augmented versions of FSC 147 and CARPK spanning both structured and unstructured scenes. CountOCC achieves SOTA performance on FSC 147 with 26.72% and 20.80% MAE reduction over prior baselines under occlusion in validation and test, respectively. CountOCC also demonstrates exceptional generalization by setting new SOTA results on CARPK with 49.89% MAE reduction and on CAPTUREReal with 28.79% MAE reduction, validating robust amodal counting across diverse visual domains. Code will be released soon.",
   url="https://arxiv.org/abs/2511.12702",
